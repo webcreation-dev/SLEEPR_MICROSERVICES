@@ -8,15 +8,22 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
+const common_2 = require("../../../libs/common/src");
 const jwt_1 = require("@nestjs/jwt");
+const microservices_1 = require("@nestjs/microservices");
+const rxjs_1 = require("rxjs");
 let AuthService = class AuthService {
-    constructor(configService, jwtService) {
+    constructor(configService, jwtService, paymentsService) {
         this.configService = configService;
         this.jwtService = jwtService;
+        this.paymentsService = paymentsService;
     }
     async login(user, response) {
         const tokenPayload = {
@@ -31,11 +38,20 @@ let AuthService = class AuthService {
         });
         return token;
     }
+    async test() {
+        return this.paymentsService
+            .send('test', {})
+            .pipe((0, rxjs_1.map)((res) => {
+            return { success: true };
+        }));
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
+    __param(2, (0, common_1.Inject)(common_2.PAYMENTS_SERVICE)),
     __metadata("design:paramtypes", [config_1.ConfigService,
-        jwt_1.JwtService])
+        jwt_1.JwtService,
+        microservices_1.ClientProxy])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

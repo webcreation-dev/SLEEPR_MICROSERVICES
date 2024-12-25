@@ -6,4 +6,7 @@ export declare class PaymentsController {
     createCharge(data: CreateChargeDto): Promise<{
         amount: number;
     }>;
+    test(): Promise<{
+        amount: number;
+    }>;
 }

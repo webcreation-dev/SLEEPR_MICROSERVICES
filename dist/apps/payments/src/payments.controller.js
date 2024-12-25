@@ -24,6 +24,9 @@ let PaymentsController = class PaymentsController {
     async createCharge(data) {
         return { amount: 1000 };
     }
+    async test() {
+        return { amount: 1000 };
+    }
 };
 exports.PaymentsController = PaymentsController;
 __decorate([
@@ -34,6 +37,13 @@ __decorate([
     __metadata("design:paramtypes", [common_2.CreateChargeDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "createCharge", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('test'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], PaymentsController.prototype, "test", null);
 exports.PaymentsController = PaymentsController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [payments_service_1.PaymentsService])

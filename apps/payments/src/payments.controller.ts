@@ -14,4 +14,10 @@ export class PaymentsController {
     return { amount: 1000 };
     // return this.paymentsService.createCharge(data);
   }
+
+  @MessagePattern('test')
+  @UsePipes(new ValidationPipe())
+  async test() {
+    return { amount: 1000 };
+  }
 }

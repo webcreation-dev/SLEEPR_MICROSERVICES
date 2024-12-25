@@ -17,6 +17,7 @@ const users_module_1 = require("./users/users.module");
 const config_1 = require("@nestjs/config");
 const local_startegy_1 = require("./strategies/local.startegy");
 const jwt_startegy_1 = require("./strategies/jwt.startegy");
+const microservices_1 = require("@nestjs/microservices");
 let AuthModule = class AuthModule {
 };
 exports.AuthModule = AuthModule;
@@ -43,6 +44,19 @@ exports.AuthModule = AuthModule = __decorate([
                 }),
                 inject: [config_1.ConfigService],
             }),
+            microservices_1.ClientsModule.registerAsync([
+                {
+                    name: common_2.PAYMENTS_SERVICE,
+                    useFactory: (configService) => ({
+                        transport: microservices_1.Transport.TCP,
+                        options: {
+                            host: 'payments',
+                            port: 3003,
+                        },
+                    }),
+                    inject: [config_1.ConfigService],
+                },
+            ]),
         ],
         controllers: [auth_controller_1.AuthController],
         providers: [auth_service_1.AuthService, local_startegy_1.LocalStategy, jwt_startegy_1.JwtStrategy],
