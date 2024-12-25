@@ -18,7 +18,13 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "docker-compose --project-directory ./e2e up e2e"
+    "test:e2e": "docker-compose --project-directory ./e2e up e2e",
+    "migration:create": "pnpm typeorm migration:create",
+    "premigration:generate": "pnpm build",
+    "migration:generate": "pnpm typeorm migration:generate -d dist/database/data-source -p",
+    "premigration:run": "pnpm build",
+    "migration:run": "pnpm typeorm migration:run -d dist/database/data-source",
+    "migration:revert": "pnpm typeorm migration:revert -d dist/database/data-source"
   },
   "dependencies": {
     "@nestjs/common": "^9.0.0",
