@@ -3,9 +3,7 @@
   "collection": "@nestjs/schematics",
   "sourceRoot": "apps/reservations/src",
   "compilerOptions": {
-    "deleteOutDir": true,
-    "webpack": false,
-    "tsConfigPath": "apps/reservations/tsconfig.app.json"
+    "tsConfigPath": "tsconfig.json"
   },
   "projects": {
     "common": {
@@ -17,15 +15,6 @@
         "tsConfigPath": "libs/common/tsconfig.lib.json"
       }
     },
-    "reservations": {
-      "type": "application",
-      "root": "apps/reservations",
-      "entryFile": "main",
-      "sourceRoot": "apps/reservations/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/reservations/tsconfig.app.json"
-      }
-    },
     "auth": {
       "type": "application",
       "root": "apps/auth",
@@ -35,22 +24,13 @@
         "tsConfigPath": "apps/auth/tsconfig.app.json"
       }
     },
-    "payments": {
+    "reservations": {
       "type": "application",
-      "root": "apps/payments",
+      "root": "apps/reservations",
       "entryFile": "main",
-      "sourceRoot": "apps/payments/src",
+      "sourceRoot": "apps/reservations/src",
       "compilerOptions": {
-        "tsConfigPath": "apps/payments/tsconfig.app.json"
-      }
-    },
-    "notifications": {
-      "type": "application",
-      "root": "apps/notifications",
-      "entryFile": "main",
-      "sourceRoot": "apps/notifications/src",
-      "compilerOptions": {
-        "tsConfigPath": "apps/notifications/tsconfig.app.json"
+        "tsConfigPath": "apps/reservations/tsconfig.app.json"
       }
     }
   },
