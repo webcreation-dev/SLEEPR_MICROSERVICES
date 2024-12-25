@@ -50,7 +50,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
               transport: Transport.TCP,
               options: {
                 host: 'reservations',
-                port: 3000,
+                port: 3004,
               },
             }),
             inject: [ConfigService],

@@ -33,6 +33,9 @@ let AuthController = class AuthController {
     async create() {
         return this.authService.test();
     }
+    async create1() {
+        return this.authService.test1();
+    }
 };
 exports.AuthController = AuthController;
 __decorate([
@@ -58,6 +61,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "create", null);
+__decorate([
+    (0, common_1.Post)('test1'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "create1", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

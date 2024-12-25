@@ -20,10 +20,11 @@ const jwt_1 = require("@nestjs/jwt");
 const microservices_1 = require("@nestjs/microservices");
 const rxjs_1 = require("rxjs");
 let AuthService = class AuthService {
-    constructor(configService, jwtService, paymentsService) {
+    constructor(configService, jwtService, paymentsService, reservationsService) {
         this.configService = configService;
         this.jwtService = jwtService;
         this.paymentsService = paymentsService;
+        this.reservationsService = reservationsService;
     }
     async login(user, response) {
         const tokenPayload = {
@@ -42,7 +43,14 @@ let AuthService = class AuthService {
         return this.paymentsService
             .send('test', {})
             .pipe((0, rxjs_1.map)((res) => {
-            return { success: true };
+            return "success";
+        }));
+    }
+    async test1() {
+        return this.reservationsService
+            .send('test1', {})
+            .pipe((0, rxjs_1.map)((res) => {
+            return "Connection successful";
         }));
     }
 };
@@ -50,8 +58,10 @@ exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
     __param(2, (0, common_1.Inject)(common_2.PAYMENTS_SERVICE)),
+    __param(3, (0, common_1.Inject)(common_2.RESERVATIONS_SERVICE)),
     __metadata("design:paramtypes", [config_1.ConfigService,
         jwt_1.JwtService,
+        microservices_1.ClientProxy,
         microservices_1.ClientProxy])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map

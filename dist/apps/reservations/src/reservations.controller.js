@@ -18,6 +18,8 @@ const reservations_service_1 = require("./reservations.service");
 const create_reservation_dto_1 = require("./dto/create-reservation.dto");
 const update_reservation_dto_1 = require("./dto/update-reservation.dto");
 const common_2 = require("../../../libs/common/src");
+const microservices_1 = require("@nestjs/microservices");
+const common_3 = require("@nestjs/common");
 let ReservationsController = class ReservationsController {
     constructor(reservationsService) {
         this.reservationsService = reservationsService;
@@ -36,6 +38,12 @@ let ReservationsController = class ReservationsController {
     }
     async remove(id) {
         return this.reservationsService.remove(+id);
+    }
+    async test() {
+        return { amount: 1000 };
+    }
+    async test1() {
+        return { amount: 1000 };
     }
 };
 exports.ReservationsController = ReservationsController;
@@ -78,6 +86,20 @@ __decorate([
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], ReservationsController.prototype, "remove", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('test'),
+    (0, common_3.UsePipes)(new common_3.ValidationPipe()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ReservationsController.prototype, "test", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('test1'),
+    (0, common_3.UsePipes)(new common_3.ValidationPipe()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ReservationsController.prototype, "test1", null);
 exports.ReservationsController = ReservationsController = __decorate([
     (0, common_1.Controller)('reservations'),
     __metadata("design:paramtypes", [reservations_service_1.ReservationsService])

@@ -56,6 +56,17 @@ exports.AuthModule = AuthModule = __decorate([
                     }),
                     inject: [config_1.ConfigService],
                 },
+                {
+                    name: common_2.RESERVATIONS_SERVICE,
+                    useFactory: (configService) => ({
+                        transport: microservices_1.Transport.TCP,
+                        options: {
+                            host: 'reservations',
+                            port: 3004,
+                        },
+                    }),
+                    inject: [config_1.ConfigService],
+                },
             ]),
         ],
         controllers: [auth_controller_1.AuthController],

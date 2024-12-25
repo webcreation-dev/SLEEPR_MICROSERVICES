@@ -53,7 +53,7 @@ exports.ReservationsModule = ReservationsModule = __decorate([
                         transport: microservices_1.Transport.TCP,
                         options: {
                             host: configService.get('PAYMENTS_HOST'),
-                            port: configService.get('PAYMENTS_PORT'),
+                            port: 3005,
                         },
                     }),
                     inject: [config_1.ConfigService],

@@ -41,7 +41,7 @@ export class AuthService {
         .send('test', {})
         .pipe(
           map((res) => {
-            return {success: true};
+            return "success";
           }),
         );
     }
@@ -51,7 +51,7 @@ export class AuthService {
         .send('test1', {})
         .pipe(
           map((res) => {
-            return {success: true};
+            return "Connection successful";
           }),
         );
     }

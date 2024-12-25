@@ -6,7 +6,6 @@ export declare class AuthController {
     constructor(authService: AuthService);
     login(user: User, response: Response): Promise<void>;
     authenticate(data: any): Promise<any>;
-    create(): Promise<import("rxjs").Observable<{
-        success: boolean;
-    }>>;
+    create(): Promise<import("rxjs").Observable<string>>;
+    create1(): Promise<import("rxjs").Observable<string>>;
 }

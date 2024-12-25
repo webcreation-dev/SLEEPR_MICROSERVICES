@@ -7,9 +7,9 @@ export declare class AuthService {
     private readonly configService;
     private readonly jwtService;
     private readonly paymentsService;
-    constructor(configService: ConfigService, jwtService: JwtService, paymentsService: ClientProxy);
+    private readonly reservationsService;
+    constructor(configService: ConfigService, jwtService: JwtService, paymentsService: ClientProxy, reservationsService: ClientProxy);
     login(user: User, response: Response): Promise<string>;
-    test(): Promise<import("rxjs").Observable<{
-        success: boolean;
-    }>>;
+    test(): Promise<import("rxjs").Observable<string>>;
+    test1(): Promise<import("rxjs").Observable<string>>;
 }
