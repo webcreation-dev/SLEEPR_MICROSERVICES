@@ -12,6 +12,8 @@ import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { CurrentUser, JwtAuthGuard, User } from '@app/common';
+import { MessagePattern } from '@nestjs/microservices';
+import { ValidationPipe, UsePipes } from '@nestjs/common';
 
 @Controller('reservations')
 export class ReservationsController {
@@ -52,5 +54,17 @@ export class ReservationsController {
   // @Roles('Admin')
   async remove(@Param('id') id: string) {
     return this.reservationsService.remove(+id);
+  }
+
+  @MessagePattern('test')
+  @UsePipes(new ValidationPipe())
+  async test() {
+    return { amount: 1000 };
+  }
+
+  @MessagePattern('test1')
+  @UsePipes(new ValidationPipe())
+  async test1() {
+    return { amount: 1000 };
   }
 }

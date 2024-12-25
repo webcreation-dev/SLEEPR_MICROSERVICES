@@ -1,4 +1,4 @@
-import { Controller, Post, Res, UseGuards } from '@nestjs/common';
+import { Controller, Post, Res, UseGuards, Body } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Response } from 'express';
 import { CurrentUser, User } from '@app/common';
@@ -25,4 +25,15 @@ export class AuthController {
   async authenticate(@Payload() data: any) {
     return data.user;
   }
+
+  @Post('test')
+    async create() {
+      return this.authService.test();
+    }
+
+
+    @Post('test1')
+    async create1() {
+      return this.authService.test1();
+    }
 }

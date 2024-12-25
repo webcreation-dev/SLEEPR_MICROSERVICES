@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { LoggerModule } from '@app/common';
+import { LoggerModule, PAYMENTS_SERVICE, RESERVATIONS_SERVICE } from '@app/common';
 import { JwtModule } from '@nestjs/jwt';
 import * as Joi from 'joi';
 import { AuthController } from './auth.controller';
@@ -8,6 +8,7 @@ import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LocalStategy } from './strategies/local.startegy';
 import { JwtStrategy } from './strategies/jwt.startegy';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -31,6 +32,30 @@ import { JwtStrategy } from './strategies/jwt.startegy';
       }),
       inject: [ConfigService],
     }),
+    ClientsModule.registerAsync([
+          {
+            name: PAYMENTS_SERVICE,
+            useFactory: (configService: ConfigService) => ({
+              transport: Transport.TCP,
+              options: {
+                host: 'payments',
+                port: 3003,
+              },
+            }),
+            inject: [ConfigService],
+          },
+          {
+            name: RESERVATIONS_SERVICE,
+            useFactory: (configService: ConfigService) => ({
+              transport: Transport.TCP,
+              options: {
+                host: 'reservations',
+                port: 3000,
+              },
+            }),
+            inject: [ConfigService],
+          },
+        ]),
   ],
   controllers: [AuthController],
   providers: [AuthService, LocalStategy, JwtStrategy],

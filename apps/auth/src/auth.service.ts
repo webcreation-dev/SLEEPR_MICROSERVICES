@@ -1,15 +1,19 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { User } from '@app/common';
+import { PAYMENTS_SERVICE, RESERVATIONS_SERVICE, User } from '@app/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { TokenPayload } from './interfaces/token-payload.interface';
+import { ClientProxy } from '@nestjs/microservices';
+import { map } from 'rxjs';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
+    @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
+    @Inject(RESERVATIONS_SERVICE) private readonly reservationsService: ClientProxy,
   ) {}
 
   async login(user: User, response: Response) {
@@ -31,4 +35,24 @@ export class AuthService {
 
     return token;
   }
+
+  async test() {
+      return this.paymentsService
+        .send('test', {})
+        .pipe(
+          map((res) => {
+            return {success: true};
+          }),
+        );
+    }
+
+  async test1() {
+      return this.reservationsService
+        .send('test1', {})
+        .pipe(
+          map((res) => {
+            return {success: true};
+          }),
+        );
+    }
 }
