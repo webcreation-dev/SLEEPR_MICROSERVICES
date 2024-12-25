@@ -14,11 +14,11 @@ const class_transformer_1 = require("class-transformer");
 const class_validator_1 = require("class-validator");
 class GetUserDto {
 }
+exports.GetUserDto = GetUserDto;
 __decorate([
     (0, class_validator_1.IsString)(),
     (0, class_validator_1.IsNotEmpty)(),
     (0, class_transformer_1.Type)(() => Number),
     __metadata("design:type", Number)
 ], GetUserDto.prototype, "id", void 0);
-exports.GetUserDto = GetUserDto;
 //# sourceMappingURL=get-user.dto.js.map

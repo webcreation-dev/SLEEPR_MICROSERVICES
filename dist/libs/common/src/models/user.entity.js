@@ -15,6 +15,7 @@ const typeorm_1 = require("typeorm");
 const role_entity_1 = require("./role.entity");
 let User = class User extends database_1.AbstractEntity {
 };
+exports.User = User;
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
@@ -28,8 +29,7 @@ __decorate([
     (0, typeorm_1.JoinTable)(),
     __metadata("design:type", Array)
 ], User.prototype, "roles", void 0);
-User = __decorate([
+exports.User = User = __decorate([
     (0, typeorm_1.Entity)()
 ], User);
-exports.User = User;
 //# sourceMappingURL=user.entity.js.map

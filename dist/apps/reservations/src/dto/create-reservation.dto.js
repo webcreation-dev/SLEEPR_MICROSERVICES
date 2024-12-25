@@ -15,6 +15,7 @@ const class_validator_1 = require("class-validator");
 const common_1 = require("../../../../libs/common/src");
 class CreateReservationDto {
 }
+exports.CreateReservationDto = CreateReservationDto;
 __decorate([
     (0, class_validator_1.IsDate)(),
     (0, class_transformer_1.Type)(() => Date),
@@ -32,5 +33,4 @@ __decorate([
     (0, class_transformer_1.Type)(() => common_1.CreateChargeDto),
     __metadata("design:type", common_1.CreateChargeDto)
 ], CreateReservationDto.prototype, "charge", void 0);
-exports.CreateReservationDto = CreateReservationDto;
 //# sourceMappingURL=create-reservation.dto.js.map

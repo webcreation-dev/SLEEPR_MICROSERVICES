@@ -23,12 +23,15 @@ let PaymentsService = class PaymentsService {
         this.configService = configService;
         this.notificationsService = notificationsService;
         this.stripe = new stripe_1.default(this.configService.get('STRIPE_SECRET_KEY'), {
-            apiVersion: '2022-11-15',
+            apiVersion: '2023-08-16',
         });
     }
     async createCharge({ amount }) {
         const paymentIntent = await this.stripe.paymentIntents.create({
             amount: amount * 100,
+            automatic_payment_methods: {
+                enabled: true,
+            },
             confirm: true,
             payment_method: 'pm_card_visa',
             currency: 'usd',
@@ -36,11 +39,11 @@ let PaymentsService = class PaymentsService {
         return paymentIntent;
     }
 };
-PaymentsService = __decorate([
+exports.PaymentsService = PaymentsService;
+exports.PaymentsService = PaymentsService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, common_1.Inject)(common_2.NOTIFICATIONS_SERVICE)),
     __metadata("design:paramtypes", [config_1.ConfigService,
         microservices_1.ClientProxy])
 ], PaymentsService);
-exports.PaymentsService = PaymentsService;
 //# sourceMappingURL=payments.service.js.map

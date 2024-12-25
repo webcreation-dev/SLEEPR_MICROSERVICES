@@ -13,6 +13,7 @@ exports.NotifyEmailDto = void 0;
 const class_validator_1 = require("class-validator");
 class NotifyEmailDto {
 }
+exports.NotifyEmailDto = NotifyEmailDto;
 __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
@@ -21,5 +22,4 @@ __decorate([
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
 ], NotifyEmailDto.prototype, "text", void 0);
-exports.NotifyEmailDto = NotifyEmailDto;
 //# sourceMappingURL=notify-email.dto.js.map

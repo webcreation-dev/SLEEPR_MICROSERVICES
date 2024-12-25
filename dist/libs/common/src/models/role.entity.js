@@ -14,12 +14,12 @@ const database_1 = require("../database");
 const typeorm_1 = require("typeorm");
 let Role = class Role extends database_1.AbstractEntity {
 };
+exports.Role = Role;
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Role.prototype, "name", void 0);
-Role = __decorate([
+exports.Role = Role = __decorate([
     (0, typeorm_1.Entity)()
 ], Role);
-exports.Role = Role;
 //# sourceMappingURL=role.entity.js.map

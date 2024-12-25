@@ -24,11 +24,11 @@ let UsersRepository = UsersRepository_1 = class UsersRepository extends common_2
         this.logger = new common_1.Logger(UsersRepository_1.name);
     }
 };
-UsersRepository = UsersRepository_1 = __decorate([
+exports.UsersRepository = UsersRepository;
+exports.UsersRepository = UsersRepository = UsersRepository_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(common_2.User)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.EntityManager])
 ], UsersRepository);
-exports.UsersRepository = UsersRepository;
 //# sourceMappingURL=users.repository.js.map

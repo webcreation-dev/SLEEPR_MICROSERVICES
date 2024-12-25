@@ -18,7 +18,8 @@ const config_1 = require("@nestjs/config");
 const microservices_1 = require("@nestjs/microservices");
 let ReservationsModule = class ReservationsModule {
 };
-ReservationsModule = __decorate([
+exports.ReservationsModule = ReservationsModule;
+exports.ReservationsModule = ReservationsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             common_2.DatabaseModule,
@@ -63,5 +64,4 @@ ReservationsModule = __decorate([
         providers: [reservations_service_1.ReservationsService, reservations_repository_1.ReservationsRepository],
     })
 ], ReservationsModule);
-exports.ReservationsModule = ReservationsModule;
 //# sourceMappingURL=reservations.module.js.map

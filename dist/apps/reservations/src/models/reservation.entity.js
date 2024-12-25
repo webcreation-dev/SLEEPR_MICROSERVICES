@@ -14,6 +14,7 @@ const typeorm_1 = require("typeorm");
 const common_1 = require("../../../../libs/common/src");
 let Reservation = class Reservation extends common_1.AbstractEntity {
 };
+exports.Reservation = Reservation;
 __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", Date)
@@ -34,8 +35,7 @@ __decorate([
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], Reservation.prototype, "invoiceId", void 0);
-Reservation = __decorate([
+exports.Reservation = Reservation = __decorate([
     (0, typeorm_1.Entity)()
 ], Reservation);
-exports.Reservation = Reservation;
 //# sourceMappingURL=reservation.entity.js.map

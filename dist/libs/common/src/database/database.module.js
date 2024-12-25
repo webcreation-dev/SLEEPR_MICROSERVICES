@@ -16,10 +16,10 @@ let DatabaseModule = class DatabaseModule {
         return typeorm_1.TypeOrmModule.forFeature(models);
     }
 };
-DatabaseModule = __decorate([
+exports.DatabaseModule = DatabaseModule;
+exports.DatabaseModule = DatabaseModule = __decorate([
     (0, common_1.Module)({
         imports: [env_module_1.EnvModule, typeorm_1.TypeOrmModule.forRootAsync(database_config_1.default.asProvider())],
     })
 ], DatabaseModule);
-exports.DatabaseModule = DatabaseModule;
 //# sourceMappingURL=database.module.js.map

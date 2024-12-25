@@ -11,7 +11,8 @@ const common_1 = require("@nestjs/common");
 const nestjs_pino_1 = require("nestjs-pino");
 let LoggerModule = class LoggerModule {
 };
-LoggerModule = __decorate([
+exports.LoggerModule = LoggerModule;
+exports.LoggerModule = LoggerModule = __decorate([
     (0, common_1.Module)({
         imports: [
             nestjs_pino_1.LoggerModule.forRoot({
@@ -27,5 +28,4 @@ LoggerModule = __decorate([
         ],
     })
 ], LoggerModule);
-exports.LoggerModule = LoggerModule;
 //# sourceMappingURL=logger.module.js.map

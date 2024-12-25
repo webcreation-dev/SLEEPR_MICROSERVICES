@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NotificationsController = void 0;
 const common_1 = require("@nestjs/common");
@@ -26,6 +25,7 @@ let NotificationsController = class NotificationsController {
         this.notificationsService.notifyEmail(data);
     }
 };
+exports.NotificationsController = NotificationsController;
 __decorate([
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     (0, microservices_1.EventPattern)('notify_email'),
@@ -34,9 +34,8 @@ __decorate([
     __metadata("design:paramtypes", [notify_email_dto_1.NotifyEmailDto]),
     __metadata("design:returntype", Promise)
 ], NotificationsController.prototype, "notifyEmail", null);
-NotificationsController = __decorate([
+exports.NotificationsController = NotificationsController = __decorate([
     (0, common_1.Controller)(),
-    __metadata("design:paramtypes", [typeof (_a = typeof notifications_service_1.NotificationsService !== "undefined" && notifications_service_1.NotificationsService) === "function" ? _a : Object])
+    __metadata("design:paramtypes", [notifications_service_1.NotificationsService])
 ], NotificationsController);
-exports.NotificationsController = NotificationsController;
 //# sourceMappingURL=notifications.controller.js.map

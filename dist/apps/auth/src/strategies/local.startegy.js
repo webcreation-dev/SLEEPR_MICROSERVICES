@@ -28,9 +28,9 @@ let LocalStategy = class LocalStategy extends (0, passport_1.PassportStrategy)(p
         }
     }
 };
-LocalStategy = __decorate([
+exports.LocalStategy = LocalStategy;
+exports.LocalStategy = LocalStategy = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], LocalStategy);
-exports.LocalStategy = LocalStategy;
 //# sourceMappingURL=local.startegy.js.map

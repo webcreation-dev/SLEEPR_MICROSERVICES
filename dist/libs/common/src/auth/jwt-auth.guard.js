@@ -52,11 +52,11 @@ let JwtAuthGuard = JwtAuthGuard_1 = class JwtAuthGuard {
         }));
     }
 };
-JwtAuthGuard = JwtAuthGuard_1 = __decorate([
+exports.JwtAuthGuard = JwtAuthGuard;
+exports.JwtAuthGuard = JwtAuthGuard = JwtAuthGuard_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, common_1.Inject)(services_1.AUTH_SERVICE)),
     __metadata("design:paramtypes", [microservices_1.ClientProxy,
         core_1.Reflector])
 ], JwtAuthGuard);
-exports.JwtAuthGuard = JwtAuthGuard;
 //# sourceMappingURL=jwt-auth.guard.js.map

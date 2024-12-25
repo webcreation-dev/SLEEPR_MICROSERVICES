@@ -19,7 +19,8 @@ const local_startegy_1 = require("./strategies/local.startegy");
 const jwt_startegy_1 = require("./strategies/jwt.startegy");
 let AuthModule = class AuthModule {
 };
-AuthModule = __decorate([
+exports.AuthModule = AuthModule;
+exports.AuthModule = AuthModule = __decorate([
     (0, common_1.Module)({
         imports: [
             users_module_1.UsersModule,
@@ -47,5 +48,4 @@ AuthModule = __decorate([
         providers: [auth_service_1.AuthService, local_startegy_1.LocalStategy, jwt_startegy_1.JwtStrategy],
     })
 ], AuthModule);
-exports.AuthModule = AuthModule;
 //# sourceMappingURL=auth.module.js.map

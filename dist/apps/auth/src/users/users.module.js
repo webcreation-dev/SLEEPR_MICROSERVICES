@@ -14,7 +14,8 @@ const users_service_1 = require("./users.service");
 const users_repository_1 = require("./users.repository");
 let UsersModule = class UsersModule {
 };
-UsersModule = __decorate([
+exports.UsersModule = UsersModule;
+exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
         imports: [common_2.DatabaseModule, common_2.DatabaseModule.forFeature([common_2.User, common_2.Role])],
         controllers: [users_controller_1.UsersController],
@@ -22,5 +23,4 @@ UsersModule = __decorate([
         exports: [users_service_1.UsersService],
     })
 ], UsersModule);
-exports.UsersModule = UsersModule;
 //# sourceMappingURL=users.module.js.map

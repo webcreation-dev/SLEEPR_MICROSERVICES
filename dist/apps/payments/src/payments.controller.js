@@ -22,9 +22,10 @@ let PaymentsController = class PaymentsController {
         this.paymentsService = paymentsService;
     }
     async createCharge(data) {
-        return this.paymentsService.createCharge(data);
+        return { amount: 1000 };
     }
 };
+exports.PaymentsController = PaymentsController;
 __decorate([
     (0, microservices_1.MessagePattern)('create_charge'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
@@ -33,9 +34,8 @@ __decorate([
     __metadata("design:paramtypes", [common_2.CreateChargeDto]),
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "createCharge", null);
-PaymentsController = __decorate([
+exports.PaymentsController = PaymentsController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [payments_service_1.PaymentsService])
 ], PaymentsController);
-exports.PaymentsController = PaymentsController;
 //# sourceMappingURL=payments.controller.js.map

@@ -16,7 +16,8 @@ const payments_service_1 = require("./payments.service");
 const microservices_1 = require("@nestjs/microservices");
 let PaymentsModule = class PaymentsModule {
 };
-PaymentsModule = __decorate([
+exports.PaymentsModule = PaymentsModule;
+exports.PaymentsModule = PaymentsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({
@@ -47,5 +48,4 @@ PaymentsModule = __decorate([
         providers: [payments_service_1.PaymentsService],
     })
 ], PaymentsModule);
-exports.PaymentsModule = PaymentsModule;
 //# sourceMappingURL=payments.module.js.map

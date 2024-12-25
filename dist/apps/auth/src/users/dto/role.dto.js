@@ -13,6 +13,7 @@ exports.RoleDto = void 0;
 const class_validator_1 = require("class-validator");
 class RoleDto {
 }
+exports.RoleDto = RoleDto;
 __decorate([
     (0, class_validator_1.IsOptional)(),
     (0, class_validator_1.IsNumber)(),
@@ -24,5 +25,4 @@ __decorate([
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RoleDto.prototype, "name", void 0);
-exports.RoleDto = RoleDto;
 //# sourceMappingURL=role.dto.js.map

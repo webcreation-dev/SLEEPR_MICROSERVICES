@@ -16,9 +16,9 @@ class AbstractEntity {
         Object.assign(this, entity);
     }
 }
+exports.AbstractEntity = AbstractEntity;
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)(),
     __metadata("design:type", Number)
 ], AbstractEntity.prototype, "id", void 0);
-exports.AbstractEntity = AbstractEntity;
 //# sourceMappingURL=abstract.entity.js.map

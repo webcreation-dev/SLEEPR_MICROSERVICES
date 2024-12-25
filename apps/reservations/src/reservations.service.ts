@@ -22,13 +22,14 @@ export class ReservationsService {
       .send('create_charge', createReservationDto.charge)
       .pipe(
         map((res) => {
-          const reservation = new Reservation({
-            ...createReservationDto,
-            invoiceId: res.id,
-            timestamp: new Date(),
-            userId: 1
-          });
-          return this.reservationsRepository.create(reservation);
+          // const reservation = new Reservation({
+          //   ...createReservationDto,
+          //   invoiceId: res.id,
+          //   timestamp: new Date(),
+          //   userId: 1
+          // });
+          // return this.reservationsRepository.create(reservation);
+          return {success: true};
         }),
       );
   }

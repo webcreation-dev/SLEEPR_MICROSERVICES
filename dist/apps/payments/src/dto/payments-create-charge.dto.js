@@ -14,9 +14,9 @@ const common_1 = require("../../../../libs/common/src");
 const class_validator_1 = require("class-validator");
 class PaymentsCreateChargeDto extends common_1.CreateChargeDto {
 }
+exports.PaymentsCreateChargeDto = PaymentsCreateChargeDto;
 __decorate([
     (0, class_validator_1.IsEmail)(),
     __metadata("design:type", String)
 ], PaymentsCreateChargeDto.prototype, "email", void 0);
-exports.PaymentsCreateChargeDto = PaymentsCreateChargeDto;
 //# sourceMappingURL=payments-create-charge.dto.js.map

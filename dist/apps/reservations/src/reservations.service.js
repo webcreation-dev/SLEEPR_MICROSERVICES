@@ -18,7 +18,6 @@ const common_2 = require("../../../libs/common/src");
 const reservations_repository_1 = require("./reservations.repository");
 const microservices_1 = require("@nestjs/microservices");
 const rxjs_1 = require("rxjs");
-const reservation_entity_1 = require("./models/reservation.entity");
 let ReservationsService = class ReservationsService {
     constructor(reservationsRepository, paymentsService) {
         this.reservationsRepository = reservationsRepository;
@@ -28,13 +27,7 @@ let ReservationsService = class ReservationsService {
         return this.paymentsService
             .send('create_charge', createReservationDto.charge)
             .pipe((0, rxjs_1.map)((res) => {
-            const reservation = new reservation_entity_1.Reservation({
-                ...createReservationDto,
-                invoiceId: res.id,
-                timestamp: new Date(),
-                userId: 1
-            });
-            return this.reservationsRepository.create(reservation);
+            return { success: true };
         }));
     }
     async findAll() {
@@ -50,11 +43,11 @@ let ReservationsService = class ReservationsService {
         return this.reservationsRepository.findOneAndDelete({ id });
     }
 };
-ReservationsService = __decorate([
+exports.ReservationsService = ReservationsService;
+exports.ReservationsService = ReservationsService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, common_1.Inject)(common_2.PAYMENTS_SERVICE)),
     __metadata("design:paramtypes", [reservations_repository_1.ReservationsRepository,
         microservices_1.ClientProxy])
 ], ReservationsService);
-exports.ReservationsService = ReservationsService;
 //# sourceMappingURL=reservations.service.js.map

@@ -29,6 +29,7 @@ let UsersController = class UsersController {
         return user;
     }
 };
+exports.UsersController = UsersController;
 __decorate([
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
@@ -44,9 +45,8 @@ __decorate([
     __metadata("design:paramtypes", [common_2.User]),
     __metadata("design:returntype", Promise)
 ], UsersController.prototype, "getUser", null);
-UsersController = __decorate([
+exports.UsersController = UsersController = __decorate([
     (0, common_1.Controller)('users'),
     __metadata("design:paramtypes", [users_service_1.UsersService])
 ], UsersController);
-exports.UsersController = UsersController;
 //# sourceMappingURL=users.controller.js.map

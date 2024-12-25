@@ -12,7 +12,8 @@ const config_1 = require("@nestjs/config");
 const env_constants_1 = require("./utils/env.constants");
 let EnvModule = class EnvModule {
 };
-EnvModule = __decorate([
+exports.EnvModule = EnvModule;
+exports.EnvModule = EnvModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({
@@ -23,5 +24,4 @@ EnvModule = __decorate([
         ],
     })
 ], EnvModule);
-exports.EnvModule = EnvModule;
 //# sourceMappingURL=env.module.js.map

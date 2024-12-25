@@ -7,7 +7,9 @@ export declare class ReservationsService {
     private readonly reservationsRepository;
     private readonly paymentsService;
     constructor(reservationsRepository: ReservationsRepository, paymentsService: ClientProxy);
-    create(createReservationDto: CreateReservationDto): Promise<import("rxjs").Observable<Promise<Reservation>>>;
+    create(createReservationDto: CreateReservationDto): Promise<import("rxjs").Observable<{
+        success: boolean;
+    }>>;
     findAll(): Promise<Reservation[]>;
     findOne(id: number): Promise<Reservation>;
     update(id: number, updateReservationDto: UpdateReservationDto): Promise<Reservation>;

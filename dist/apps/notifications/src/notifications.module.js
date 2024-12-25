@@ -15,7 +15,8 @@ const notifications_controller_1 = require("./notifications.controller");
 const notifications_service_1 = require("./notifications.service");
 let NotificationsModule = class NotificationsModule {
 };
-NotificationsModule = __decorate([
+exports.NotificationsModule = NotificationsModule;
+exports.NotificationsModule = NotificationsModule = __decorate([
     (0, common_1.Module)({
         imports: [
             config_1.ConfigModule.forRoot({
@@ -34,5 +35,4 @@ NotificationsModule = __decorate([
         providers: [notifications_service_1.NotificationsService],
     })
 ], NotificationsModule);
-exports.NotificationsModule = NotificationsModule;
 //# sourceMappingURL=notifications.module.js.map

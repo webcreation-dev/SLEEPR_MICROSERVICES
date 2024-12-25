@@ -25,11 +25,11 @@ let ReservationsRepository = ReservationsRepository_1 = class ReservationsReposi
         this.logger = new common_1.Logger(ReservationsRepository_1.name);
     }
 };
-ReservationsRepository = ReservationsRepository_1 = __decorate([
+exports.ReservationsRepository = ReservationsRepository;
+exports.ReservationsRepository = ReservationsRepository = ReservationsRepository_1 = __decorate([
     (0, common_1.Injectable)(),
     __param(0, (0, typeorm_1.InjectRepository)(reservation_entity_1.Reservation)),
     __metadata("design:paramtypes", [typeorm_2.Repository,
         typeorm_2.EntityManager])
 ], ReservationsRepository);
-exports.ReservationsRepository = ReservationsRepository;
 //# sourceMappingURL=reservations.repository.js.map

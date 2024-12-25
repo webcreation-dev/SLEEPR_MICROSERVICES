@@ -15,6 +15,7 @@ const card_dto_1 = require("./card.dto");
 const class_transformer_1 = require("class-transformer");
 class CreateChargeDto {
 }
+exports.CreateChargeDto = CreateChargeDto;
 __decorate([
     (0, class_validator_1.IsDefined)(),
     (0, class_validator_1.IsNotEmptyObject)(),
@@ -26,5 +27,4 @@ __decorate([
     (0, class_validator_1.IsNumber)(),
     __metadata("design:type", Number)
 ], CreateChargeDto.prototype, "amount", void 0);
-exports.CreateChargeDto = CreateChargeDto;
 //# sourceMappingURL=create-charge.dto.js.map

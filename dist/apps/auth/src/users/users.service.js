@@ -48,9 +48,9 @@ let UsersService = class UsersService {
         return this.usersRepository.findOne(getUserDto, { roles: true });
     }
 };
-UsersService = __decorate([
+exports.UsersService = UsersService;
+exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [users_repository_1.UsersRepository])
 ], UsersService);
-exports.UsersService = UsersService;
 //# sourceMappingURL=users.service.js.map
