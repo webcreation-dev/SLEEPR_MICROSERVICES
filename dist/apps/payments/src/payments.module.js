@@ -23,7 +23,6 @@ exports.PaymentsModule = PaymentsModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 validationSchema: Joi.object({
-                    HTTP_PORT: Joi.number().required(),
                     TCP_PORT: Joi.number().required(),
                     AUTH_PORT: Joi.number().required(),
                     AUTH_HOST: Joi.string().required(),
