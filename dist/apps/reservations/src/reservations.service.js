@@ -19,9 +19,17 @@ const reservations_repository_1 = require("./reservations.repository");
 const microservices_1 = require("@nestjs/microservices");
 const rxjs_1 = require("rxjs");
 let ReservationsService = class ReservationsService {
-    constructor(reservationsRepository, paymentsService) {
+    constructor(reservationsRepository, paymentsService, authService) {
         this.reservationsRepository = reservationsRepository;
         this.paymentsService = paymentsService;
+        this.authService = authService;
+    }
+    async req_reservations_to_payments() {
+        return this.paymentsService
+            .send('res_payments_from_microservices', {})
+            .pipe((0, rxjs_1.map)((res) => {
+            return "Connection successful payments from reservations";
+        }));
     }
     async create(createReservationDto) {
         return this.paymentsService
@@ -42,12 +50,21 @@ let ReservationsService = class ReservationsService {
     async remove(id) {
         return this.reservationsRepository.findOneAndDelete({ id });
     }
+    async req_reservations_to_auth() {
+        return this.authService
+            .send('res_auth_from_microservices', {})
+            .pipe((0, rxjs_1.map)((res) => {
+            return "Connection successful auth from reservations";
+        }));
+    }
 };
 exports.ReservationsService = ReservationsService;
 exports.ReservationsService = ReservationsService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, common_1.Inject)(common_2.PAYMENTS_SERVICE)),
+    __param(2, (0, common_1.Inject)(common_2.AUTH_SERVICE)),
     __metadata("design:paramtypes", [reservations_repository_1.ReservationsRepository,
+        microservices_1.ClientProxy,
         microservices_1.ClientProxy])
 ], ReservationsService);
 //# sourceMappingURL=reservations.service.js.map

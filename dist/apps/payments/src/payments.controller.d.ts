@@ -6,7 +6,7 @@ export declare class PaymentsController {
     createCharge(data: CreateChargeDto): Promise<{
         amount: number;
     }>;
-    test(): Promise<{
-        amount: number;
+    res_payments_from_microservices(): Promise<{
+        success: boolean;
     }>;
 }

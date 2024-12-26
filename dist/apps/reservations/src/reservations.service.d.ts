@@ -6,7 +6,9 @@ import { Reservation } from './models/reservation.entity';
 export declare class ReservationsService {
     private readonly reservationsRepository;
     private readonly paymentsService;
-    constructor(reservationsRepository: ReservationsRepository, paymentsService: ClientProxy);
+    private readonly authService;
+    constructor(reservationsRepository: ReservationsRepository, paymentsService: ClientProxy, authService: ClientProxy);
+    req_reservations_to_payments(): Promise<import("rxjs").Observable<string>>;
     create(createReservationDto: CreateReservationDto): Promise<import("rxjs").Observable<{
         success: boolean;
     }>>;
@@ -14,4 +16,5 @@ export declare class ReservationsService {
     findOne(id: number): Promise<Reservation>;
     update(id: number, updateReservationDto: UpdateReservationDto): Promise<Reservation>;
     remove(id: number): Promise<void>;
+    req_reservations_to_auth(): Promise<import("rxjs").Observable<string>>;
 }

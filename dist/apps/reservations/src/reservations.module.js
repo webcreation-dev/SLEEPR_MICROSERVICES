@@ -28,11 +28,11 @@ exports.ReservationsModule = ReservationsModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 validationSchema: Joi.object({
-                    PORT: Joi.number().required(),
-                    AUTH_HOST: Joi.string().required(),
-                    PAYMENTS_HOST: Joi.string().required(),
+                    HTTP_PORT: Joi.number().required(),
                     AUTH_PORT: Joi.number().required(),
+                    AUTH_HOST: Joi.string().required(),
                     PAYMENTS_PORT: Joi.number().required(),
+                    PAYMENTS_HOST: Joi.string().required(),
                 }),
             }),
             microservices_1.ClientsModule.registerAsync([
@@ -53,7 +53,7 @@ exports.ReservationsModule = ReservationsModule = __decorate([
                         transport: microservices_1.Transport.TCP,
                         options: {
                             host: configService.get('PAYMENTS_HOST'),
-                            port: 3005,
+                            port: configService.get('PAYMENTS_PORT'),
                         },
                     }),
                     inject: [config_1.ConfigService],

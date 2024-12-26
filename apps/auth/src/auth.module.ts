@@ -38,8 +38,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
             useFactory: (configService: ConfigService) => ({
               transport: Transport.TCP,
               options: {
-                host: 'payments',
-                port: 3003,
+                host: configService.get('PAYMENTS_HOST'),
+                port: configService.get('PAYMENTS_PORT'),
               },
             }),
             inject: [ConfigService],
@@ -49,8 +49,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
             useFactory: (configService: ConfigService) => ({
               transport: Transport.TCP,
               options: {
-                host: 'reservations',
-                port: 3004,
+                host: configService.get('RESERVATIONS_HOST'),
+                port: configService.get('RESERVATIONS_PORT'),
               },
             }),
             inject: [ConfigService],

@@ -23,7 +23,10 @@ exports.PaymentsModule = PaymentsModule = __decorate([
             config_1.ConfigModule.forRoot({
                 isGlobal: true,
                 validationSchema: Joi.object({
-                    PORT: Joi.number().required(),
+                    HTTP_PORT: Joi.number().required(),
+                    TCP_PORT: Joi.number().required(),
+                    AUTH_PORT: Joi.number().required(),
+                    AUTH_HOST: Joi.string().required(),
                     NOTIFICATIONS_HOST: Joi.string().required(),
                     NOTIFICATIONS_PORT: Joi.number().required(),
                     STRIPE_SECRET_KEY: Joi.string().required(),
@@ -41,7 +44,18 @@ exports.PaymentsModule = PaymentsModule = __decorate([
                         },
                     }),
                     inject: [config_1.ConfigService],
-                }
+                },
+                {
+                    name: common_2.AUTH_SERVICE,
+                    useFactory: (configService) => ({
+                        transport: microservices_1.Transport.TCP,
+                        options: {
+                            host: configService.get('AUTH_HOST'),
+                            port: configService.get('AUTH_PORT'),
+                        },
+                    }),
+                    inject: [config_1.ConfigService],
+                },
             ])
         ],
         controllers: [payments_controller_1.PaymentsController],

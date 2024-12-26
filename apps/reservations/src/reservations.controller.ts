@@ -56,15 +56,19 @@ export class ReservationsController {
     return this.reservationsService.remove(+id);
   }
 
-  @MessagePattern('test')
-  @UsePipes(new ValidationPipe())
-  async test() {
-    return { amount: 1000 };
+  @Post('req_reservations_to_payments')
+    async req_reservations_to_payments() {
+      return this.reservationsService.req_reservations_to_payments();
   }
 
-  @MessagePattern('test1')
+  @Post('req_reservations_to_auth')
+  async req_reservations_to_auth() {
+    return this.reservationsService.req_reservations_to_auth();
+  }
+
+  @MessagePattern('res_reservations_from_microservices')
   @UsePipes(new ValidationPipe())
-  async test1() {
-    return { amount: 1000 };
+  async res_reservations_from_microservices() {
+    return { success: true };
   }
 }

@@ -30,11 +30,14 @@ let AuthController = class AuthController {
     async authenticate(data) {
         return data.user;
     }
-    async create() {
-        return this.authService.test();
+    async req_auth_to_payments() {
+        return this.authService.req_auth_to_payments();
     }
-    async create1() {
-        return this.authService.test1();
+    async req_auth_to_reservations() {
+        return this.authService.req_auth_to_reservations();
+    }
+    async res_auth_from_microservices() {
+        return { success: true };
     }
 };
 exports.AuthController = AuthController;
@@ -56,17 +59,24 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "authenticate", null);
 __decorate([
-    (0, common_1.Post)('test'),
+    (0, common_1.Post)('req_auth_to_payments'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "create", null);
+], AuthController.prototype, "req_auth_to_payments", null);
 __decorate([
-    (0, common_1.Post)('test1'),
+    (0, common_1.Post)('req_auth_to_reservations'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "create1", null);
+], AuthController.prototype, "req_auth_to_reservations", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('res_auth_from_microservices'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "res_auth_from_microservices", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

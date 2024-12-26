@@ -21,11 +21,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
-        PORT: Joi.number().required(),
-        AUTH_HOST: Joi.string().required(),
-        PAYMENTS_HOST: Joi.string().required(),
+        HTTP_PORT: Joi.number().required(),
         AUTH_PORT: Joi.number().required(),
+        AUTH_HOST: Joi.string().required(),
         PAYMENTS_PORT: Joi.number().required(),
+        PAYMENTS_HOST: Joi.string().required(),
       }),
     }),
     ClientsModule.registerAsync([
@@ -46,7 +46,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
           transport: Transport.TCP,
           options: {
             host: configService.get('PAYMENTS_HOST'),
-            port: 3005,
+            port: configService.get('PAYMENTS_PORT'),
           },
         }),
         inject: [ConfigService],

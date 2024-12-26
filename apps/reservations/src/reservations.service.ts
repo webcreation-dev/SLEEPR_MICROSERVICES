@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { PAYMENTS_SERVICE, User } from '@app/common';
+import { AUTH_SERVICE, PAYMENTS_SERVICE, User } from '@app/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
@@ -12,7 +12,18 @@ export class ReservationsService {
   constructor(
     private readonly reservationsRepository: ReservationsRepository,
     @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
+    @Inject(AUTH_SERVICE) private readonly authService: ClientProxy,
   ) {}
+
+  async req_reservations_to_payments() {
+    return this.paymentsService
+      .send('res_payments_from_microservices', {})
+      .pipe(
+        map((res) => {
+          return "Connection successful payments from reservations";
+        }),
+      );
+  }
 
   async create(
     createReservationDto: CreateReservationDto,
@@ -51,5 +62,17 @@ export class ReservationsService {
 
   async remove(id: number) {
     return this.reservationsRepository.findOneAndDelete({ id });
+  }
+
+  
+
+  async req_reservations_to_auth() {
+    return this.authService
+      .send('res_auth_from_microservices', {})
+      .pipe(
+        map((res) => {
+          return "Connection successful auth from reservations";
+        }),
+      );
   }
 }

@@ -10,6 +10,6 @@ export declare class AuthService {
     private readonly reservationsService;
     constructor(configService: ConfigService, jwtService: JwtService, paymentsService: ClientProxy, reservationsService: ClientProxy);
     login(user: User, response: Response): Promise<string>;
-    test(): Promise<import("rxjs").Observable<string>>;
-    test1(): Promise<import("rxjs").Observable<string>>;
+    req_auth_to_payments(): Promise<import("rxjs").Observable<string>>;
+    req_auth_to_reservations(): Promise<import("rxjs").Observable<string>>;
 }

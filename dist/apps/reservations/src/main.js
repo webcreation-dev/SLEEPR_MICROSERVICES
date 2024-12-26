@@ -12,12 +12,12 @@ async function bootstrap() {
     app.useGlobalPipes(new common_1.ValidationPipe({ whitelist: true }));
     app.use(cookieParser());
     const configService = app.get(config_1.ConfigService);
-    await app.listen(configService.get('PORT'));
+    await app.listen(configService.get('HTTP_PORT'));
     app.connectMicroservice({
         transport: microservices_1.Transport.TCP,
         options: {
             host: '0.0.0.0',
-            port: 3004,
+            port: configService.get('TCP_PORT'),
         },
     });
     app.useLogger(app.get(nestjs_pino_1.Logger));

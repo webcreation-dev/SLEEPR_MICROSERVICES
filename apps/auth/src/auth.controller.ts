@@ -1,4 +1,4 @@
-import { Controller, Post, Res, UseGuards, Body } from '@nestjs/common';
+import { Controller, Post, Res, UseGuards, Body, UsePipes, ValidationPipe } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Response } from 'express';
 import { CurrentUser, User } from '@app/common';
@@ -26,14 +26,20 @@ export class AuthController {
     return data.user;
   }
 
-  @Post('test')
-    async create() {
-      return this.authService.test();
-    }
+  
+  @Post('req_auth_to_payments')
+    async req_auth_to_payments() {
+      return this.authService.req_auth_to_payments();
+  }
 
+  @Post('req_auth_to_reservations')
+  async req_auth_to_reservations() {
+    return this.authService.req_auth_to_reservations();
+  }
 
-    @Post('test1')
-    async create1() {
-      return this.authService.test1();
-    }
+  @MessagePattern('res_auth_from_microservices')
+  @UsePipes(new ValidationPipe())
+  async res_auth_from_microservices() {
+    return { success: true };
+  }
 }

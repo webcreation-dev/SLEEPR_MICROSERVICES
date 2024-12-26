@@ -39,18 +39,18 @@ let AuthService = class AuthService {
         });
         return token;
     }
-    async test() {
+    async req_auth_to_payments() {
         return this.paymentsService
-            .send('test', {})
+            .send('res_payments_from_microservices', {})
             .pipe((0, rxjs_1.map)((res) => {
-            return "success";
+            return "Connection successful payments from auth";
         }));
     }
-    async test1() {
+    async req_auth_to_reservations() {
         return this.reservationsService
-            .send('test1', {})
+            .send('res_reservations_from_microservices', {})
             .pipe((0, rxjs_1.map)((res) => {
-            return "Connection successful";
+            return "Connection successful reservations from auth";
         }));
     }
 };

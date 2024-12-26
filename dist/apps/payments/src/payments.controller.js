@@ -24,8 +24,8 @@ let PaymentsController = class PaymentsController {
     async createCharge(data) {
         return { amount: 1000 };
     }
-    async test() {
-        return { amount: 1000 };
+    async res_payments_from_microservices() {
+        return { success: true };
     }
 };
 exports.PaymentsController = PaymentsController;
@@ -38,12 +38,12 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], PaymentsController.prototype, "createCharge", null);
 __decorate([
-    (0, microservices_1.MessagePattern)('test'),
+    (0, microservices_1.MessagePattern)('res_payments_from_microservices'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
-], PaymentsController.prototype, "test", null);
+], PaymentsController.prototype, "res_payments_from_microservices", null);
 exports.PaymentsController = PaymentsController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [payments_service_1.PaymentsService])

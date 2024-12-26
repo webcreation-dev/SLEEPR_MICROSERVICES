@@ -6,6 +6,9 @@ export declare class AuthController {
     constructor(authService: AuthService);
     login(user: User, response: Response): Promise<void>;
     authenticate(data: any): Promise<any>;
-    create(): Promise<import("rxjs").Observable<string>>;
-    create1(): Promise<import("rxjs").Observable<string>>;
+    req_auth_to_payments(): Promise<import("rxjs").Observable<string>>;
+    req_auth_to_reservations(): Promise<import("rxjs").Observable<string>>;
+    res_auth_from_microservices(): Promise<{
+        success: boolean;
+    }>;
 }

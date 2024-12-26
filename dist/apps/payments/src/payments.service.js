@@ -19,9 +19,11 @@ const stripe_1 = require("stripe");
 const common_2 = require("../../../libs/common/src");
 const microservices_1 = require("@nestjs/microservices");
 let PaymentsService = class PaymentsService {
-    constructor(configService, notificationsService) {
+    constructor(configService, notificationsService, authService, reservationsService) {
         this.configService = configService;
         this.notificationsService = notificationsService;
+        this.authService = authService;
+        this.reservationsService = reservationsService;
         this.stripe = new stripe_1.default(this.configService.get('STRIPE_SECRET_KEY'), {
             apiVersion: '2023-08-16',
         });
@@ -43,7 +45,11 @@ exports.PaymentsService = PaymentsService;
 exports.PaymentsService = PaymentsService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, common_1.Inject)(common_2.NOTIFICATIONS_SERVICE)),
+    __param(2, (0, common_1.Inject)('AUTH_SERVICE')),
+    __param(3, (0, common_1.Inject)('RESERVATIONS_SERVICE')),
     __metadata("design:paramtypes", [config_1.ConfigService,
+        microservices_1.ClientProxy,
+        microservices_1.ClientProxy,
         microservices_1.ClientProxy])
 ], PaymentsService);
 //# sourceMappingURL=payments.service.js.map
