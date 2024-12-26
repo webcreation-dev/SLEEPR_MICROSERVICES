@@ -5,6 +5,7 @@ import { CurrentUser, User } from '@app/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { CreateReservationDto } from './dto/create-reservation.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -40,6 +41,13 @@ export class AuthController {
   @Post('req_auth_to_test')
   async req_auth_to_test() {
     return this.authService.req_auth_to_test();
+  }
+
+  @Post()
+  async create(
+    @Body() createReservationDto: CreateReservationDto,
+  ) {
+    return this.authService.create_payments(createReservationDto);
   }
 
   @MessagePattern('res_auth_from_microservices')

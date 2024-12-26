@@ -23,7 +23,6 @@ exports.TestModule = TestModule = __decorate([
                 isGlobal: true,
                 validationSchema: Joi.object({
                     TCP_PORT: Joi.number().required(),
-                    HTTP_PORT: Joi.string().required(),
                 }),
             }),
             common_2.LoggerModule,

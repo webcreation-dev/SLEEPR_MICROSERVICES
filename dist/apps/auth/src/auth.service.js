@@ -61,6 +61,13 @@ let AuthService = class AuthService {
             return "Connection successful reservations from auth";
         }));
     }
+    async create_payments(createReservationDto) {
+        return this.testService
+            .send('test_create_charge', createReservationDto.charge)
+            .pipe((0, rxjs_1.map)((res) => {
+            return { response: res };
+        }));
+    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([

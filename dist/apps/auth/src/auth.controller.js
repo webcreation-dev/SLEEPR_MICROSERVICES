@@ -19,6 +19,7 @@ const common_2 = require("../../../libs/common/src");
 const auth_service_1 = require("./auth.service");
 const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const local_auth_guard_1 = require("./guards/local-auth.guard");
+const create_reservation_dto_1 = require("./dto/create-reservation.dto");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -38,6 +39,9 @@ let AuthController = class AuthController {
     }
     async req_auth_to_test() {
         return this.authService.req_auth_to_test();
+    }
+    async create(createReservationDto) {
+        return this.authService.create_payments(createReservationDto);
     }
     async res_auth_from_microservices() {
         return { success: true };
@@ -79,6 +83,13 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "req_auth_to_test", null);
+__decorate([
+    (0, common_1.Post)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_reservation_dto_1.CreateReservationDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "create", null);
 __decorate([
     (0, microservices_1.MessagePattern)('res_auth_from_microservices'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),

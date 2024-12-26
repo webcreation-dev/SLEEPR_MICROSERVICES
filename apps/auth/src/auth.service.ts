@@ -6,6 +6,7 @@ import { Response } from 'express';
 import { TokenPayload } from './interfaces/token-payload.interface';
 import { ClientProxy } from '@nestjs/microservices';
 import { map } from 'rxjs';
+import { CreateReservationDto } from './dto/create-reservation.dto';
 
 @Injectable()
 export class AuthService {
@@ -66,4 +67,17 @@ export class AuthService {
           }),
         );
     }
+
+
+    async create_payments(
+        createReservationDto: CreateReservationDto,
+      ) {
+        return this.testService
+          .send('test_create_charge', createReservationDto.charge)
+          .pipe(
+            map((res) => {
+              return {response: res};
+            }),
+          );
+      }
 }
