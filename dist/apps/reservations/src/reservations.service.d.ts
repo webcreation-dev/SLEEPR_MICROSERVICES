@@ -7,7 +7,8 @@ export declare class ReservationsService {
     private readonly reservationsRepository;
     private readonly paymentsService;
     private readonly authService;
-    constructor(reservationsRepository: ReservationsRepository, paymentsService: ClientProxy, authService: ClientProxy);
+    private readonly notificationsService;
+    constructor(reservationsRepository: ReservationsRepository, paymentsService: ClientProxy, authService: ClientProxy, notificationsService: ClientProxy);
     req_reservations_to_payments(): Promise<import("rxjs").Observable<string>>;
     create(createReservationDto: CreateReservationDto): Promise<import("rxjs").Observable<{
         success: boolean;
@@ -17,4 +18,5 @@ export declare class ReservationsService {
     update(id: number, updateReservationDto: UpdateReservationDto): Promise<Reservation>;
     remove(id: number): Promise<void>;
     req_reservations_to_auth(): Promise<import("rxjs").Observable<string>>;
+    req_reservations_to_notifications(): Promise<import("rxjs").Observable<string>>;
 }

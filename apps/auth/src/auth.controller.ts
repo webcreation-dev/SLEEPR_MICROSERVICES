@@ -36,6 +36,11 @@ export class AuthController {
   async req_auth_to_reservations() {
     return this.authService.req_auth_to_reservations();
   }
+  
+  @Post('req_auth_to_test')
+  async req_auth_to_test() {
+    return this.authService.req_auth_to_test();
+  }
 
   @MessagePattern('res_auth_from_microservices')
   @UsePipes(new ValidationPipe())

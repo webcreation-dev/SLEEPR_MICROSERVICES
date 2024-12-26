@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { LoggerModule, PAYMENTS_SERVICE, RESERVATIONS_SERVICE } from '@app/common';
+import { LoggerModule, PAYMENTS_SERVICE, RESERVATIONS_SERVICE, TEST_SERVICE } from '@app/common';
 import { JwtModule } from '@nestjs/jwt';
 import * as Joi from 'joi';
 import { AuthController } from './auth.controller';
@@ -40,6 +40,17 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
               options: {
                 host: configService.get('PAYMENTS_HOST'),
                 port: configService.get('PAYMENTS_PORT'),
+              },
+            }),
+            inject: [ConfigService],
+          },
+          {
+            name: TEST_SERVICE,
+            useFactory: (configService: ConfigService) => ({
+              transport: Transport.TCP,
+              options: {
+                host: configService.get('TEST_HOST'),
+                port: configService.get('TEST_PORT'),
               },
             }),
             inject: [ConfigService],

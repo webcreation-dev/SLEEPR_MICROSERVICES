@@ -1,6 +1,6 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PAYMENTS_SERVICE, RESERVATIONS_SERVICE, User } from '@app/common';
+import { PAYMENTS_SERVICE, RESERVATIONS_SERVICE, TEST_SERVICE, User } from '@app/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { TokenPayload } from './interfaces/token-payload.interface';
@@ -14,6 +14,7 @@ export class AuthService {
     private readonly jwtService: JwtService,
     @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
     @Inject(RESERVATIONS_SERVICE) private readonly reservationsService: ClientProxy,
+    @Inject(TEST_SERVICE) private readonly testService: ClientProxy,
   ) {}
 
   async login(user: User, response: Response) {
@@ -42,6 +43,16 @@ export class AuthService {
         .pipe(
           map((res) => {
             return "Connection successful payments from auth";
+          }),
+        );
+    }
+
+    async req_auth_to_test() {
+      return this.testService
+        .send('res_test_from_microservices', {})
+        .pipe(
+          map((res) => {
+            return "Connection successful test from auth";
           }),
         );
     }

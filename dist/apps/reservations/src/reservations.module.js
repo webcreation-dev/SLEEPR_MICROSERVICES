@@ -33,6 +33,8 @@ exports.ReservationsModule = ReservationsModule = __decorate([
                     AUTH_HOST: Joi.string().required(),
                     PAYMENTS_PORT: Joi.number().required(),
                     PAYMENTS_HOST: Joi.string().required(),
+                    NOTIFICATIONS_PORT: Joi.number().required(),
+                    NOTIFICATIONS_HOST: Joi.string().required(),
                 }),
             }),
             microservices_1.ClientsModule.registerAsync([
@@ -54,6 +56,17 @@ exports.ReservationsModule = ReservationsModule = __decorate([
                         options: {
                             host: configService.get('PAYMENTS_HOST'),
                             port: configService.get('PAYMENTS_PORT'),
+                        },
+                    }),
+                    inject: [config_1.ConfigService],
+                },
+                {
+                    name: common_2.NOTIFICATIONS_SERVICE,
+                    useFactory: (configService) => ({
+                        transport: microservices_1.Transport.TCP,
+                        options: {
+                            host: configService.get('NOTIFICATIONS_HOST'),
+                            port: configService.get('NOTIFICATIONS_PORT'),
                         },
                     }),
                     inject: [config_1.ConfigService],

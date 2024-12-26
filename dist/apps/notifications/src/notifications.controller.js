@@ -24,6 +24,9 @@ let NotificationsController = class NotificationsController {
     async notifyEmail(data) {
         this.notificationsService.notifyEmail(data);
     }
+    async res_notifications_from_microservices() {
+        return { success: true };
+    }
 };
 exports.NotificationsController = NotificationsController;
 __decorate([
@@ -34,6 +37,13 @@ __decorate([
     __metadata("design:paramtypes", [notify_email_dto_1.NotifyEmailDto]),
     __metadata("design:returntype", Promise)
 ], NotificationsController.prototype, "notifyEmail", null);
+__decorate([
+    (0, microservices_1.MessagePattern)('res_notifications_from_microservices'),
+    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], NotificationsController.prototype, "res_notifications_from_microservices", null);
 exports.NotificationsController = NotificationsController = __decorate([
     (0, common_1.Controller)(),
     __metadata("design:paramtypes", [notifications_service_1.NotificationsService])

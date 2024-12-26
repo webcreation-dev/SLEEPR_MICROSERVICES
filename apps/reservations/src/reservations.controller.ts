@@ -60,6 +60,10 @@ export class ReservationsController {
     async req_reservations_to_payments() {
       return this.reservationsService.req_reservations_to_payments();
   }
+  @Post('req_reservations_to_notifications')
+    async req_reservations_to_notifications() {
+      return this.reservationsService.req_reservations_to_notifications();
+  }
 
   @Post('req_reservations_to_auth')
   async req_reservations_to_auth() {

@@ -19,10 +19,11 @@ const reservations_repository_1 = require("./reservations.repository");
 const microservices_1 = require("@nestjs/microservices");
 const rxjs_1 = require("rxjs");
 let ReservationsService = class ReservationsService {
-    constructor(reservationsRepository, paymentsService, authService) {
+    constructor(reservationsRepository, paymentsService, authService, notificationsService) {
         this.reservationsRepository = reservationsRepository;
         this.paymentsService = paymentsService;
         this.authService = authService;
+        this.notificationsService = notificationsService;
     }
     async req_reservations_to_payments() {
         return this.paymentsService
@@ -57,13 +58,22 @@ let ReservationsService = class ReservationsService {
             return "Connection successful auth from reservations";
         }));
     }
+    async req_reservations_to_notifications() {
+        return this.notificationsService
+            .send('res_notifications_from_microservices', {})
+            .pipe((0, rxjs_1.map)((res) => {
+            return "Connection successful auth from notifications";
+        }));
+    }
 };
 exports.ReservationsService = ReservationsService;
 exports.ReservationsService = ReservationsService = __decorate([
     (0, common_1.Injectable)(),
     __param(1, (0, common_1.Inject)(common_2.PAYMENTS_SERVICE)),
     __param(2, (0, common_1.Inject)(common_2.AUTH_SERVICE)),
+    __param(3, (0, common_1.Inject)(common_2.NOTIFICATIONS_SERVICE)),
     __metadata("design:paramtypes", [reservations_repository_1.ReservationsRepository,
+        microservices_1.ClientProxy,
         microservices_1.ClientProxy,
         microservices_1.ClientProxy])
 ], ReservationsService);

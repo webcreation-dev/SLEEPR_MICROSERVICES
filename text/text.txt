@@ -1,58 +1,54 @@
-AUTH
-
-JWT_SECRET = B7C9BE557519887A156AB0C496D0964D4B00BA84AE08219B48AE1C8CD1204AFD
-JWT_EXPIRATION = 3600
-
-HTTP_PORT=3001
-TCP_PORT=3002
-
-MONGODB_URI=mongodb://mongo:27017/sleepr
-
-
-
-NOTIFICATIONS
-
-
-
-MONGODB_URI=mongodb://mongo:27017/sleepr
-
-
-
-PAYMENTS
-
-
-
-MONGODB_URI=mongodb://mongo:27017/sleepr
-
-
-
-
-
-
-RESERVATIONS
-
-
-MONGODB_URI=mongodb://mongo:27017/sleepr
-
-PORT=3000
-
-PAYMENTS_HOST=payments
-PAYMENTS_PORT=3003
-
-AUTH_HOST=auth
-AUTH_PORT=3002
-
-HTTP_PORT=3003
-TCP_PORT=3004
-
-JWT_SECRET = B7C9BE557519887A156AB0C496D0964D4B00BA84AE08219B48AE1C8CD1204AFD
-JWT_EXPIRATION = 7d
-
-
-
-
-
-ROOT
-
-
-MONGODB_URI=mongodb://mongo:27017/sleepr
+services:
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+    command: pnpm run start:dev reservations
+    env_file:
+      - ./apps/reservations/.env
+    ports:
+      - '3000:3000'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/auth/Dockerfile
+      target: development
+    command: pnpm run start:dev auth
+    env_file:
+      - ./apps/auth/.env
+    ports:
+      - '3001:3001'
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+  payments:
+    build:
+      context: .
+      dockerfile: ./apps/payments/Dockerfile
+      target: development
+    command: pnpm run start:dev payments
+    env_file:
+      - ./apps/payments/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
+      - ./dist:/usr/src/app/dist
+  notifications:
+    build:
+      context: .
+      dockerfile: ./apps/notifications/Dockerfile
+      target: development
+    command: pnpm run start:dev notifications
+    env_file:
+      - ./apps/notifications/.env
+  database:
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    env_file:
+      - .env

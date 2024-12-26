@@ -42,6 +42,9 @@ let ReservationsController = class ReservationsController {
     async req_reservations_to_payments() {
         return this.reservationsService.req_reservations_to_payments();
     }
+    async req_reservations_to_notifications() {
+        return this.reservationsService.req_reservations_to_notifications();
+    }
     async req_reservations_to_auth() {
         return this.reservationsService.req_reservations_to_auth();
     }
@@ -95,6 +98,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ReservationsController.prototype, "req_reservations_to_payments", null);
+__decorate([
+    (0, common_1.Post)('req_reservations_to_notifications'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], ReservationsController.prototype, "req_reservations_to_notifications", null);
 __decorate([
     (0, common_1.Post)('req_reservations_to_auth'),
     __metadata("design:type", Function),

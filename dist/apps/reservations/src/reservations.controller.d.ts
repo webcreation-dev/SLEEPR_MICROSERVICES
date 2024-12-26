@@ -12,6 +12,7 @@ export declare class ReservationsController {
     update(id: string, updateReservationDto: UpdateReservationDto): Promise<import("./models/reservation.entity").Reservation>;
     remove(id: string): Promise<void>;
     req_reservations_to_payments(): Promise<import("rxjs").Observable<string>>;
+    req_reservations_to_notifications(): Promise<import("rxjs").Observable<string>>;
     req_reservations_to_auth(): Promise<import("rxjs").Observable<string>>;
     res_reservations_from_microservices(): Promise<{
         success: boolean;

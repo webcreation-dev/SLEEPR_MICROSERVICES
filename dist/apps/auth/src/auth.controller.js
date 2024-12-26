@@ -36,6 +36,9 @@ let AuthController = class AuthController {
     async req_auth_to_reservations() {
         return this.authService.req_auth_to_reservations();
     }
+    async req_auth_to_test() {
+        return this.authService.req_auth_to_test();
+    }
     async res_auth_from_microservices() {
         return { success: true };
     }
@@ -70,6 +73,12 @@ __decorate([
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "req_auth_to_reservations", null);
+__decorate([
+    (0, common_1.Post)('req_auth_to_test'),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "req_auth_to_test", null);
 __decorate([
     (0, microservices_1.MessagePattern)('res_auth_from_microservices'),
     (0, common_1.UsePipes)(new common_1.ValidationPipe()),
