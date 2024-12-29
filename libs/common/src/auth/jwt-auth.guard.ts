@@ -11,6 +11,7 @@ import { Reflector } from '@nestjs/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { AUTH_SERVICE } from '../constants/services';
 import { User } from '../models';
+import { RoleEnum } from '../enums';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -32,7 +33,7 @@ export class JwtAuthGuard implements CanActivate {
       return false;
     }
 
-    const roles = this.reflector.get<string[]>('roles', context.getHandler());
+    const roles = this.reflector.get<RoleEnum[]>('roles', context.getHandler());
 
     return this.authClient
       .send<User>('authenticate', {
@@ -42,9 +43,14 @@ export class JwtAuthGuard implements CanActivate {
         tap((res) => {
           if (roles) {
             for (const role of roles) {
-              if (!res.roles?.map((role) => role.name).includes(role)) {
-                this.logger.error('The user does not have valid roles.');
-                throw new UnauthorizedException();
+              if (
+                !res.roles
+                  .map((role) => role.name as unknown as RoleEnum)
+                  .includes(role)
+              ) {
+                throw new UnauthorizedException(
+                  'The user does not have valid roles.',
+                );
               }
             }
           }

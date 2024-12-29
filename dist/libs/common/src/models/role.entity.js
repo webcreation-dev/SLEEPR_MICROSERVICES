@@ -12,11 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Role = void 0;
 const database_1 = require("../database");
 const typeorm_1 = require("typeorm");
+const enums_1 = require("../enums");
 let Role = class Role extends database_1.AbstractEntity {
 };
 exports.Role = Role;
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: enums_1.RoleEnum,
+        enumName: 'role_enum',
+        default: enums_1.RoleEnum.ADMIN,
+    }),
     __metadata("design:type", String)
 ], Role.prototype, "name", void 0);
 exports.Role = Role = __decorate([

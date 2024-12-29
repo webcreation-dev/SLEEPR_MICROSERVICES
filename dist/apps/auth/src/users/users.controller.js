@@ -40,6 +40,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_2.Roles)(common_2.RoleEnum.ADMIN),
     __param(0, (0, common_2.CurrentUser)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [common_2.User]),

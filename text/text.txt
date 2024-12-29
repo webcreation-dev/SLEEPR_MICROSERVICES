@@ -52,3 +52,14 @@ services:
       - "5432:5432"
     env_file:
       - .env
+  test:
+    build:
+      context: .
+      dockerfile: ./apps/test/Dockerfile
+      target: development
+    command: pnpm run start:dev test
+    env_file:
+      - ./apps/test/.env
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules

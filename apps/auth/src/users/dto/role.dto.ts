@@ -1,12 +1,9 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
+import { RoleEnum } from '@app/common';
+import { IsNotEmpty, IsEnum } from 'class-validator';
 
 export class RoleDto {
-  @IsOptional()
-  @IsNumber()
-  id?: number;
 
-  @IsOptional()
-  @IsString()
+  @IsEnum(RoleEnum)
   @IsNotEmpty()
-  name?: string;
+  name: RoleEnum;
 }

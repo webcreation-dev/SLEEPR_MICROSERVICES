@@ -10,18 +10,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RoleDto = void 0;
+const common_1 = require("../../../../../libs/common/src");
 const class_validator_1 = require("class-validator");
 class RoleDto {
 }
 exports.RoleDto = RoleDto;
 __decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsNumber)(),
-    __metadata("design:type", Number)
-], RoleDto.prototype, "id", void 0);
-__decorate([
-    (0, class_validator_1.IsOptional)(),
-    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsEnum)(common_1.RoleEnum),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", String)
 ], RoleDto.prototype, "name", void 0);

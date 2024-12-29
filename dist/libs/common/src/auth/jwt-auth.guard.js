@@ -39,9 +39,10 @@ let JwtAuthGuard = JwtAuthGuard_1 = class JwtAuthGuard {
             .pipe((0, rxjs_1.tap)((res) => {
             if (roles) {
                 for (const role of roles) {
-                    if (!res.roles?.map((role) => role.name).includes(role)) {
-                        this.logger.error('The user does not have valid roles.');
-                        throw new common_1.UnauthorizedException();
+                    if (!res.roles
+                        .map((role) => role.name)
+                        .includes(role)) {
+                        throw new common_1.UnauthorizedException('The user does not have valid roles.');
                     }
                 }
             }

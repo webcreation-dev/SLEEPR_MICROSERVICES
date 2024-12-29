@@ -1,4 +1,4 @@
+import { RoleEnum } from '@app/common';
 export declare class RoleDto {
-    id?: number;
-    name?: string;
+    name: RoleEnum;
 }
