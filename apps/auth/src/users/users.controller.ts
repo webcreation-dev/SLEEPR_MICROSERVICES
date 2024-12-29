@@ -15,16 +15,7 @@ export class UsersController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  @Roles(RoleEnum.ADMIN)
-/*************  ✨ Codeium Command ⭐  *************/
-/**
- * Retrieves the current authenticated user.
- *
- * @param user - The current user obtained from the authentication context.
- * @returns The user object.
- */
-
-/******  76ac71f9-07e4-45fc-89e8-d01bb99aa5b1  *******/
+  // @Roles(RoleEnum.ADMIN)
   async getUser(@CurrentUser() user: User) {
     return user;
   }
