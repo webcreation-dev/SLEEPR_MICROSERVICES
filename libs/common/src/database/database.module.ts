@@ -5,7 +5,11 @@ import databaseConfig from './config/database.config';
 import { EntityClassOrSchema } from '@nestjs/typeorm/dist/interfaces/entity-class-or-schema.type';
 
 @Module({
-  imports: [EnvModule, TypeOrmModule.forRootAsync(databaseConfig.asProvider())],
+  imports: [
+    EnvModule,
+    TypeOrmModule.forRootAsync(databaseConfig.asProvider()), // Connexion à la DB
+    // SeedingModule, // Ajout de SeedingModule
+  ],
 })
 export class DatabaseModule {
   static forFeature(models: EntityClassOrSchema[]) {

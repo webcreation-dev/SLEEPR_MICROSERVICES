@@ -12,14 +12,19 @@ const common_2 = require("../../../../libs/common/src");
 const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
 const users_repository_1 = require("./users.repository");
+const users_subscriber_1 = require("./subscribers/users.subscriber");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
 exports.UsersModule = UsersModule = __decorate([
     (0, common_1.Module)({
-        imports: [common_2.DatabaseModule, common_2.DatabaseModule.forFeature([common_2.User, common_2.Role])],
+        imports: [
+            common_2.DatabaseModule,
+            common_2.DatabaseModule.forFeature([common_2.User, common_2.Role]),
+            common_2.UsualModule,
+        ],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService, users_repository_1.UsersRepository],
+        providers: [users_service_1.UsersService, users_repository_1.UsersRepository, users_subscriber_1.UsersSubscriber],
         exports: [users_service_1.UsersService],
     })
 ], UsersModule);

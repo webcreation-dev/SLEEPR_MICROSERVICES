@@ -20,11 +20,7 @@ let UsersService = class UsersService {
     }
     async create(createUserDto) {
         await this.validateCreateUserDto(createUserDto);
-        const user = new common_2.User({
-            ...createUserDto,
-            password: await bcrypt.hash(createUserDto.password, 10),
-            roles: createUserDto.roles?.map((roleDto) => new common_2.Role(roleDto)),
-        });
+        const user = new common_2.User(createUserDto);
         return this.usersRepository.create(user);
     }
     async validateCreateUserDto(createUserDto) {

@@ -15,11 +15,7 @@ export class UsersService {
 
   async create(createUserDto: CreateUserDto) {
     await this.validateCreateUserDto(createUserDto);
-    const user = new User({
-      ...createUserDto,
-      password: await bcrypt.hash(createUserDto.password, 10),
-      roles: createUserDto.roles?.map((roleDto) => new Role(roleDto)),
-    });
+    const user = new User(createUserDto);
     return this.usersRepository.create(user);
   }
 

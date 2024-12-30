@@ -1,24 +1,30 @@
-import { MigrationInterface, QueryRunner } from "typeorm";
-
-export class UserMigrations1735428079135 implements MigrationInterface {
-    name = 'UserMigrations1735428079135'
-
-    public async up(queryRunner: QueryRunner): Promise<void> {
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserMigrations1735572221649 = void 0;
+class UserMigrations1735572221649 {
+    constructor() {
+        this.name = 'UserMigrations1735572221649';
+    }
+    async up(queryRunner) {
         await queryRunner.query(`
-            CREATE TYPE "public"."role_enum" AS ENUM('ADMIN', 'MANAGER', 'USER')
+            CREATE TYPE "public"."role_enum" AS ENUM('MANAGER', 'USER')
         `);
         await queryRunner.query(`
             CREATE TABLE "role" (
                 "id" SERIAL NOT NULL,
-                "name" "public"."role_enum" NOT NULL DEFAULT 'ADMIN',
+                "name" "public"."role_enum" NOT NULL,
                 CONSTRAINT "PK_b36bcfe02fc8de3c57a8b2391c2" PRIMARY KEY ("id")
             )
+        `);
+        await queryRunner.query(`
+            CREATE TYPE "public"."app_type_enum" AS ENUM('LOCAPAY', 'LOCAPAY_BUSINESS')
         `);
         await queryRunner.query(`
             CREATE TABLE "user" (
                 "id" SERIAL NOT NULL,
                 "email" character varying NOT NULL,
                 "password" character varying NOT NULL,
+                "app_type" "public"."app_type_enum" NOT NULL,
                 CONSTRAINT "PK_cace4a159ff9f2512dd42373760" PRIMARY KEY ("id")
             )
         `);
@@ -55,8 +61,7 @@ export class UserMigrations1735428079135 implements MigrationInterface {
             ADD CONSTRAINT "FK_4be2f7adf862634f5f803d246b8" FOREIGN KEY ("roleId") REFERENCES "role"("id") ON DELETE CASCADE ON UPDATE CASCADE
         `);
     }
-
-    public async down(queryRunner: QueryRunner): Promise<void> {
+    async down(queryRunner) {
         await queryRunner.query(`
             ALTER TABLE "user_roles_role" DROP CONSTRAINT "FK_4be2f7adf862634f5f803d246b8"
         `);
@@ -79,11 +84,15 @@ export class UserMigrations1735428079135 implements MigrationInterface {
             DROP TABLE "user"
         `);
         await queryRunner.query(`
+            DROP TYPE "public"."app_type_enum"
+        `);
+        await queryRunner.query(`
             DROP TABLE "role"
         `);
         await queryRunner.query(`
             DROP TYPE "public"."role_enum"
         `);
     }
-
 }
+exports.UserMigrations1735572221649 = UserMigrations1735572221649;
+//# sourceMappingURL=1735572221649-user_migrations.js.map

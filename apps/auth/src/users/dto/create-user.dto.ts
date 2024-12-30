@@ -6,8 +6,9 @@ import {
   IsStrongPassword,
   ValidateNested,
 } from 'class-validator';
-import { RoleDto } from './role.dto';
 import { Type } from 'class-transformer';
+import { AppTypeEnum } from '@app/common';
+import { IsEnum, IsNotEmpty } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
@@ -16,9 +17,7 @@ export class CreateUserDto {
   @IsStrongPassword()
   password: string;
 
-  @IsArray()
-  @ArrayNotEmpty()
-  @ValidateNested({ each: true })
-  @Type(() => RoleDto)
-  roles: RoleDto[];
+  @IsEnum(AppTypeEnum)
+  @IsNotEmpty()
+  app_type: AppTypeEnum;
 }

@@ -52,7 +52,7 @@ export class ReservationsController {
 
   @Delete(':id')
   @UseGuards(JwtAuthGuard)
-  @Roles(RoleEnum.ADMIN)
+  @Roles(RoleEnum.USER)
   async remove(@Param('id') id: string) {
     return this.reservationsService.remove(+id);
   }

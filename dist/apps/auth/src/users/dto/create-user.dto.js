@@ -11,8 +11,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateUserDto = void 0;
 const class_validator_1 = require("class-validator");
-const role_dto_1 = require("./role.dto");
-const class_transformer_1 = require("class-transformer");
+const common_1 = require("../../../../../libs/common/src");
+const class_validator_2 = require("class-validator");
 class CreateUserDto {
 }
 exports.CreateUserDto = CreateUserDto;
@@ -25,10 +25,8 @@ __decorate([
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "password", void 0);
 __decorate([
-    (0, class_validator_1.IsArray)(),
-    (0, class_validator_1.ArrayNotEmpty)(),
-    (0, class_validator_1.ValidateNested)({ each: true }),
-    (0, class_transformer_1.Type)(() => role_dto_1.RoleDto),
-    __metadata("design:type", Array)
-], CreateUserDto.prototype, "roles", void 0);
+    (0, class_validator_2.IsEnum)(common_1.AppTypeEnum),
+    (0, class_validator_2.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "app_type", void 0);
 //# sourceMappingURL=create-user.dto.js.map

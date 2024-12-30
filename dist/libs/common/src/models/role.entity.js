@@ -13,6 +13,7 @@ exports.Role = void 0;
 const database_1 = require("../database");
 const typeorm_1 = require("typeorm");
 const enums_1 = require("../enums");
+const user_entity_1 = require("./user.entity");
 let Role = class Role extends database_1.AbstractEntity {
 };
 exports.Role = Role;
@@ -21,10 +22,13 @@ __decorate([
         type: 'enum',
         enum: enums_1.RoleEnum,
         enumName: 'role_enum',
-        default: enums_1.RoleEnum.ADMIN,
     }),
     __metadata("design:type", String)
 ], Role.prototype, "name", void 0);
+__decorate([
+    (0, typeorm_1.ManyToMany)(() => user_entity_1.User, (user) => user.roles),
+    __metadata("design:type", Array)
+], Role.prototype, "users", void 0);
 exports.Role = Role = __decorate([
     (0, typeorm_1.Entity)()
 ], Role);

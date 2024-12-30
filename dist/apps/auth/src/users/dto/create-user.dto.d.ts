@@ -1,6 +1,6 @@
-import { RoleDto } from './role.dto';
+import { AppTypeEnum } from '@app/common';
 export declare class CreateUserDto {
     email: string;
     password: string;
-    roles: RoleDto[];
+    app_type: AppTypeEnum;
 }

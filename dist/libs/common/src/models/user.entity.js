@@ -13,6 +13,8 @@ exports.User = void 0;
 const database_1 = require("../database");
 const typeorm_1 = require("typeorm");
 const role_entity_1 = require("./role.entity");
+const enums_1 = require("../enums");
+const class_transformer_1 = require("class-transformer");
 let User = class User extends database_1.AbstractEntity {
 };
 exports.User = User;
@@ -21,9 +23,18 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
+    (0, class_transformer_1.Exclude)(),
     (0, typeorm_1.Column)(),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        type: 'enum',
+        enum: enums_1.AppTypeEnum,
+        enumName: 'app_type_enum',
+    }),
+    __metadata("design:type", String)
+], User.prototype, "app_type", void 0);
 __decorate([
     (0, typeorm_1.ManyToMany)(() => role_entity_1.Role, { cascade: true }),
     (0, typeorm_1.JoinTable)(),
