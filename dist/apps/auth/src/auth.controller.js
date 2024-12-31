@@ -19,7 +19,7 @@ const common_2 = require("../../../libs/common/src");
 const auth_service_1 = require("./auth.service");
 const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const local_auth_guard_1 = require("./guards/local-auth.guard");
-const create_reservation_dto_1 = require("./dto/create-reservation.dto");
+const create_user_dto_1 = require("./users/dto/create-user.dto");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -28,23 +28,15 @@ let AuthController = class AuthController {
         const jwt = await this.authService.login(user, response);
         response.send(jwt);
     }
+    async register(createUserDto) {
+        const user = await this.authService.register(createUserDto);
+        return user;
+    }
     async authenticate(data) {
         return data.user;
     }
-    async req_auth_to_payments() {
-        return this.authService.req_auth_to_payments();
-    }
-    async req_auth_to_reservations() {
-        return this.authService.req_auth_to_reservations();
-    }
-    async req_auth_to_test() {
-        return this.authService.req_auth_to_test();
-    }
-    async create(createReservationDto) {
-        return this.authService.create_payments(createReservationDto);
-    }
-    async res_auth_from_microservices() {
-        return { success: true };
+    async getUser(user) {
+        return user;
     }
 };
 exports.AuthController = AuthController;
@@ -58,6 +50,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
+    (0, common_1.Post)('register'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "register", null);
+__decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, microservices_1.MessagePattern)('authenticate'),
     __param(0, (0, microservices_1.Payload)()),
@@ -66,37 +65,13 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "authenticate", null);
 __decorate([
-    (0, common_1.Post)('req_auth_to_payments'),
+    (0, common_1.Get)('user'),
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    __param(0, (0, common_2.CurrentUser)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [common_2.User]),
     __metadata("design:returntype", Promise)
-], AuthController.prototype, "req_auth_to_payments", null);
-__decorate([
-    (0, common_1.Post)('req_auth_to_reservations'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "req_auth_to_reservations", null);
-__decorate([
-    (0, common_1.Post)('req_auth_to_test'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "req_auth_to_test", null);
-__decorate([
-    (0, common_1.Post)(),
-    __param(0, (0, common_1.Body)()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_reservation_dto_1.CreateReservationDto]),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "create", null);
-__decorate([
-    (0, microservices_1.MessagePattern)('res_auth_from_microservices'),
-    (0, common_1.UsePipes)(new common_1.ValidationPipe()),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], AuthController.prototype, "res_auth_from_microservices", null);
+], AuthController.prototype, "getUser", null);
 exports.AuthController = AuthController = __decorate([
     (0, common_1.Controller)('auth'),
     __metadata("design:paramtypes", [auth_service_1.AuthService])

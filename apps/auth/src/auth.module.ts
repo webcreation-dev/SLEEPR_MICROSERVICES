@@ -1,18 +1,19 @@
 import { Module } from '@nestjs/common';
-import { LoggerModule, PAYMENTS_SERVICE, RESERVATIONS_SERVICE, TEST_SERVICE } from '@app/common';
+import { LoggerModule, PAYMENTS_SERVICE, RESERVATIONS_SERVICE, TEST_SERVICE, UsualModule } from '@app/common';
 import { JwtModule } from '@nestjs/jwt';
 import * as Joi from 'joi';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UsersModule } from './users/users.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { LocalStategy } from './strategies/local.startegy';
-import { JwtStrategy } from './strategies/jwt.startegy';
+import { LocalStategy } from './strategies/local.strategy';
+import { JwtStrategy } from './strategies/jwt.strategy';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
     UsersModule,
+    UsualModule,
     LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,

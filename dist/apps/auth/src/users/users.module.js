@@ -13,6 +13,7 @@ const users_controller_1 = require("./users.controller");
 const users_service_1 = require("./users.service");
 const users_repository_1 = require("./users.repository");
 const users_subscriber_1 = require("./subscribers/users.subscriber");
+const roles_repository_1 = require("./roles.repository");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -24,8 +25,8 @@ exports.UsersModule = UsersModule = __decorate([
             common_2.UsualModule,
         ],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService, users_repository_1.UsersRepository, users_subscriber_1.UsersSubscriber],
-        exports: [users_service_1.UsersService],
+        providers: [users_service_1.UsersService, users_repository_1.UsersRepository, users_subscriber_1.UsersSubscriber, users_repository_1.UsersRepository, roles_repository_1.RolesRepository],
+        exports: [users_service_1.UsersService, users_repository_1.UsersRepository, roles_repository_1.RolesRepository],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

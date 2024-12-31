@@ -13,15 +13,15 @@ exports.LocalStategy = void 0;
 const common_1 = require("@nestjs/common");
 const passport_1 = require("@nestjs/passport");
 const passport_local_1 = require("passport-local");
-const users_service_1 = require("../users/users.service");
+const auth_service_1 = require("../auth.service");
 let LocalStategy = class LocalStategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
-    constructor(usersService) {
+    constructor(authService) {
         super({ usernameField: 'email' });
-        this.usersService = usersService;
+        this.authService = authService;
     }
     async validate(email, password) {
         try {
-            return await this.usersService.verifyUser(email, password);
+            return await this.authService.validateLocal(email, password);
         }
         catch (err) {
             throw new common_1.UnauthorizedException(err);
@@ -31,6 +31,6 @@ let LocalStategy = class LocalStategy extends (0, passport_1.PassportStrategy)(p
 exports.LocalStategy = LocalStategy;
 exports.LocalStategy = LocalStategy = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_service_1.UsersService])
+    __metadata("design:paramtypes", [auth_service_1.AuthService])
 ], LocalStategy);
-//# sourceMappingURL=local.startegy.js.map
+//# sourceMappingURL=local.strategy.js.map

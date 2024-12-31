@@ -1,12 +1,11 @@
 import { User } from '@app/common';
 import { CreateUserDto } from './dto/create-user.dto';
-import { GetUserDto } from './dto/get-user.dto';
 import { UsersRepository } from './users.repository';
+import { RolesRepository } from './roles.repository';
 export declare class UsersService {
     private readonly usersRepository;
-    constructor(usersRepository: UsersRepository);
+    private readonly roleRepository;
+    constructor(usersRepository: UsersRepository, roleRepository: RolesRepository);
     create(createUserDto: CreateUserDto): Promise<User>;
     private validateCreateUserDto;
-    verifyUser(email: string, password: string): Promise<User>;
-    getUser(getUserDto: GetUserDto): Promise<User>;
 }

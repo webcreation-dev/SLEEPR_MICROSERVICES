@@ -1,17 +1,18 @@
-import { Controller, Post, Res, UseGuards, Body, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Controller, Post, Res, UseGuards, Body, UsePipes, ValidationPipe, Get } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Response } from 'express';
 import { CurrentUser, User } from '@app/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
-import { CreateReservationDto } from './dto/create-reservation.dto';
+import { CreateUserDto } from './users/dto/create-user.dto';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
+
   @Post('login')
   async login(
     @CurrentUser() user: User,
@@ -21,38 +22,38 @@ export class AuthController {
     response.send(jwt);
   }
 
+  @Post('register')
+  async register(@Body() createUserDto: CreateUserDto) {
+    const user = await this.authService.register(createUserDto);
+    return user;
+  }
+
   @UseGuards(JwtAuthGuard)
   @MessagePattern('authenticate')
   async authenticate(@Payload() data: any) {
     return data.user;
+  }  
+
+  @Get('user')
+  @UseGuards(JwtAuthGuard)
+  async getUser(@CurrentUser() user: User) {
+    return user;
   }
 
-  
-  @Post('req_auth_to_payments')
-    async req_auth_to_payments() {
-      return this.authService.req_auth_to_payments();
-  }
+  // @Post('forgot_password')
+  // async forgotPassword(@Body() forgotPasswordDto: ForgotPasswordDto) {
+  //   return this.authService.forgotPassword(forgotPasswordDto);
+  // }
 
-  @Post('req_auth_to_reservations')
-  async req_auth_to_reservations() {
-    return this.authService.req_auth_to_reservations();
-  }
-  
-  @Post('req_auth_to_test')
-  async req_auth_to_test() {
-    return this.authService.req_auth_to_test();
-  }
+  // @Post('reset_password')
+  // async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
+  //   return this.authService.resetPassword(resetPasswordDto);
+  // }
 
-  @Post()
-  async create(
-    @Body() createReservationDto: CreateReservationDto,
-  ) {
-    return this.authService.create_payments(createReservationDto);
-  }
+  // @Post('verify_otp')
+  // async verifyOtp(@Body() saveUserDto: SaveUserDto) {
+  //   const token = await this.authService.verifyOtp(saveUserDto);
+  //   return { access_token: token };
+  // }
 
-  @MessagePattern('res_auth_from_microservices')
-  @UsePipes(new ValidationPipe())
-  async res_auth_from_microservices() {
-    return { success: true };
-  }
 }

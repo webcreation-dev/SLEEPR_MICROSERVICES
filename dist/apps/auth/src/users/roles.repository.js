@@ -8,33 +8,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __param = (this && this.__param) || function (paramIndex, decorator) {
+    return function (target, key) { decorator(target, key, paramIndex); }
+};
+var RolesRepository_1;
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersService = void 0;
+exports.RolesRepository = void 0;
 const common_1 = require("@nestjs/common");
 const common_2 = require("../../../../libs/common/src");
-const users_repository_1 = require("./users.repository");
-let UsersService = class UsersService {
-    constructor(usersRepository) {
-        this.usersRepository = usersRepository;
-    }
-    async create(createUserDto) {
-        await this.validateCreateUserDto(createUserDto);
-        const user = new common_2.User(createUserDto);
-        return this.usersRepository.create(user);
-    }
-    async validateCreateUserDto(createUserDto) {
-        try {
-            await this.usersRepository.findOne({ email: createUserDto.email });
-        }
-        catch (err) {
-            return;
-        }
-        throw new common_1.UnprocessableEntityException('Email already exists.');
+const typeorm_1 = require("@nestjs/typeorm");
+const typeorm_2 = require("typeorm");
+let RolesRepository = RolesRepository_1 = class RolesRepository extends common_2.AbstractRepository {
+    constructor(rolesRepository, entityManager) {
+        super(rolesRepository, entityManager);
+        this.logger = new common_1.Logger(RolesRepository_1.name);
     }
 };
-exports.UsersService = UsersService;
-exports.UsersService = UsersService = __decorate([
+exports.RolesRepository = RolesRepository;
+exports.RolesRepository = RolesRepository = RolesRepository_1 = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_repository_1.UsersRepository])
-], UsersService);
-//# sourceMappingURL=users.service.js.map
+    __param(0, (0, typeorm_1.InjectRepository)(common_2.Role)),
+    __metadata("design:paramtypes", [typeorm_2.Repository,
+        typeorm_2.EntityManager])
+], RolesRepository);
+//# sourceMappingURL=roles.repository.js.map

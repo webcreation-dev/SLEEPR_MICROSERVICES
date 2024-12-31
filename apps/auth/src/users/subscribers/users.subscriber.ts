@@ -1,5 +1,6 @@
 import { AppTypeEnum, HashingService, Role, RoleEnum, User } from '@app/common';
 import { NotFoundException } from '@nestjs/common';
+import { RolesRepository } from '../roles.repository';
 import {
   DataSource,
   EntitySubscriberInterface,
@@ -13,14 +14,13 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
   constructor(
     private readonly dataSource: DataSource,
     private readonly hashingService: HashingService,
+    private readonly rolesRepository: RolesRepository
   ) {
     dataSource.subscribers.push(this);
   }
 
   async beforeInsert(event: InsertEvent<User>) {
-    const { entity: user, manager } = event;
-
-    const roleRepository = manager.getRepository(Role);
+    const { entity: user } = event;
 
     let roleName: RoleEnum;
 
@@ -35,17 +35,15 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
         throw new NotFoundException(`Invalid user type: ${user.app_type}`);
     }
 
-    let role = await roleRepository.findOne({ where: { name: roleName } });
+    // await this.rolesRepository.create(new Role({ name: RoleEnum.USER}));
+    // await this.rolesRepository.create(new Role({ name: RoleEnum.MANAGER}));
 
-    if (!role) {
-      role = roleRepository.create({ name: roleName });
-      await roleRepository.save(role);
-    }
-
+    let role = await this.rolesRepository.findOne({ name: roleName });
     user.roles = [role];
 
     user.password = await this.hashingService.hash(user.password);
   }
+  
 
   async beforeUpdate(event: UpdateEvent<User>) {
     const { entity, databaseEntity: databaseUser } = event;

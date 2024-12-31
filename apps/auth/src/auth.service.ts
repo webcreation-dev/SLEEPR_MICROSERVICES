@@ -1,27 +1,27 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { PAYMENTS_SERVICE, RESERVATIONS_SERVICE, TEST_SERVICE, User } from '@app/common';
+import { HashingService, User } from '@app/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { TokenPayload } from './interfaces/token-payload.interface';
-import { ClientProxy } from '@nestjs/microservices';
-import { map } from 'rxjs';
-import { CreateReservationDto } from './dto/create-reservation.dto';
+import { UsersService } from './users/users.service';
+import { CreateUserDto } from './users/dto/create-user.dto';
+import { RequestUser } from './interfaces/request-user.interface';
+import { UsersRepository } from './users/users.repository';
+import { GetUserDto } from './users/dto/get-user.dto';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly configService: ConfigService,
     private readonly jwtService: JwtService,
-    @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
-    @Inject(RESERVATIONS_SERVICE) private readonly reservationsService: ClientProxy,
-    @Inject(TEST_SERVICE) private readonly testService: ClientProxy,
+    private readonly usersService: UsersService,
+    private readonly hashingService: HashingService,
+    private readonly usersRepository: UsersRepository,
   ) {}
 
   async login(user: User, response: Response) {
-    const tokenPayload: TokenPayload = {
-      userId: user.id,
-    };
+    const tokenPayload: TokenPayload = { userId: user.id };
 
     const expires = new Date();
     expires.setSeconds(
@@ -38,46 +38,47 @@ export class AuthService {
     return token;
   }
 
-  async req_auth_to_payments() {
-      return this.paymentsService
-        .send('res_payments_from_microservices', {})
-        .pipe(
-          map((res) => {
-            return "Connection successful payments from auth";
-          }),
-        );
+  async validateLocal(email: string, password: string) {
+    const user = await this.usersRepository.findOne({ email });
+    const isMatch = await this.hashingService.compare(password, user.password);
+    if (!isMatch) {
+      throw new UnauthorizedException('Invalid credentials');
     }
+    return this.createRequestUser(user);
+  }
 
-    async req_auth_to_test() {
-      return this.testService
-        .send('res_test_from_microservices', {})
-        .pipe(
-          map((res) => {
-            return "Connection successful test from auth";
-          }),
-        );
-    }
+  async validateJwt(getUserDto: GetUserDto) {
+    return this.usersRepository.findOne({ id: 1 }, { roles: true });
+  }
 
-  async req_auth_to_reservations() {
-      return this.reservationsService
-        .send('res_reservations_from_microservices', {})
-        .pipe(
-          map((res) => {
-            return "Connection successful reservations from auth";
-          }),
-        );
-    }
+  private createRequestUser(user: User) {
+    const { id, roles } = user;
+    const requestUser: RequestUser = { id, roles };
+    return requestUser;
+  }
+
+  async register(createUserDto: CreateUserDto) {
+    return this.usersService.create(createUserDto);
+  }
 
 
-    async create_payments(
-        createReservationDto: CreateReservationDto,
-      ) {
-        return this.testService
-          .send('test_create_charge', createReservationDto.charge)
-          .pipe(
-            map((res) => {
-              return {response: res};
-            }),
-          );
-      }
+  // async forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
+  //   const { phone } = forgotPasswordDto;
+  //   await this.otpService.sendOtp(phone);
+  //   return phone;
+  // }
+
+  // async resetPassword(resetPasswordDto: ResetPasswordDto) {
+  //   const { phone, otp, password } = resetPasswordDto;
+
+  //   // await this.otpService.verifyOtp(otp, phone);
+
+  //   const user = await this.usersRepository.findOne({ where: { phone } });
+  //   user.password = await this.hashingService.hash(password);
+  //   await this.usersRepository.save(user);
+
+  //   return user;
+  // }
+
+  
 }

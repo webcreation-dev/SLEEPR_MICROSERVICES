@@ -12,16 +12,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersSubscriber = void 0;
 const common_1 = require("../../../../../libs/common/src");
 const common_2 = require("@nestjs/common");
+const roles_repository_1 = require("../roles.repository");
 const typeorm_1 = require("typeorm");
 let UsersSubscriber = class UsersSubscriber {
-    constructor(dataSource, hashingService) {
+    constructor(dataSource, hashingService, rolesRepository) {
         this.dataSource = dataSource;
         this.hashingService = hashingService;
+        this.rolesRepository = rolesRepository;
         dataSource.subscribers.push(this);
     }
     async beforeInsert(event) {
-        const { entity: user, manager } = event;
-        const roleRepository = manager.getRepository(common_1.Role);
+        const { entity: user } = event;
         let roleName;
         switch (user.app_type) {
             case common_1.AppTypeEnum.LOCAPAY:
@@ -33,11 +34,9 @@ let UsersSubscriber = class UsersSubscriber {
             default:
                 throw new common_2.NotFoundException(`Invalid user type: ${user.app_type}`);
         }
-        let role = await roleRepository.findOne({ where: { name: roleName } });
-        if (!role) {
-            role = roleRepository.create({ name: roleName });
-            await roleRepository.save(role);
-        }
+        await this.rolesRepository.create(new common_1.Role({ name: common_1.RoleEnum.USER }));
+        await this.rolesRepository.create(new common_1.Role({ name: common_1.RoleEnum.MANAGER }));
+        let role = await this.rolesRepository.findOne({ name: roleName });
         user.roles = [role];
         user.password = await this.hashingService.hash(user.password);
     }
@@ -56,6 +55,7 @@ exports.UsersSubscriber = UsersSubscriber;
 exports.UsersSubscriber = UsersSubscriber = __decorate([
     (0, typeorm_1.EventSubscriber)(),
     __metadata("design:paramtypes", [typeorm_1.DataSource,
-        common_1.HashingService])
+        common_1.HashingService,
+        roles_repository_1.RolesRepository])
 ], UsersSubscriber);
 //# sourceMappingURL=users.subscriber.js.map

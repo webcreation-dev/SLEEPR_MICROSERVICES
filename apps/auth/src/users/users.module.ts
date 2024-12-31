@@ -4,6 +4,7 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 import { UsersRepository } from './users.repository';
 import { UsersSubscriber } from './subscribers/users.subscriber';
+import { RolesRepository } from './roles.repository';
 
 @Module({
   imports: [
@@ -12,7 +13,7 @@ import { UsersSubscriber } from './subscribers/users.subscriber';
     UsualModule,
   ],
   controllers: [UsersController],
-  providers: [UsersService, UsersRepository, UsersSubscriber],
-  exports: [UsersService],
+  providers: [UsersService, UsersRepository, UsersSubscriber, UsersRepository, RolesRepository],
+  exports: [UsersService, UsersRepository, RolesRepository],
 })
 export class UsersModule {}

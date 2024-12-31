@@ -1,21 +1,22 @@
 import { ConfigService } from '@nestjs/config';
-import { User } from '@app/common';
+import { HashingService, User } from '@app/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { ClientProxy } from '@nestjs/microservices';
-import { CreateReservationDto } from './dto/create-reservation.dto';
+import { UsersService } from './users/users.service';
+import { CreateUserDto } from './users/dto/create-user.dto';
+import { RequestUser } from './interfaces/request-user.interface';
+import { UsersRepository } from './users/users.repository';
+import { GetUserDto } from './users/dto/get-user.dto';
 export declare class AuthService {
     private readonly configService;
     private readonly jwtService;
-    private readonly paymentsService;
-    private readonly reservationsService;
-    private readonly testService;
-    constructor(configService: ConfigService, jwtService: JwtService, paymentsService: ClientProxy, reservationsService: ClientProxy, testService: ClientProxy);
+    private readonly usersService;
+    private readonly hashingService;
+    private readonly usersRepository;
+    constructor(configService: ConfigService, jwtService: JwtService, usersService: UsersService, hashingService: HashingService, usersRepository: UsersRepository);
     login(user: User, response: Response): Promise<string>;
-    req_auth_to_payments(): Promise<import("rxjs").Observable<string>>;
-    req_auth_to_test(): Promise<import("rxjs").Observable<string>>;
-    req_auth_to_reservations(): Promise<import("rxjs").Observable<string>>;
-    create_payments(createReservationDto: CreateReservationDto): Promise<import("rxjs").Observable<{
-        response: any;
-    }>>;
+    validateLocal(email: string, password: string): Promise<RequestUser>;
+    validateJwt(getUserDto: GetUserDto): Promise<User>;
+    private createRequestUser;
+    register(createUserDto: CreateUserDto): Promise<User>;
 }

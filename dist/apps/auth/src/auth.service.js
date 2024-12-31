@@ -8,29 +8,24 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AuthService = void 0;
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
 const common_2 = require("../../../libs/common/src");
 const jwt_1 = require("@nestjs/jwt");
-const microservices_1 = require("@nestjs/microservices");
-const rxjs_1 = require("rxjs");
+const users_service_1 = require("./users/users.service");
+const users_repository_1 = require("./users/users.repository");
 let AuthService = class AuthService {
-    constructor(configService, jwtService, paymentsService, reservationsService, testService) {
+    constructor(configService, jwtService, usersService, hashingService, usersRepository) {
         this.configService = configService;
         this.jwtService = jwtService;
-        this.paymentsService = paymentsService;
-        this.reservationsService = reservationsService;
-        this.testService = testService;
+        this.usersService = usersService;
+        this.hashingService = hashingService;
+        this.usersRepository = usersRepository;
     }
     async login(user, response) {
-        const tokenPayload = {
-            userId: user.id,
-        };
+        const tokenPayload = { userId: user.id };
         const expires = new Date();
         expires.setSeconds(expires.getSeconds() + this.configService.get('JWT_EXPIRATION'));
         const token = this.jwtService.sign(tokenPayload);
@@ -40,45 +35,33 @@ let AuthService = class AuthService {
         });
         return token;
     }
-    async req_auth_to_payments() {
-        return this.paymentsService
-            .send('res_payments_from_microservices', {})
-            .pipe((0, rxjs_1.map)((res) => {
-            return "Connection successful payments from auth";
-        }));
+    async validateLocal(email, password) {
+        const user = await this.usersRepository.findOne({ email });
+        const isMatch = await this.hashingService.compare(password, user.password);
+        if (!isMatch) {
+            throw new common_1.UnauthorizedException('Invalid credentials');
+        }
+        return this.createRequestUser(user);
     }
-    async req_auth_to_test() {
-        return this.testService
-            .send('res_test_from_microservices', {})
-            .pipe((0, rxjs_1.map)((res) => {
-            return "Connection successful test from auth";
-        }));
+    async validateJwt(getUserDto) {
+        return this.usersRepository.findOne({ id: 1 }, { roles: true });
     }
-    async req_auth_to_reservations() {
-        return this.reservationsService
-            .send('res_reservations_from_microservices', {})
-            .pipe((0, rxjs_1.map)((res) => {
-            return "Connection successful reservations from auth";
-        }));
+    createRequestUser(user) {
+        const { id, roles } = user;
+        const requestUser = { id, roles };
+        return requestUser;
     }
-    async create_payments(createReservationDto) {
-        return this.testService
-            .send('test_create_charge', createReservationDto.charge)
-            .pipe((0, rxjs_1.map)((res) => {
-            return { response: res };
-        }));
+    async register(createUserDto) {
+        return this.usersService.create(createUserDto);
     }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
     (0, common_1.Injectable)(),
-    __param(2, (0, common_1.Inject)(common_2.PAYMENTS_SERVICE)),
-    __param(3, (0, common_1.Inject)(common_2.RESERVATIONS_SERVICE)),
-    __param(4, (0, common_1.Inject)(common_2.TEST_SERVICE)),
     __metadata("design:paramtypes", [config_1.ConfigService,
         jwt_1.JwtService,
-        microservices_1.ClientProxy,
-        microservices_1.ClientProxy,
-        microservices_1.ClientProxy])
+        users_service_1.UsersService,
+        common_2.HashingService,
+        users_repository_1.UsersRepository])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map
