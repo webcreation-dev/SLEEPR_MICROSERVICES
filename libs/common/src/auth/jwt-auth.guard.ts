@@ -29,11 +29,13 @@ export class JwtAuthGuard implements CanActivate {
       context.switchToHttp().getRequest().cookies?.Authentication ||
       context.switchToHttp().getRequest().headers?.authentication;
 
+    // const jwt = context.switchToHttp().getRequest().headers?.authorization?.split(' ')[1];
+
+
     if (!jwt) {
       return false;
     }
 
-    // const roles = this.reflector.get<string[]>('roles', context.getHandler());
     const roles = this.reflector.get<RoleEnum[]>('roles', context.getHandler());
 
 

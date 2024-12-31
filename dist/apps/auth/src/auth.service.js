@@ -33,7 +33,6 @@ let AuthService = class AuthService {
             httpOnly: true,
             expires,
         });
-        return token;
     }
     async validateLocal(email, password) {
         const user = await this.usersRepository.findOne({ email });

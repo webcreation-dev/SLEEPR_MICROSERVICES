@@ -14,7 +14,7 @@ export declare class AuthService {
     private readonly hashingService;
     private readonly usersRepository;
     constructor(configService: ConfigService, jwtService: JwtService, usersService: UsersService, hashingService: HashingService, usersRepository: UsersRepository);
-    login(user: User, response: Response): Promise<string>;
+    login(user: User, response: Response): Promise<void>;
     validateLocal(email: string, password: string): Promise<RequestUser>;
     validateJwt(getUserDto: GetUserDto): Promise<User>;
     private createRequestUser;

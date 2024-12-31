@@ -35,7 +35,7 @@ export class AuthService {
       expires,
     });
 
-    return token;
+    // return {access_token: token};
   }
 
   async validateLocal(email: string, password: string) {

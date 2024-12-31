@@ -21,15 +21,13 @@ let UsersService = class UsersService {
         this.rolesRepository = rolesRepository;
     }
     async create(createUserDto) {
-    }
-    async validateCreateUserDto(createUserDto) {
-        try {
-            await this.usersRepository.findOne({ email: createUserDto.email });
-        }
-        catch (err) {
-            return;
-        }
-        throw new common_1.UnprocessableEntityException('Email already exists.');
+        await this.rolesRepository.create(new common_2.Role({ name: common_2.RoleEnum.USER }));
+        await this.rolesRepository.create(new common_2.Role({ name: common_2.RoleEnum.MANAGER }));
+        const user = new common_2.User({
+            ...createUserDto,
+            roles: [await this.rolesRepository.findOne({ name: await this.getRole(createUserDto.app_type) })],
+        });
+        return this.usersRepository.create(user);
     }
     async getRole($app_type) {
         switch ($app_type) {

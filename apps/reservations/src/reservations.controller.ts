@@ -30,7 +30,7 @@ export class ReservationsController {
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  @Roles(RoleEnum.USER)
+  @Roles(RoleEnum.MANAGER)
   async findAll() {
     return this.reservationsService.findAll();
   }
