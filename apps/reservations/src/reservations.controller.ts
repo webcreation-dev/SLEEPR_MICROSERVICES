@@ -19,11 +19,10 @@ import { ValidationPipe, UsePipes } from '@nestjs/common';
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
-  // @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard)
   @Post()
   async create(
     @Body() createReservationDto: CreateReservationDto,
-    // @CurrentUser() user: User,
   ) {
     return this.reservationsService.create(createReservationDto);
   }
