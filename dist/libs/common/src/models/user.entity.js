@@ -19,7 +19,7 @@ let User = class User extends database_1.AbstractEntity {
 };
 exports.User = User;
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([

@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UsersSubscriber = void 0;
 const common_1 = require("../../../../../libs/common/src");
-const common_2 = require("@nestjs/common");
 const roles_repository_1 = require("../roles.repository");
 const typeorm_1 = require("typeorm");
 let UsersSubscriber = class UsersSubscriber {
@@ -23,21 +22,6 @@ let UsersSubscriber = class UsersSubscriber {
     }
     async beforeInsert(event) {
         const { entity: user } = event;
-        let roleName;
-        switch (user.app_type) {
-            case common_1.AppTypeEnum.LOCAPAY:
-                roleName = common_1.RoleEnum.USER;
-                break;
-            case common_1.AppTypeEnum.LOCAPAY_BUSINESS:
-                roleName = common_1.RoleEnum.MANAGER;
-                break;
-            default:
-                throw new common_2.NotFoundException(`Invalid user type: ${user.app_type}`);
-        }
-        await this.rolesRepository.create(new common_1.Role({ name: common_1.RoleEnum.USER }));
-        await this.rolesRepository.create(new common_1.Role({ name: common_1.RoleEnum.MANAGER }));
-        let role = await this.rolesRepository.findOne({ name: roleName });
-        user.roles = [role];
         user.password = await this.hashingService.hash(user.password);
     }
     async beforeUpdate(event) {

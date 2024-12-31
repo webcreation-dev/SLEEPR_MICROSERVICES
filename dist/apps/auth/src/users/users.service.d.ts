@@ -4,8 +4,9 @@ import { UsersRepository } from './users.repository';
 import { RolesRepository } from './roles.repository';
 export declare class UsersService {
     private readonly usersRepository;
-    private readonly roleRepository;
-    constructor(usersRepository: UsersRepository, roleRepository: RolesRepository);
+    private readonly rolesRepository;
+    constructor(usersRepository: UsersRepository, rolesRepository: RolesRepository);
     create(createUserDto: CreateUserDto): Promise<User>;
     private validateCreateUserDto;
+    private getRole;
 }

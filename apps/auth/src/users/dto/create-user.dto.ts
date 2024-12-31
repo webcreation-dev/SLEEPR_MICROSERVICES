@@ -7,11 +7,12 @@ import {
   ValidateNested,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { AppTypeEnum } from '@app/common';
+import { AppTypeEnum, IsUnique, User } from '@app/common';
 import { IsEnum, IsNotEmpty } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
+  @IsUnique(User, 'email', { message: 'Email must be unique' })
   email: string;
 
   @IsStrongPassword()

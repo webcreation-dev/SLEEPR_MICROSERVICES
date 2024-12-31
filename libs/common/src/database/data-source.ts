@@ -14,4 +14,6 @@ const dataSource = new DataSource({
   migrations: ['dist/libs/common/src/database/migrations/*.js'],
 });
 
+dataSource.initialize();
+
 export default dataSource;

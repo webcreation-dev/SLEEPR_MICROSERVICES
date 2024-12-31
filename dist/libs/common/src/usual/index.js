@@ -16,4 +16,5 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 Object.defineProperty(exports, "__esModule", { value: true });
 __exportStar(require("./usual.module"), exports);
 __exportStar(require("./hashing/hashing.service"), exports);
+__exportStar(require("./decorators/validators/is-unique.decorator"), exports);
 //# sourceMappingURL=index.js.map

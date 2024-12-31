@@ -22,24 +22,8 @@ export class UsersSubscriber implements EntitySubscriberInterface<User> {
   async beforeInsert(event: InsertEvent<User>) {
     const { entity: user } = event;
 
-    let roleName: RoleEnum;
-
-    switch (user.app_type) {
-      case AppTypeEnum.LOCAPAY:
-        roleName = RoleEnum.USER;
-        break;
-      case AppTypeEnum.LOCAPAY_BUSINESS:
-        roleName = RoleEnum.MANAGER;
-        break;
-      default:
-        throw new NotFoundException(`Invalid user type: ${user.app_type}`);
-    }
-
     // await this.rolesRepository.create(new Role({ name: RoleEnum.USER}));
     // await this.rolesRepository.create(new Role({ name: RoleEnum.MANAGER}));
-
-    let role = await this.rolesRepository.findOne({ name: roleName });
-    user.roles = [role];
 
     user.password = await this.hashingService.hash(user.password);
   }

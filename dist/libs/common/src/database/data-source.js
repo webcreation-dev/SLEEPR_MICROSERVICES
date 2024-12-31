@@ -13,5 +13,6 @@ const dataSource = new typeorm_1.DataSource({
     ],
     migrations: ['dist/libs/common/src/database/migrations/*.js'],
 });
+dataSource.initialize();
 exports.default = dataSource;
 //# sourceMappingURL=data-source.js.map

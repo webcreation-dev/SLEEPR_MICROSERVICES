@@ -13,14 +13,14 @@ exports.UsersService = void 0;
 const common_1 = require("@nestjs/common");
 const common_2 = require("../../../../libs/common/src");
 const users_repository_1 = require("./users.repository");
+const roles_repository_1 = require("./roles.repository");
+const common_3 = require("@nestjs/common");
 let UsersService = class UsersService {
-    constructor(usersRepository) {
+    constructor(usersRepository, rolesRepository) {
         this.usersRepository = usersRepository;
+        this.rolesRepository = rolesRepository;
     }
     async create(createUserDto) {
-        await this.validateCreateUserDto(createUserDto);
-        const user = new common_2.User(createUserDto);
-        return this.usersRepository.create(user);
     }
     async validateCreateUserDto(createUserDto) {
         try {
@@ -31,10 +31,22 @@ let UsersService = class UsersService {
         }
         throw new common_1.UnprocessableEntityException('Email already exists.');
     }
+    async getRole($app_type) {
+        switch ($app_type) {
+            case common_2.AppTypeEnum.LOCAPAY:
+                return common_2.RoleEnum.USER;
+                break;
+            case common_2.AppTypeEnum.LOCAPAY_BUSINESS:
+                return common_2.RoleEnum.MANAGER;
+                break;
+            default:
+                throw new common_3.NotFoundException(`Invalid user type`);
+        }
+    }
 };
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_repository_1.UsersRepository])
+    __metadata("design:paramtypes", [users_repository_1.UsersRepository, roles_repository_1.RolesRepository])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

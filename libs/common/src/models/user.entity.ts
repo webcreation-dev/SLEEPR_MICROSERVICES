@@ -6,7 +6,7 @@ import { Exclude } from 'class-transformer';
 
 @Entity()
 export class User extends AbstractEntity<User> {
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @Exclude()
