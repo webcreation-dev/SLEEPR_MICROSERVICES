@@ -12,6 +12,7 @@ import { catchError, map, Observable, of, tap } from 'rxjs';
 import { AUTH_SERVICE } from '../constants/services';
 import { User } from '../models';
 import { RoleEnum } from '../enums';
+import { extractJwtFromRequest } from './extract-jwt-request';
 
 @Injectable()
 export class JwtAuthGuard implements CanActivate {
@@ -25,16 +26,17 @@ export class JwtAuthGuard implements CanActivate {
   canActivate(
     context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const jwt =
-      context.switchToHttp().getRequest().cookies?.Authentication ||
-      context.switchToHttp().getRequest().headers?.authentication;
+    const request = context.switchToHttp().getRequest();
+    const jwt = extractJwtFromRequest(request);
+
+    console.log('jwt auth');
+    console.log(jwt);
 
     if (!jwt) {
       return false;
     }
 
     const roles = this.reflector.get<RoleEnum[]>('roles', context.getHandler());
-
 
     return this.authClient
       .send<User>('authenticate', {
@@ -44,7 +46,9 @@ export class JwtAuthGuard implements CanActivate {
         tap((res) => {
           if (roles) {
             for (const role of roles) {
-              if (!res.roles?.map((role) => role.name as RoleEnum).includes(role)) {
+              if (
+                !res.roles?.map((role) => role.name as RoleEnum).includes(role)
+              ) {
                 this.logger.error('The user does not have valid roles.');
                 throw new UnauthorizedException();
               }

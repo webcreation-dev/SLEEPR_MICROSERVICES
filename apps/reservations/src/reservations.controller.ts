@@ -21,15 +21,13 @@ export class ReservationsController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  async create(
-    @Body() createReservationDto: CreateReservationDto,
-  ) {
+  async create(@Body() createReservationDto: CreateReservationDto) {
     return this.reservationsService.create(createReservationDto);
   }
 
   @Get()
   @UseGuards(JwtAuthGuard)
-  @Roles(RoleEnum.MANAGER)
+  @Roles(RoleEnum.USER)
   async findAll() {
     return this.reservationsService.findAll();
   }
@@ -57,12 +55,12 @@ export class ReservationsController {
   }
 
   @Post('req_reservations_to_payments')
-    async req_reservations_to_payments() {
-      return this.reservationsService.req_reservations_to_payments();
+  async req_reservations_to_payments() {
+    return this.reservationsService.req_reservations_to_payments();
   }
   @Post('req_reservations_to_notifications')
-    async req_reservations_to_notifications() {
-      return this.reservationsService.req_reservations_to_notifications();
+  async req_reservations_to_notifications() {
+    return this.reservationsService.req_reservations_to_notifications();
   }
 
   @Post('req_reservations_to_auth')

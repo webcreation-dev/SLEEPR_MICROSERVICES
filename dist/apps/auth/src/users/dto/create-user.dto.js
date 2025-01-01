@@ -18,9 +18,14 @@ class CreateUserDto {
 exports.CreateUserDto = CreateUserDto;
 __decorate([
     (0, class_validator_1.IsEmail)(),
-    (0, common_1.IsUnique)(common_1.User, 'email', { message: 'Email must be unique' }),
+    (0, common_1.IsUnique)(common_1.User, 'email', { message: 'Email already exists' }),
     __metadata("design:type", String)
 ], CreateUserDto.prototype, "email", void 0);
+__decorate([
+    (0, class_validator_2.IsPhoneNumber)('BJ'),
+    (0, common_1.IsUnique)(common_1.User, 'phone', { message: 'Phone already exists' }),
+    __metadata("design:type", String)
+], CreateUserDto.prototype, "phone", void 0);
 __decorate([
     (0, class_validator_1.IsStrongPassword)(),
     __metadata("design:type", String)

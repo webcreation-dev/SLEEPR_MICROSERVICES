@@ -1,4 +1,13 @@
-import { Controller, Post, Res, UseGuards, Body, UsePipes, ValidationPipe, Get } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Res,
+  UseGuards,
+  Body,
+  UsePipes,
+  ValidationPipe,
+  Get,
+} from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 import { Response } from 'express';
 import { CurrentUser, User } from '@app/common';
@@ -13,14 +22,12 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @UseGuards(LocalAuthGuard)
-
   @Post('login')
   async login(
     @CurrentUser() user: User,
-    @Res({ passthrough: true }) response: Response,
   ) {
-    const jwt = await this.authService.login(user, response);
-    response.send(jwt);
+    const jwt = await this.authService.login(user);
+    return {access_token : jwt};
   }
 
   @Post('register')
@@ -35,11 +42,11 @@ export class AuthController {
     return { subscribed: user };
   }
 
-  @UseGuards(JwtAuthGuard)
   @MessagePattern('authenticate')
   async authenticate(@Payload() data: any) {
-    return data.user;
-  }  
+    const user = await this.authService.validateToken(data.Authentication);
+    return user;
+  }
 
   @Get('user')
   @UseGuards(JwtAuthGuard)
@@ -56,5 +63,4 @@ export class AuthController {
   // async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
   //   return this.authService.resetPassword(resetPasswordDto);
   // }
-
 }

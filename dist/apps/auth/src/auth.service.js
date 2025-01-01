@@ -27,24 +27,20 @@ let AuthService = class AuthService {
         this.otpService = otpService;
         this.tempUserService = tempUserService;
     }
-    async login(user, response) {
+    async login(user) {
         const tokenPayload = { userId: user.id };
         const expires = new Date();
         expires.setSeconds(expires.getSeconds() + this.configService.get('JWT_EXPIRATION'));
-        const token = this.jwtService.sign(tokenPayload);
-        response.cookie('Authentication', token, {
-            httpOnly: true,
-            expires,
-        });
+        return this.jwtService.sign(tokenPayload);
     }
     async register(createUserDto) {
-        const { email } = createUserDto;
-        this.tempUserService.storeTempUser(email, createUserDto);
-        return email;
+        const { phone } = createUserDto;
+        this.tempUserService.storeTempUser(phone, createUserDto);
+        return phone;
     }
     async verifyOtp(saveUserDto) {
-        const { email, otp } = saveUserDto;
-        const tempUser = this.tempUserService.getTempUser(email);
+        const { phone, otp } = saveUserDto;
+        const tempUser = this.tempUserService.getTempUser(phone);
         if (!tempUser) {
             throw new common_1.UnauthorizedException('No registration process found for this phone number');
         }
@@ -60,12 +56,16 @@ let AuthService = class AuthService {
         return this.createRequestUser(user);
     }
     async validateJwt(getUserDto) {
-        return this.usersRepository.findOne({ id: 1 }, { roles: true });
+        return this.usersRepository.findOne(getUserDto, { roles: true });
     }
     createRequestUser(user) {
         const { id, roles } = user;
         const requestUser = { id, roles };
         return requestUser;
+    }
+    async validateToken(jwt) {
+        const payload = this.jwtService.verify(jwt);
+        return this.usersRepository.findOne({ id: payload.userId }, { roles: true });
     }
 };
 exports.AuthService = AuthService;

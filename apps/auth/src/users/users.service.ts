@@ -13,15 +13,21 @@ import { NotFoundException } from '@nestjs/common';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly usersRepository: UsersRepository, private readonly rolesRepository: RolesRepository) {}
+  constructor(
+    private readonly usersRepository: UsersRepository,
+    private readonly rolesRepository: RolesRepository,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
-
-    await this.rolesRepository.create(new Role({ name: RoleEnum.USER}));
-    await this.rolesRepository.create(new Role({ name: RoleEnum.MANAGER}));
+    await this.rolesRepository.create(new Role({ name: RoleEnum.USER }));
+    await this.rolesRepository.create(new Role({ name: RoleEnum.MANAGER }));
     const user = new User({
       ...createUserDto,
-      roles: [await this.rolesRepository.findOne({ name: await this.getRole(createUserDto.app_type) })],
+      roles: [
+        await this.rolesRepository.findOne({
+          name: await this.getRole(createUserDto.app_type),
+        }),
+      ],
     });
     return this.usersRepository.create(user);
   }

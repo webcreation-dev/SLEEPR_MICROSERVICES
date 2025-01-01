@@ -5,16 +5,16 @@ import { CreateUserDto } from '../dto/create-user.dto';
 export class TempUserService {
   private tempUsers: Map<string, CreateUserDto> = new Map();
 
-  storeTempUser(email: string, userDto: CreateUserDto) {
-    this.tempUsers.set(email, userDto);
+  storeTempUser(phone: string, userDto: CreateUserDto) {
+    this.tempUsers.set(phone, userDto);
   }
 
-  getTempUser(email: string): CreateUserDto | undefined {
-    return this.tempUsers.get(email);
+  getTempUser(phone: string): CreateUserDto | undefined {
+    return this.tempUsers.get(phone);
   }
 
-  removeTempUser(email: string) {
-    this.tempUsers.delete(email);
+  removeTempUser(phone: string) {
+    this.tempUsers.delete(phone);
   }
 
   clearAllTempUsers() {

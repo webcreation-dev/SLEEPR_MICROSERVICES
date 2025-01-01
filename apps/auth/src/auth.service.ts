@@ -24,7 +24,7 @@ export class AuthService {
     private readonly tempUserService: TempUserService,
   ) {}
 
-  async login(user: User, response: Response) {
+  async login(user: User) {
     const tokenPayload: TokenPayload = { userId: user.id };
 
     const expires = new Date();
@@ -32,36 +32,30 @@ export class AuthService {
       expires.getSeconds() + this.configService.get('JWT_EXPIRATION'),
     );
 
-    const token = this.jwtService.sign(tokenPayload);
-
-    response.cookie('Authentication', token, {
-      httpOnly: true,
-      expires,
-    });
-
+    return this.jwtService.sign(tokenPayload);
   }
 
   async register(createUserDto: CreateUserDto) {
-    const { email } = createUserDto;
+    const { phone } = createUserDto;
 
-    this.tempUserService.storeTempUser(email, createUserDto);
+    this.tempUserService.storeTempUser(phone, createUserDto);
 
     // await this.otpService.sendOtp(phone);
 
-    return email;
+    return phone;
   }
 
   async verifyOtp(saveUserDto: SaveUserDto) {
-    const { email, otp } = saveUserDto;
+    const { phone, otp } = saveUserDto;
 
-    const tempUser = this.tempUserService.getTempUser(email);
+    // await this.otpService.verifyOtp(otp, phone);
+
+    const tempUser = this.tempUserService.getTempUser(phone);
     if (!tempUser) {
       throw new UnauthorizedException(
         'No registration process found for this phone number',
       );
     }
-
-    // await this.otpService.verifyOtp(otp, phone);
 
     const user = await this.usersService.create(tempUser);
     return user;
@@ -77,7 +71,7 @@ export class AuthService {
   }
 
   async validateJwt(getUserDto: GetUserDto) {
-    return this.usersRepository.findOne({ id: 1 }, { roles: true });
+    return this.usersRepository.findOne(getUserDto, { roles: true });
   }
 
   private createRequestUser(user: User) {
@@ -86,6 +80,13 @@ export class AuthService {
     return requestUser;
   }
 
+  async validateToken(jwt: string) {
+    const payload: TokenPayload = this.jwtService.verify(jwt);
+    return this.usersRepository.findOne(
+      { id: payload.userId },
+      { roles: true },
+    );
+  }
 
   // async forgotPassword(forgotPasswordDto: ForgotPasswordDto) {
   //   const { phone } = forgotPasswordDto;
@@ -104,6 +105,4 @@ export class AuthService {
 
   //   return user;
   // }
-
-  
 }

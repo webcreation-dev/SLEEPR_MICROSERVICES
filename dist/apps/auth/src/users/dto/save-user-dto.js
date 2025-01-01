@@ -16,8 +16,7 @@ class SaveUserDto extends common_1.OtpDto {
 }
 exports.SaveUserDto = SaveUserDto;
 __decorate([
-    (0, class_validator_1.IsEmail)(),
-    (0, common_1.IsUnique)(common_1.User, 'email', { message: 'Email must be unique' }),
+    (0, class_validator_1.IsPhoneNumber)('BJ'),
     __metadata("design:type", String)
-], SaveUserDto.prototype, "email", void 0);
+], SaveUserDto.prototype, "phone", void 0);
 //# sourceMappingURL=save-user-dto.js.map

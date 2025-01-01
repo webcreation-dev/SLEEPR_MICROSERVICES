@@ -18,11 +18,7 @@ const auth_service_1 = require("../auth.service");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor(configService, authService) {
         super({
-            jwtFromRequest: passport_jwt_1.ExtractJwt.fromExtractors([
-                (request) => request?.cookies?.Authentication ||
-                    request?.Authentication ||
-                    request?.headers.Authentication,
-            ]),
+            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
             secretOrKey: configService.get('JWT_SECRET'),
         });
         this.authService = authService;

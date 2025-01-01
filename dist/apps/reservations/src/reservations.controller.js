@@ -64,7 +64,7 @@ __decorate([
 __decorate([
     (0, common_1.Get)(),
     (0, common_1.UseGuards)(common_2.JwtAuthGuard),
-    (0, common_2.Roles)(common_2.RoleEnum.MANAGER),
+    (0, common_2.Roles)(common_2.RoleEnum.USER),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)

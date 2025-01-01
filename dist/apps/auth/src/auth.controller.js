@@ -25,9 +25,9 @@ let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
     }
-    async login(user, response) {
-        const jwt = await this.authService.login(user, response);
-        response.send(jwt);
+    async login(user) {
+        const jwt = await this.authService.login(user);
+        return { access_token: jwt };
     }
     async register(createUserDto) {
         const email = await this.authService.register(createUserDto);
@@ -38,7 +38,8 @@ let AuthController = class AuthController {
         return { subscribed: user };
     }
     async authenticate(data) {
-        return data.user;
+        const user = await this.authService.validateToken(data.Authentication);
+        return user;
     }
     async getUser(user) {
         return user;
@@ -49,9 +50,8 @@ __decorate([
     (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
     (0, common_1.Post)('login'),
     __param(0, (0, common_2.CurrentUser)()),
-    __param(1, (0, common_1.Res)({ passthrough: true })),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [common_2.User, Object]),
+    __metadata("design:paramtypes", [common_2.User]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "login", null);
 __decorate([
@@ -69,7 +69,6 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "verifyOtp", null);
 __decorate([
-    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, microservices_1.MessagePattern)('authenticate'),
     __param(0, (0, microservices_1.Payload)()),
     __metadata("design:type", Function),

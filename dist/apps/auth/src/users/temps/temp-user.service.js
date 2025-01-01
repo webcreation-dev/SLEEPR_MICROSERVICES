@@ -12,14 +12,14 @@ let TempUserService = class TempUserService {
     constructor() {
         this.tempUsers = new Map();
     }
-    storeTempUser(email, userDto) {
-        this.tempUsers.set(email, userDto);
+    storeTempUser(phone, userDto) {
+        this.tempUsers.set(phone, userDto);
     }
-    getTempUser(email) {
-        return this.tempUsers.get(email);
+    getTempUser(phone) {
+        return this.tempUsers.get(phone);
     }
-    removeTempUser(email) {
-        this.tempUsers.delete(email);
+    removeTempUser(phone) {
+        this.tempUsers.delete(phone);
     }
     clearAllTempUsers() {
         this.tempUsers.clear();

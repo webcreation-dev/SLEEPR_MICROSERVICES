@@ -25,7 +25,11 @@ let UsersService = class UsersService {
         await this.rolesRepository.create(new common_2.Role({ name: common_2.RoleEnum.MANAGER }));
         const user = new common_2.User({
             ...createUserDto,
-            roles: [await this.rolesRepository.findOne({ name: await this.getRole(createUserDto.app_type) })],
+            roles: [
+                await this.rolesRepository.findOne({
+                    name: await this.getRole(createUserDto.app_type),
+                }),
+            ],
         });
         return this.usersRepository.create(user);
     }
@@ -45,6 +49,7 @@ let UsersService = class UsersService {
 exports.UsersService = UsersService;
 exports.UsersService = UsersService = __decorate([
     (0, common_1.Injectable)(),
-    __metadata("design:paramtypes", [users_repository_1.UsersRepository, roles_repository_1.RolesRepository])
+    __metadata("design:paramtypes", [users_repository_1.UsersRepository,
+        roles_repository_1.RolesRepository])
 ], UsersService);
 //# sourceMappingURL=users.service.js.map

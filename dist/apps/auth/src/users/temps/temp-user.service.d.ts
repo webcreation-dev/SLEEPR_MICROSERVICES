@@ -1,8 +1,8 @@
 import { CreateUserDto } from '../dto/create-user.dto';
 export declare class TempUserService {
     private tempUsers;
-    storeTempUser(email: string, userDto: CreateUserDto): void;
-    getTempUser(email: string): CreateUserDto | undefined;
-    removeTempUser(email: string): void;
+    storeTempUser(phone: string, userDto: CreateUserDto): void;
+    getTempUser(phone: string): CreateUserDto | undefined;
+    removeTempUser(phone: string): void;
     clearAllTempUsers(): void;
 }
