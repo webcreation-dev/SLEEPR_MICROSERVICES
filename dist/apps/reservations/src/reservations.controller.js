@@ -54,6 +54,7 @@ let ReservationsController = class ReservationsController {
 };
 exports.ReservationsController = ReservationsController;
 __decorate([
+    (0, common_1.UseGuards)(common_2.JwtAuthGuard),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),

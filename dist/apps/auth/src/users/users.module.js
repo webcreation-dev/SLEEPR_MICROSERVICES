@@ -14,6 +14,7 @@ const users_service_1 = require("./users.service");
 const users_repository_1 = require("./users.repository");
 const users_subscriber_1 = require("./subscribers/users.subscriber");
 const roles_repository_1 = require("./roles.repository");
+const temp_user_service_1 = require("./temps/temp-user.service");
 let UsersModule = class UsersModule {
 };
 exports.UsersModule = UsersModule;
@@ -25,8 +26,8 @@ exports.UsersModule = UsersModule = __decorate([
             common_2.UsualModule,
         ],
         controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService, users_repository_1.UsersRepository, users_subscriber_1.UsersSubscriber, users_repository_1.UsersRepository, roles_repository_1.RolesRepository],
-        exports: [users_service_1.UsersService, users_repository_1.UsersRepository, roles_repository_1.RolesRepository],
+        providers: [users_service_1.UsersService, temp_user_service_1.TempUserService, users_repository_1.UsersRepository, users_subscriber_1.UsersSubscriber, users_repository_1.UsersRepository, roles_repository_1.RolesRepository],
+        exports: [users_service_1.UsersService, users_repository_1.UsersRepository, temp_user_service_1.TempUserService, roles_repository_1.RolesRepository],
     })
 ], UsersModule);
 //# sourceMappingURL=users.module.js.map

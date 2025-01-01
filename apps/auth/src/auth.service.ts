@@ -1,6 +1,6 @@
 import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { HashingService, User } from '@app/common';
+import { HashingService, OtpService, User } from '@app/common';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
 import { TokenPayload } from './interfaces/token-payload.interface';
@@ -9,6 +9,8 @@ import { CreateUserDto } from './users/dto/create-user.dto';
 import { RequestUser } from './interfaces/request-user.interface';
 import { UsersRepository } from './users/users.repository';
 import { GetUserDto } from './users/dto/get-user.dto';
+import { TempUserService } from './users/temps/temp-user.service';
+import { SaveUserDto } from './users/dto/save-user-dto';
 
 @Injectable()
 export class AuthService {
@@ -18,6 +20,8 @@ export class AuthService {
     private readonly usersService: UsersService,
     private readonly hashingService: HashingService,
     private readonly usersRepository: UsersRepository,
+    private readonly otpService: OtpService,
+    private readonly tempUserService: TempUserService,
   ) {}
 
   async login(user: User, response: Response) {
@@ -37,6 +41,32 @@ export class AuthService {
 
   }
 
+  async register(createUserDto: CreateUserDto) {
+    const { email } = createUserDto;
+
+    this.tempUserService.storeTempUser(email, createUserDto);
+
+    // await this.otpService.sendOtp(phone);
+
+    return email;
+  }
+
+  async verifyOtp(saveUserDto: SaveUserDto) {
+    const { email, otp } = saveUserDto;
+
+    const tempUser = this.tempUserService.getTempUser(email);
+    if (!tempUser) {
+      throw new UnauthorizedException(
+        'No registration process found for this phone number',
+      );
+    }
+
+    // await this.otpService.verifyOtp(otp, phone);
+
+    const user = await this.usersService.create(tempUser);
+    return user;
+  }
+
   async validateLocal(email: string, password: string) {
     const user = await this.usersRepository.findOne({ email });
     const isMatch = await this.hashingService.compare(password, user.password);
@@ -54,10 +84,6 @@ export class AuthService {
     const { id, roles } = user;
     const requestUser: RequestUser = { id, roles };
     return requestUser;
-  }
-
-  async register(createUserDto: CreateUserDto) {
-    return this.usersService.create(createUserDto);
   }
 
 

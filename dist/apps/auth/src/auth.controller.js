@@ -20,6 +20,7 @@ const auth_service_1 = require("./auth.service");
 const jwt_auth_guard_1 = require("./guards/jwt-auth.guard");
 const local_auth_guard_1 = require("./guards/local-auth.guard");
 const create_user_dto_1 = require("./users/dto/create-user.dto");
+const save_user_dto_1 = require("./users/dto/save-user-dto");
 let AuthController = class AuthController {
     constructor(authService) {
         this.authService = authService;
@@ -29,8 +30,12 @@ let AuthController = class AuthController {
         response.send(jwt);
     }
     async register(createUserDto) {
-        const user = await this.authService.register(createUserDto);
-        return user;
+        const email = await this.authService.register(createUserDto);
+        return email;
+    }
+    async verifyOtp(saveUserDto) {
+        const user = await this.authService.verifyOtp(saveUserDto);
+        return { subscribed: user };
     }
     async authenticate(data) {
         return data.user;
@@ -56,6 +61,13 @@ __decorate([
     __metadata("design:paramtypes", [create_user_dto_1.CreateUserDto]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "register", null);
+__decorate([
+    (0, common_1.Post)('verify_otp'),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [save_user_dto_1.SaveUserDto]),
+    __metadata("design:returntype", Promise)
+], AuthController.prototype, "verifyOtp", null);
 __decorate([
     (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
     (0, microservices_1.MessagePattern)('authenticate'),

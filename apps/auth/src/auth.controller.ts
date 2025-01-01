@@ -6,6 +6,7 @@ import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { CreateUserDto } from './users/dto/create-user.dto';
+import { SaveUserDto } from './users/dto/save-user-dto';
 
 @Controller('auth')
 export class AuthController {
@@ -24,8 +25,14 @@ export class AuthController {
 
   @Post('register')
   async register(@Body() createUserDto: CreateUserDto) {
-    const user = await this.authService.register(createUserDto);
-    return user;
+    const email = await this.authService.register(createUserDto);
+    return email;
+  }
+
+  @Post('verify_otp')
+  async verifyOtp(@Body() saveUserDto: SaveUserDto) {
+    const user = await this.authService.verifyOtp(saveUserDto);
+    return { subscribed: user };
   }
 
   @UseGuards(JwtAuthGuard)
@@ -48,12 +55,6 @@ export class AuthController {
   // @Post('reset_password')
   // async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
   //   return this.authService.resetPassword(resetPasswordDto);
-  // }
-
-  // @Post('verify_otp')
-  // async verifyOtp(@Body() saveUserDto: SaveUserDto) {
-  //   const token = await this.authService.verifyOtp(saveUserDto);
-  //   return { access_token: token };
   // }
 
 }

@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { LoggerModule, PAYMENTS_SERVICE, RESERVATIONS_SERVICE, TEST_SERVICE, UsualModule } from '@app/common';
+import { LoggerModule, OtpModule, PAYMENTS_SERVICE, RESERVATIONS_SERVICE, TEST_SERVICE, UsualModule } from '@app/common';
 import { JwtModule } from '@nestjs/jwt';
 import * as Joi from 'joi';
 import { AuthController } from './auth.controller';
@@ -15,6 +15,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     UsersModule,
     UsualModule,
     LoggerModule,
+    OtpModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({

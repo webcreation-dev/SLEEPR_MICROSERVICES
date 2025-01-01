@@ -16,13 +16,16 @@ const common_2 = require("../../../libs/common/src");
 const jwt_1 = require("@nestjs/jwt");
 const users_service_1 = require("./users/users.service");
 const users_repository_1 = require("./users/users.repository");
+const temp_user_service_1 = require("./users/temps/temp-user.service");
 let AuthService = class AuthService {
-    constructor(configService, jwtService, usersService, hashingService, usersRepository) {
+    constructor(configService, jwtService, usersService, hashingService, usersRepository, otpService, tempUserService) {
         this.configService = configService;
         this.jwtService = jwtService;
         this.usersService = usersService;
         this.hashingService = hashingService;
         this.usersRepository = usersRepository;
+        this.otpService = otpService;
+        this.tempUserService = tempUserService;
     }
     async login(user, response) {
         const tokenPayload = { userId: user.id };
@@ -33,6 +36,20 @@ let AuthService = class AuthService {
             httpOnly: true,
             expires,
         });
+    }
+    async register(createUserDto) {
+        const { email } = createUserDto;
+        this.tempUserService.storeTempUser(email, createUserDto);
+        return email;
+    }
+    async verifyOtp(saveUserDto) {
+        const { email, otp } = saveUserDto;
+        const tempUser = this.tempUserService.getTempUser(email);
+        if (!tempUser) {
+            throw new common_1.UnauthorizedException('No registration process found for this phone number');
+        }
+        const user = await this.usersService.create(tempUser);
+        return user;
     }
     async validateLocal(email, password) {
         const user = await this.usersRepository.findOne({ email });
@@ -50,9 +67,6 @@ let AuthService = class AuthService {
         const requestUser = { id, roles };
         return requestUser;
     }
-    async register(createUserDto) {
-        return this.usersService.create(createUserDto);
-    }
 };
 exports.AuthService = AuthService;
 exports.AuthService = AuthService = __decorate([
@@ -61,6 +75,8 @@ exports.AuthService = AuthService = __decorate([
         jwt_1.JwtService,
         users_service_1.UsersService,
         common_2.HashingService,
-        users_repository_1.UsersRepository])
+        users_repository_1.UsersRepository,
+        common_2.OtpService,
+        temp_user_service_1.TempUserService])
 ], AuthService);
 //# sourceMappingURL=auth.service.js.map
