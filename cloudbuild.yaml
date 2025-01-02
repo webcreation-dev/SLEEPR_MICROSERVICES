@@ -26,6 +26,6 @@ steps:
         '.',
       ]
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-east4-docker.pkg.dev/sleepr-378423/auth/production']
+    args: ['push', 'us-east4-docker.pkg.dev/rugged-weaver-446607-j8/authentication/production']
 options:
   logging: CLOUD_LOGGING_ONLY
