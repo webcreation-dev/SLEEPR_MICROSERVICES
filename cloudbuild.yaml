@@ -1,36 +1,31 @@
 steps:
   # Reservations
-  - name: "gcr.io/cloud-builders/docker"
+  - name: 'gcr.io/cloud-builders/docker'
     args:
       [
-        "build",
-        "-t",
-        "us-east4-docker.pkg.dev/rugged-weaver-446607-j8/reservations/production",
-        "-f",
-        "apps/reservations/Dockerfile",
-        ".",
+        'build',
+        '-t',
+        'us-east4-docker.pkg.dev/rugged-weaver-446607-j8/reservations/production',
+        '-f',
+        'apps/reservations/Dockerfile',
+        '.',
       ]
-  - name: "gcr.io/cloud-builders/docker"
+  - name: 'gcr.io/cloud-builders/docker'
     args:
-      [
-        "push",
-        "us-east4-docker.pkg.dev/rugged-weaver-446607-j8/reservations/production",
-      ]
+      ['push', 'us-east4-docker.pkg.dev/rugged-weaver-446607-j8/reservations/production']
 
   # Auth
-  - name: "gcr.io/cloud-builders/docker"
+  - name: 'gcr.io/cloud-builders/docker'
     args:
       [
-        "build",
-        "-t",
-        "us-east4-docker.pkg.dev/rugged-weaver-446607-j8/authentication/production",
-        "-f",
-        "apps/auth/Dockerfile",
-        ".",
+        'build',
+        '-t',
+        'us-east4-docker.pkg.dev/rugged-weaver-446607-j8/authentication/production',
+        '-f',
+        'apps/auth/Dockerfile',
+        '.',
       ]
-  - name: "gcr.io/cloud-builders/docker"
-    args:
-      [
-        "push",
-        "us-east4-docker.pkg.dev/rugged-weaver-446607-j8/authentication/production",
-      ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'us-east4-docker.pkg.dev/sleepr-378423/auth/production']
+options:
+  logging: CLOUD_LOGGING_ONLY
