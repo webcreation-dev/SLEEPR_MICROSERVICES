@@ -6,7 +6,6 @@ import { ReservationsRepository } from './reservations.repository';
 import { ClientProxy } from '@nestjs/microservices';
 import { map } from 'rxjs';
 import { Reservation } from './models/reservation.entity';
-import { NotificationsService } from '../../notifications/src/notifications.service';
 
 @Injectable()
 export class ReservationsService {
