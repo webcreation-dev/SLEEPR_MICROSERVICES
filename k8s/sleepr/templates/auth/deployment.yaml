@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth
+  name: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+        - image: us-east4-docker.pkg.dev/rugged-weaver-446607-j8/authentication/production
+          name: auth
+          env:
+            - name: DATASOURCE_URL
+              value: 'postgresql://postgres:postgres@database:5432/postgres'
+            - name: JWT_SECRET
+              value: '9aee75d09aac8a128fe818b4354fe5c7d10407350af91f819d3b1e94510508ce6a9cb34de5f6ebee51b8345356cd37a6c35db2185d64bfd3806cb5e70a31bf998c44766141da5023f1034f6419e4e7a0c67ce25af13d58a20b4b7622f0b5b936df4378beef90ab5c5807cfd9f4859ab487e42480afa48adc11de0a446239d353fbf466de9107610dfff9711961646ed83c0f03552a89623d067916016b32c36b630b9ad5897c33a2632e5e0ab87cec312230f6df59b8f62ad4915a9859de297aedbb89b72722f26cafb4fec712c1fce58d124d4c544e7376ffaf1f079e868042adf083ad2ec93eb57affe73ff072dcbc4ab39ac95b3dd693dc4ffee447a5598a'
+            - name: JWT_EXPIRATION
+              value: "3600"
+            - name: TCP_PORT
+              value: "3002"
+            - name: HTTP_PORT
+              value: "3003"
+          ports:
+            - containerPort: 3002
+            - containerPort: 3003
