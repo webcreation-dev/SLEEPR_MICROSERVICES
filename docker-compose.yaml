@@ -1,18 +1,4 @@
 services:
-  auth:
-    build:
-      context: .
-      dockerfile: ./apps/auth/Dockerfile
-      target: development
-    command: pnpm run start:debug auth
-    env_file:
-      - ./apps/auth/.env
-    ports:
-      - '3001:3001'
-      - 9229:9229
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
   database:
     image: postgres
     restart: always

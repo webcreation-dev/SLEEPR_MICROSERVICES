@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "rugged-weaver-446607-j8",
+  "private_key_id": "26353054b95b428a04a5f49cfdffb87cc736ae5b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDEty1GxDriM3Vb\nrBzuLLmtKw0KVNsOEnrMlcYogr2vhAj9mhizIwQ//jB1D9VdFJIv6NVvDzgUCKqa\nnkzjK6ZaQwUVDaglLz4sLuZV9p+4faUsRIDONwEToUlirtRGBrXJvMyhYS2FlL3e\njYf/Tt1raJZGxoDUrhKy626MJ7ZLoUU4TU3RHOA9gqxHcj6KvTOkD3Le+ZN01eLH\nJy4n5LcfElLRT7u8H9aU77yigR9KtDk1xZUX6lxkCV95AGbcM73PMM6P65cVYTFN\nt/MQVgAzgzxGOwgKJXQRwifYCTaMHlPxaFvbZww3N4NneP73pVEkfZ/vHZJ8MIkF\n99lUcti5AgMBAAECggEAPHYMjXacno+wX3e8AJxwiT/1JxrDpUSax6y1FhhxErQj\nS0cElnKJyN1oqWIvcwdykxUeHJ9x3f536UQEX8I3xABbXIgxCRTHKC9WDk/Z8Yt0\nq/F2IWuYgh8Nfi48AjXnw9SqlGNY6Xi5DuEzTo4/0dZ4cdJrIHNMPf/Mn3lJN18U\n//btwVbUPg8CKYqkkR+GlCF4b1T410MoOVRsHW64Ity5jLyuEQTjpzSahTSx0I0v\nAcSFHhtL4JkWPzlf2NkDGqeELqZJABnmxx6jJzWn1z59+NBWHvf9dDp0WaBECBMg\ngaZ9iY1BgnnBc1CeSGH3TbIjxpN56Z7i+APloVZr3QKBgQDjw7w/V6hoITUvV66q\nqML6YJfbTCJ88LxGgFHBR4kaTjYyetotppSOOGgmBJjBjYErxKFCJd3FZDEtlXeG\nVfXTRGpeUFkUIpHpgZdJGp9X70BT+t/Uk9bktxq4Rs3A/JrAIND744BYjWSf/7sG\n15eN3reNoPIcwsIuSyUXeM+umwKBgQDdGhQam7YavO4g7Z5dLELY8gbEFV7YPQFU\ncEHam97W/alMGiOFJAh1hAoADd9UaE1t9+pfMGuafuktHnJA/x7ER3WvzfjgE3kw\nuuOETfsYZoveJgnQBaOXZW67p+XEEsJXJO3brbH4iZ2Pzb6inkCT73KaytSWNSgx\nSVudGaUBOwKBgQCLWDHwUtG+OyrNtwgucqcvBS+CxBaJd8LIIzNhW0Ge7WCtC4o1\nyaczR4E4WTGXoNn5DAhYbtA6Nmz75WjFsAuAYGfvIZsN/YRlZppG6Fm6M66YcnDE\nHlqnfPqE6RRyUFjg2HLi2DGqe36ngI5MxlN7QVns9R2KyQCB0Al2TbxJpwKBgBLa\nKmSqajiVa2h7WklvgLOmz1TgzZl6eiaM+9B8AeAq+Mh4Yhb0H5SFkaS3ihdUXWXH\nAcDkDAi8UX17XxqTpjfuL+axlUrl3it9g/DABWzrMXnbnHKUSIKcL3jos/qn7tIn\nX/CfOtGKSlj8ngiXncH/ZLI2ITI9jhPFwX3/tcYJAoGASoKeYukVYB+AXhRN4FYN\nMf7QmwoUEG+mlULvtR4xZbM/twWGUMX0xc7s4fYnfUpRHmqlb8WHILnYY87lIRmL\naRJB/icVOHMq4tYWfGOHDlrNnMtIFGL7hJ6wxHLepdaB8Br+fuhS5czWaF6x4Jcq\nGJF7fLs/rYB96a2H8/D150M=\n-----END PRIVATE KEY-----\n",
+  "client_email": "locapay-gc@rugged-weaver-446607-j8.iam.gserviceaccount.com",
+  "client_id": "116210421941034912012",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/locapay-gc%40rugged-weaver-446607-j8.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
