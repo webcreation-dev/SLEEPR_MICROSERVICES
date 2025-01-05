@@ -34,4 +34,6 @@ RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
 
+RUN chmod 755 /usr/src/app
+
 CMD ["node", "dist/apps/auth/main"]
