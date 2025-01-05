@@ -18,6 +18,8 @@ RUN cd apps/auth && pnpm install
 
 RUN pnpm build auth
 
+RUN ls -R /usr/src/app/dist
+
 FROM node:alpine as production
 
 ARG NODE_ENV=production
@@ -33,7 +35,5 @@ RUN npm install -g pnpm
 RUN pnpm install --prod
 
 COPY --from=development /usr/src/app/dist ./dist
-
-RUN chmod 755 /usr/src/app
 
 CMD ["node", "dist/apps/auth/main"]
