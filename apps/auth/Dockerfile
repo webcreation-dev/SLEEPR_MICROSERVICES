@@ -1,8 +1,9 @@
-FROM node:18 AS development
+FROM node:alpine As development
 
 WORKDIR /usr/src/app
 
-COPY package*.json ./
+COPY package.json ./
+COPY pnpm-lock.yaml ./
 
 RUN npm install -g pnpm
 
@@ -10,16 +11,23 @@ RUN pnpm install
 
 COPY . .
 
-RUN npm run build
+RUN pnpm run build
 
-FROM node:18 AS production
+
+FROM node:alpine As production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
 
 WORKDIR /usr/src/app
 
+COPY package.json ./
+COPY pnpm-lock.yaml ./
+
+RUN npm install -g pnpm
+
+RUN pnpm install --prod
+
 COPY --from=development /usr/src/app/dist ./dist
 
-COPY package*.json ./
-
-RUN npm install --production
-
-CMD ["node", "dist/apps/auth/main.js"]
+CMD [ "node", "dist/apps/auth/main" ]
