@@ -8,3 +8,4 @@ export * from './models';
 export * from './enums';
 export * from './usual';
 export * from './otp';
+export * from './health';

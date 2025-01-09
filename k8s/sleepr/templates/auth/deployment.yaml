@@ -23,13 +23,13 @@ spec:
             - name: DATASOURCE_PASSWORD
               value: 'postgres'
             - name: DATASOURCE_HOST
-              value: 'database'
+              value: '35.245.63.204'
             - name: DATASOURCE_PORT
               value: '5432'
             - name: DATASOURCE_DATABASE
               value: 'postgres'
             - name: DATASOURCE_URL
-              value: 'postgresql://postgres:postgres@database:5432/postgres'
+              value: 'postgresql://postgres:postgres@35.245.63.204/postgres'
             - name: OTP_API_URL
               value: 'https://api.getourvoice.com/v1/otp'
             - name: OTP_APP_ID
