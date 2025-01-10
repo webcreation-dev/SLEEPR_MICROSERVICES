@@ -4,9 +4,6 @@
     "declaration": false,
     "outDir": "../../dist/apps/reservations"
   },
-  "include": [
-    "src/**/*.ts",
-    "../../libs/common/src/**/*.ts"
-  ],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist", "test", "**/*spec.ts"]
 }
