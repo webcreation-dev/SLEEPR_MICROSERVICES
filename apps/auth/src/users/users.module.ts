@@ -14,7 +14,14 @@ import { TempUserService } from './temps/temp-user.service';
     UsualModule,
   ],
   controllers: [UsersController],
-  providers: [UsersService, TempUserService, UsersRepository, UsersSubscriber, UsersRepository, RolesRepository],
+  providers: [
+    UsersService,
+    TempUserService,
+    UsersRepository,
+    UsersSubscriber,
+    UsersRepository,
+    RolesRepository,
+  ],
   exports: [UsersService, UsersRepository, TempUserService, RolesRepository],
 })
 export class UsersModule {}
