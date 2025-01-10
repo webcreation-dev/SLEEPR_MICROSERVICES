@@ -23,11 +23,9 @@ export class AuthController {
 
   @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(
-    @CurrentUser() user: User,
-  ) {
+  async login(@CurrentUser() user: User) {
     const jwt = await this.authService.login(user);
-    return {access_token : jwt};
+    return { access_token: jwt };
   }
 
   @Post('register')
