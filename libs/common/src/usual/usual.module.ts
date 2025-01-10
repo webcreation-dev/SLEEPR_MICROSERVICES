@@ -7,7 +7,7 @@ import { ResponseFormatInterceptor } from './interceptors/sucess-response.interc
 import { NotFoundExceptionFilter } from '../database/exception-filters/not-found-exception/not-found-exception.filter';
 import { DatabaseExceptionFilter } from '../database/exception-filters/database-exception/database-exception.filter';
 import { HttpExceptionFilter } from '../database/exception-filters/http-exception/http-exception.filter';
-import { EntityMetadataExceptionFilter } from '../database/exception-filters/entity-metadata-exception/entity-metadata-exception.filter';
+// import { EntityMetadataExceptionFilter } from '../database/exception-filters/entity-metadata-exception/entity-metadata-exception.filter';
 
 @Module({
   imports: [],
@@ -36,10 +36,10 @@ import { EntityMetadataExceptionFilter } from '../database/exception-filters/ent
     //   provide: APP_FILTER,
     //   useClass: FilesExceptionFilter,
     // },
-    {
-      provide: APP_FILTER,
-      useClass: EntityMetadataExceptionFilter,
-    },
+    // {
+    //   provide: APP_FILTER,
+    //   useClass: EntityMetadataExceptionFilter,
+    // },
   ],
   exports: [HashingService],
 })

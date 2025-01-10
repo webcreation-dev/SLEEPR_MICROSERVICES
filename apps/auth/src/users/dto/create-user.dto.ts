@@ -12,11 +12,11 @@ import { IsEnum, IsNotEmpty, IsPhoneNumber } from 'class-validator';
 
 export class CreateUserDto {
   @IsEmail()
-  @IsUnique(User, 'email', { message: 'Email already exists' })
+  // @IsUnique(User, 'email', { message: 'Email already exists' })
   email: string;
 
   @IsPhoneNumber('BJ')
-  @IsUnique(User, 'phone', { message: 'Phone already exists' })
+  // @IsUnique(User, 'phone', { message: 'Phone already exists' })
   readonly phone: string;
 
   @IsStrongPassword()

@@ -14,8 +14,7 @@ export class GenericValidatorConstraint
 {
   async validate(value: any, args: ValidationArguments) {
     const [entityClass, property, validationType] = args.constraints;
-    const repository: Repository<any> =
-      dataSource.getRepository(entityClass);
+    const repository: Repository<any> = dataSource.getRepository(entityClass);
     const count = await repository.count({ where: { [property]: value } });
 
     if (validationType === 'exists') {

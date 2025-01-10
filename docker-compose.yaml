@@ -12,19 +12,6 @@ services:
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
-  reservations:
-    build:
-      context: .
-      dockerfile: ./apps/reservations/Dockerfile
-      target: development
-    command: pnpm run start:dev reservations
-    env_file:
-      - ./apps/reservations/.env
-    ports:
-      - '3000:3000'
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
   database:
     image: postgres
     restart: always
