@@ -25,7 +25,7 @@ export class ReservationsController {
     return this.reservationsService.create(createReservationDto);
   }
 
-  @Get()
+  @Get('all')
   @UseGuards(JwtAuthGuard)
   @Roles(RoleEnum.USER)
   async findAll() {

@@ -13,3 +13,10 @@ spec:
                 name: auth-http
                 port:
                   number: 3003
+          - path: /reservations/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: reservations
+                port:
+                  number: 3000

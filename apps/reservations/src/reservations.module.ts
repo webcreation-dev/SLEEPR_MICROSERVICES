@@ -8,6 +8,7 @@ import {
   AUTH_SERVICE,
   PAYMENTS_SERVICE,
   NOTIFICATIONS_SERVICE,
+  HealthModule,
 } from '@app/common';
 import { ReservationsRepository } from './reservations.repository';
 import { Reservation } from './models/reservation.entity';
@@ -18,6 +19,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   imports: [
     DatabaseModule,
     DatabaseModule.forFeature([Reservation]),
+    HealthModule,
     LoggerModule,
     ConfigModule.forRoot({
       isGlobal: true,
