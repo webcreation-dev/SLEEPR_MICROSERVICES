@@ -40,7 +40,7 @@ export class AuthService {
 
     this.tempUserService.storeTempUser(phone, createUserDto);
 
-    await this.otpService.sendOtp(phone);
+    // await this.otpService.sendOtp(phone);
 
     return phone;
   }
@@ -48,7 +48,7 @@ export class AuthService {
   async verifyOtp(saveUserDto: SaveUserDto) {
     const { phone, otp } = saveUserDto;
 
-    await this.otpService.verifyOtp(otp, phone);
+    // await this.otpService.verifyOtp(otp, phone);
 
     const tempUser = this.tempUserService.getTempUser(phone);
     if (!tempUser) {
