@@ -1,7 +1,7 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class DatabaseMigrations1735753783409 implements MigrationInterface {
-    name = 'DatabaseMigrations1735753783409'
+export class New1737023922032 implements MigrationInterface {
+    name = 'New1737023922032'
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
@@ -30,14 +30,14 @@ export class DatabaseMigrations1735753783409 implements MigrationInterface {
             )
         `);
         await queryRunner.query(`
-            CREATE TABLE "reservation" (
+            CREATE TABLE "property" (
                 "id" SERIAL NOT NULL,
                 "timestamp" TIMESTAMP NOT NULL,
                 "startDate" TIMESTAMP NOT NULL,
                 "endDate" TIMESTAMP NOT NULL,
                 "userId" integer NOT NULL,
                 "invoiceId" character varying NOT NULL,
-                CONSTRAINT "PK_48b1f9922368359ab88e8bfa525" PRIMARY KEY ("id")
+                CONSTRAINT "PK_d80743e6191258a5003d5843b4f" PRIMARY KEY ("id")
             )
         `);
         await queryRunner.query(`
@@ -80,7 +80,7 @@ export class DatabaseMigrations1735753783409 implements MigrationInterface {
             DROP TABLE "user_roles_role"
         `);
         await queryRunner.query(`
-            DROP TABLE "reservation"
+            DROP TABLE "property"
         `);
         await queryRunner.query(`
             DROP TABLE "user"

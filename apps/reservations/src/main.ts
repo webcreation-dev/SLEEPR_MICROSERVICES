@@ -8,6 +8,7 @@ import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(ReservationsModule);
+  
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));
   app.use(cookieParser())
   const configService = app.get(ConfigService);

@@ -1,14 +1,14 @@
 services:
-  reservations:
+  properties:
     build:
       context: .
-      dockerfile: ./apps/reservations/Dockerfile
+      dockerfile: ./apps/properties/Dockerfile
       target: development
-    command: pnpm run start:dev reservations
+    command: pnpm run start:dev properties
     env_file:
-      - ./apps/reservations/.env
+      - ./apps/properties/.env
     ports:
-      - '3000:3000'
+      - '3006:3006'
     volumes:
       - .:/usr/src/app
       - /usr/src/app/node_modules
