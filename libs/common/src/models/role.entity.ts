@@ -5,10 +5,9 @@ import { User } from './user.entity';
 
 @Entity()
 export class Role extends AbstractEntity<Role> {
-
   @Column({
     type: 'enum',
-    enum: RoleEnum, 
+    enum: RoleEnum,
     enumName: 'role_enum',
   })
   name: RoleEnum;
