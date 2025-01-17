@@ -1,5 +1,10 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { AUTH_SERVICE, NOTIFICATIONS_SERVICE, PAYMENTS_SERVICE, User } from '@app/common';
+import {
+  AUTH_SERVICE,
+  NOTIFICATIONS_SERVICE,
+  PAYMENTS_SERVICE,
+  User,
+} from '@app/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { ReservationsRepository } from './reservations.repository';
@@ -13,8 +18,8 @@ export class ReservationsService {
     private readonly reservationsRepository: ReservationsRepository,
     @Inject(PAYMENTS_SERVICE) private readonly paymentsService: ClientProxy,
     @Inject(AUTH_SERVICE) private readonly authService: ClientProxy,
-    @Inject(NOTIFICATIONS_SERVICE) private readonly notificationsService: ClientProxy,
-
+    @Inject(NOTIFICATIONS_SERVICE)
+    private readonly notificationsService: ClientProxy,
   ) {}
 
   async req_reservations_to_payments() {
@@ -22,7 +27,7 @@ export class ReservationsService {
       .send('res_payments_from_microservices', {})
       .pipe(
         map((res) => {
-          return "Connection successful payments from reservations";
+          return 'Connection successful payments from reservations';
         }),
       );
   }
@@ -42,7 +47,7 @@ export class ReservationsService {
           //   userId: 1
           // });
           // return this.reservationsRepository.create(reservation);
-          return {success: true};
+          return { success: true };
         }),
       );
   }
@@ -67,13 +72,11 @@ export class ReservationsService {
   }
 
   async req_reservations_to_auth() {
-    return this.authService
-      .send('res_auth_from_microservices', {})
-      .pipe(
-        map((res) => {
-          return "Connection successful auth from reservations";
-        }),
-      );
+    return this.authService.send('res_auth_from_microservices', {}).pipe(
+      map((res) => {
+        return 'Connection successful auth from reservations';
+      }),
+    );
   }
 
   async req_reservations_to_notifications() {
@@ -81,7 +84,7 @@ export class ReservationsService {
       .send('res_notifications_from_microservices', {})
       .pipe(
         map((res) => {
-          return "Connection successful auth from notifications";
+          return 'Connection successful auth from notifications';
         }),
       );
   }

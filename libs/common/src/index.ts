@@ -9,3 +9,5 @@ export * from './enums';
 export * from './usual';
 export * from './otp';
 export * from './health';
+export * from './files';
+export * from './querying';

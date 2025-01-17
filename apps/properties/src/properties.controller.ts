@@ -1,23 +1,27 @@
-import { Body, Controller, Get, Post, UploadedFiles } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  UploadedFiles,
+  UseInterceptors,
+} from '@nestjs/common';
 import { PropertiesService } from './properties.service';
-import { MultipartFormData } from '@app/common/files/decorators/multipart.decorator';
 import { CreatePropertyDto } from './dto/create-property.dto';
-import { MaxFileCount } from '@app/common/files/utils/file.constant';
-import { createParseFilePipe } from '@app/common/files/utils/file-validation.util';
+import { FilesInterceptor } from '@nestjs/platform-express';
+import { createParseFilePipe, File, MaxFileCount } from '@app/common';
 
 @Controller()
 export class PropertiesController {
   constructor(private readonly propertiesService: PropertiesService) {}
 
+  @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
   @Post()
-  @MultipartFormData(CreatePropertyDto, MaxFileCount.PROPERTY_IMAGES)
-  create(
+  uploadImages(
     @Body() createPropertyDto: CreatePropertyDto,
     @UploadedFiles(createParseFilePipe('2MB', 'png', 'jpeg'))
-    files: Express.Multer.File[],
+    files: File[],
   ) {
-    console.log(files, createPropertyDto);
-    // return this.propertiesService.create(createPropertyDto, files, user);
+    return this.propertiesService.create(createPropertyDto, files);
   }
 
   // @Public()

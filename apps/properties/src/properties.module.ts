@@ -1,10 +1,19 @@
 import { Module } from '@nestjs/common';
 import { PropertiesController } from './properties.controller';
 import { PropertiesService } from './properties.service';
-import { DatabaseModule, HealthModule, LoggerModule } from '@app/common';
+import {
+  DatabaseModule,
+  FilesModule,
+  HealthModule,
+  LoggerModule,
+  QueryingModule,
+} from '@app/common';
 import { Property } from './models/property.entity';
 import { ConfigModule } from '@nestjs/config';
 import * as Joi from 'joi';
+import { PropertiesRepository } from './properties.repository';
+import { GalleriesRepository } from './galleries.repository';
+import { GalleriesModule } from './galleries.module';
 
 @Module({
   imports: [
@@ -12,6 +21,9 @@ import * as Joi from 'joi';
     DatabaseModule.forFeature([Property]),
     HealthModule,
     LoggerModule,
+    FilesModule,
+    QueryingModule,
+    GalleriesModule,
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
@@ -20,6 +32,6 @@ import * as Joi from 'joi';
     }),
   ],
   controllers: [PropertiesController],
-  providers: [PropertiesService],
+  providers: [PropertiesService, PropertiesRepository],
 })
 export class PropertiesModule {}

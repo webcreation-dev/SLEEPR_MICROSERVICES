@@ -5,20 +5,19 @@ import {
   IsNotEmptyObject,
   ValidateNested,
 } from 'class-validator';
-import { CreateChargeDto } from '@app/common';
 
 export class CreatePropertyDto {
   @IsDate()
   @Type(() => Date)
   startDate: Date;
 
-  @IsDate()
-  @Type(() => Date)
-  endDate: Date;
+  // @IsDate()
+  // @Type(() => Date)
+  // endDate: Date;
 
-  @IsDefined()
-  @IsNotEmptyObject()
-  @ValidateNested()
-  @Type(() => CreateChargeDto)
-  charge: CreateChargeDto;
+  // @IsDefined()
+  // @IsNotEmptyObject()
+  // @ValidateNested()
+  // @Type(() => CreateChargeDto)
+  // charge: CreateChargeDto;
 }
