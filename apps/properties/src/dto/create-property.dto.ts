@@ -1,10 +1,5 @@
 import { Type } from 'class-transformer';
-import {
-  IsDate,
-  IsDefined,
-  IsNotEmptyObject,
-  ValidateNested,
-} from 'class-validator';
+import { IsDate } from 'class-validator';
 
 export class CreatePropertyDto {
   @IsDate()

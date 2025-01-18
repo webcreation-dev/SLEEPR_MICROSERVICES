@@ -8,7 +8,7 @@ const dataSource = new DataSource({
   type: 'postgres',
   url: process.env.DATASOURCE_URL,
   entities: [
-    // 'dist/libs/common/src/models/*.entity.js',
+    'dist/libs/common/src/models/*.entity.js',
     'dist/apps/properties/src/models/*.entity.js',
   ],
   migrations: ['dist/libs/common/src/database/migrations/*.js'],

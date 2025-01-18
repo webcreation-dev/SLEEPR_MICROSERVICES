@@ -15,6 +15,7 @@ import { GalleriesRepository } from './galleries.repository';
 import { CreatePropertyDto } from './dto/create-property.dto';
 import { Property } from './models/property.entity';
 import { Gallery } from './models/gallery.entity';
+import { UpdatePropertyDto } from './dto/update-property.dto';
 
 @Injectable()
 export class PropertiesService {
@@ -33,7 +34,7 @@ export class PropertiesService {
     );
 
     // 2. Sauvegarder les fichiers dans un dossier
-    const savedPaths = await this.uploadImages(files);
+    const savedPaths = await this.uploadImages(property.id, files);
 
     // 3. Créer et sauvegarder chaque galerie
     for (const path of savedPaths) {
@@ -51,9 +52,61 @@ export class PropertiesService {
     );
   }
 
-  async uploadImages(files: File[]) {
+  async findOne(id: number) {
+    return this.propertiesRepository.findOne({ id }, { galleries: true });
+  }
+
+  async update(id: number, updatePropertyDto: UpdatePropertyDto) {
+    return this.propertiesRepository.findOneAndUpdate(
+      { id },
+      updatePropertyDto,
+    );
+  }
+
+  async remove(id: number) {
+    await this.propertiesRepository.findOneAndDelete({ id });
+    await this.deleteBaseDir(id);
+  }
+
+  async addImages(id: number, files: File[]) {
+    const property = await this.findOne(id);
+
+    const savedPaths = await this.uploadImages(property.id, files);
+
+    // 3. Créer et sauvegarder chaque galerie
+    for (const path of savedPaths) {
+      const gallery = new Gallery({
+        url: path,
+        property, // Associer chaque galerie à la propriété créée
+      });
+      await this.galleriesRepository.create(gallery);
+    }
+
+    return this.findOne(id);
+  }
+
+  async deleteImages(id: number, filenames: string[]) {
+    await this.findOne(id);
+
     const { BASE, IMAGES } = FilePath.Products;
-    const path = join(BASE, IMAGES);
+
+    const deleteOperations = filenames.map(async (filename) => {
+      const path = join(BASE, id.toString(), IMAGES, filename);
+
+      console.log(path);
+
+      await this.storageService.validatePath(path);
+
+      await this.storageService.delete(path);
+      await this.galleriesRepository.findOneAndDelete({ url: filename });
+    });
+
+    await Promise.all(deleteOperations);
+  }
+
+  async uploadImages(id: number, files: File[]) {
+    const { BASE, IMAGES } = FilePath.Products;
+    const path = join(BASE, id.toString(), IMAGES);
 
     if (await pathExists(join(BASE_PATH, path))) {
       const incomingFilecount = files.length;
@@ -76,5 +129,12 @@ export class PropertiesService {
     );
 
     return savedPaths;
+  }
+
+  private async deleteBaseDir(id: number) {
+    const { BASE } = FilePath.Products;
+
+    const path = join(BASE, id.toString());
+    await this.storageService.delete(path);
   }
 }
