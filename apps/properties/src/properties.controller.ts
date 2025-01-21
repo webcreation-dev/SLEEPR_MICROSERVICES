@@ -20,11 +20,12 @@ import {
   IdDto,
   JwtAuthGuard,
   MaxFileCount,
+  CurrentUser,
   RoleEnum,
   Roles,
+  User,
 } from '@app/common';
 import { UpdatePropertyDto } from './dto/update-property.dto';
-import { IdFilenameDto } from '@app/common/files/dto/id-filename.dto';
 import { FilenamesDto } from '@app/common/files/dto/filenames.dto';
 
 @Controller()
@@ -32,13 +33,21 @@ export class PropertiesController {
   constructor(private readonly propertiesService: PropertiesService) {}
 
   @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createPropertyDto: CreatePropertyDto,
+
     @UploadedFiles(createParseFilePipe('2MB', 'png', 'jpeg'))
     files: File[],
+
+    @CurrentUser()
+    user: User,
   ) {
-    return this.propertiesService.create(createPropertyDto, files);
+    // console.log(user);
+
+    // return this.propertiesService.create(createPropertyDto, files, user);
+    return this.propertiesService.create(createPropertyDto, files, user);
   }
 
   @Get(':id')

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { PropertiesController } from './properties.controller';
 import { PropertiesService } from './properties.service';
 import {
+  AUTH_SERVICE,
   DatabaseModule,
   FilesModule,
   HealthModule,
@@ -9,12 +10,13 @@ import {
   QueryingModule,
 } from '@app/common';
 import { Property } from './models/property.entity';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import * as Joi from 'joi';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { PropertiesRepository } from './properties.repository';
 import { GalleriesModule } from './galleries.module';
 import { join } from 'path';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -29,6 +31,8 @@ import { join } from 'path';
       isGlobal: true,
       validationSchema: Joi.object({
         HTTP_PORT: Joi.number().required(),
+        AUTH_PORT: Joi.number().required(),
+        AUTH_HOST: Joi.string().required(),
       }),
     }),
     ServeStaticModule.forRoot({
@@ -42,6 +46,19 @@ import { join } from 'path';
       ), // Répertoire physique
       serveRoot: '/upload', // Chemin public pour accéder aux fichiers
     }),
+    ClientsModule.registerAsync([
+      {
+        name: AUTH_SERVICE,
+        useFactory: (configService: ConfigService) => ({
+          transport: Transport.TCP,
+          options: {
+            host: configService.get('AUTH_HOST'),
+            port: configService.get('AUTH_PORT'),
+          },
+        }),
+        inject: [ConfigService],
+      },
+    ]),
   ],
   controllers: [PropertiesController],
   providers: [PropertiesService, PropertiesRepository],

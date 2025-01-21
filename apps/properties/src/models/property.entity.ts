@@ -107,6 +107,9 @@ export class Property extends AbstractEntity<Property> {
   @Column()
   startDate: Date;
 
+  @Column()
+  userId: number;
+
   @OneToMany(() => Gallery, (gallery) => gallery.property, { cascade: true })
   galleries: Gallery[];
 }

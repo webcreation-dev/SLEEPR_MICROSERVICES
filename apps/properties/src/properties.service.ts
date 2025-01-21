@@ -6,6 +6,7 @@ import {
   MaxFileCount,
   PaginationService,
   StorageService,
+  User,
 } from '@app/common';
 import { Injectable } from '@nestjs/common';
 import { PropertiesRepository } from './properties.repository';
@@ -27,10 +28,17 @@ export class PropertiesService {
     private readonly filteringService: FilteringService,
   ) {}
 
-  async create(createPropertyDto: CreatePropertyDto, files: File[]) {
+  async create(
+    createPropertyDto: CreatePropertyDto,
+    files: File[],
+    { id }: User,
+  ) {
     // 1. Sauvegarder la propriété en utilisant PropertyRepository
     const property = await this.propertiesRepository.create(
-      new Property(createPropertyDto),
+      new Property({
+        ...createPropertyDto,
+        userId: id,
+      }),
     );
 
     // 2. Sauvegarder les fichiers dans un dossier
@@ -40,7 +48,7 @@ export class PropertiesService {
     for (const path of savedPaths) {
       const gallery = new Gallery({
         url: path,
-        property, // Associer chaque galerie à la propriété créée
+        property,
       });
       await this.galleriesRepository.create(gallery);
     }

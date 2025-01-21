@@ -23,6 +23,9 @@ export class User extends AbstractEntity<User> {
   })
   app_type: AppTypeEnum;
 
+  @Column('int', { array: true, default: '{}' })
+  wishlistedProperties: number[];
+
   @ManyToMany(() => Role, { cascade: true })
   @JoinTable()
   roles: Role[];
