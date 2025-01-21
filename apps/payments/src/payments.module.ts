@@ -27,7 +27,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
           transport: Transport.TCP,
           options: {
             host: configService.get('NOTIFICATIONS_HOST'),
-            port:  configService.get('NOTIFICATIONS_PORT'),
+            port: configService.get('NOTIFICATIONS_PORT'),
           },
         }),
         inject: [ConfigService],
@@ -43,7 +43,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         }),
         inject: [ConfigService],
       },
-    ])
+    ]),
   ],
   controllers: [PaymentsController],
   providers: [PaymentsService],

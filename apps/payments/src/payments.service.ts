@@ -17,9 +17,11 @@ export class PaymentsService {
 
   constructor(
     private readonly configService: ConfigService,
-    @Inject(NOTIFICATIONS_SERVICE) private readonly notificationsService: ClientProxy,
+    @Inject(NOTIFICATIONS_SERVICE)
+    private readonly notificationsService: ClientProxy,
     @Inject('AUTH_SERVICE') private readonly authService: ClientProxy,
-    @Inject('RESERVATIONS_SERVICE') private readonly reservationsService: ClientProxy,
+    @Inject('RESERVATIONS_SERVICE')
+    private readonly reservationsService: ClientProxy,
   ) {}
 
   async createCharge({ amount }: CreateChargeDto) {

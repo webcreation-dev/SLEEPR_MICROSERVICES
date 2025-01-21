@@ -10,6 +10,8 @@ import {
   UploadedFiles,
   UseGuards,
   UseInterceptors,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { PropertiesService } from './properties.service';
 import { CreatePropertyDto } from './dto/create-property.dto';
@@ -27,6 +29,7 @@ import {
 } from '@app/common';
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { FilenamesDto } from '@app/common/files/dto/filenames.dto';
+import { MessagePattern, Payload } from '@nestjs/microservices';
 
 @Controller()
 export class PropertiesController {
@@ -44,9 +47,6 @@ export class PropertiesController {
     @CurrentUser()
     user: User,
   ) {
-    // console.log(user);
-
-    // return this.propertiesService.create(createPropertyDto, files, user);
     return this.propertiesService.create(createPropertyDto, files, user);
   }
 
@@ -80,5 +80,22 @@ export class PropertiesController {
     @Body() { filenames }: FilenamesDto,
   ) {
     return this.propertiesService.deleteImages(id, filenames);
+  }
+
+  @MessagePattern('get_properties')
+  async getPropertiesByIds(@Payload() data: { propertyIds: number[] }) {
+    const properties = await this.propertiesService.findMany(data.propertyIds);
+    console.log('Properties retrieved:', properties);
+    return properties;
+  }
+
+  @MessagePattern('res_properties_from_microservices')
+  @UsePipes(new ValidationPipe())
+  async res_properties_from_microservices(
+    @Payload() data: { propertyIds: number[] },
+  ) {
+    const properties = await this.propertiesService.findMany(data.propertyIds);
+
+    return properties;
   }
 }

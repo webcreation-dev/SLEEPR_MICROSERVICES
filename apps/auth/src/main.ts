@@ -14,7 +14,7 @@ async function bootstrap() {
     options: {
       host: '0.0.0.0',
       port: configService.get('TCP_PORT'),
-    }
+    },
   });
   app.use(cookieParser());
   app.useGlobalPipes(new ValidationPipe({ whitelist: true }));

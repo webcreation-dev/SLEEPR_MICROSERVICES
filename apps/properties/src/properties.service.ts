@@ -64,6 +64,10 @@ export class PropertiesService {
     return this.propertiesRepository.findOne({ id }, { galleries: true });
   }
 
+  async findMany(ids: number[]) {
+    return Promise.all(ids.map((id) => this.findOne(id)));
+  }
+
   async update(id: number, updatePropertyDto: UpdatePropertyDto) {
     return this.propertiesRepository.findOneAndUpdate(
       { id },

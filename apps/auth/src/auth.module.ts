@@ -5,7 +5,6 @@ import {
   OtpModule,
   PAYMENTS_SERVICE,
   RESERVATIONS_SERVICE,
-  TEST_SERVICE,
   UsualModule,
 } from '@app/common';
 import { JwtModule } from '@nestjs/jwt';
@@ -32,6 +31,8 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         JWT_EXPIRATION: Joi.string().required(),
         HTTP_PORT: Joi.number().required(),
         TCP_PORT: Joi.number().required(),
+        PROPERTIES_PORT: Joi.number().required(),
+        PROPERTIES_HOST: Joi.string().required(),
       }),
     }),
     JwtModule.registerAsync({
@@ -51,17 +52,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
           options: {
             host: configService.get('PAYMENTS_HOST'),
             port: configService.get('PAYMENTS_PORT'),
-          },
-        }),
-        inject: [ConfigService],
-      },
-      {
-        name: TEST_SERVICE,
-        useFactory: (configService: ConfigService) => ({
-          transport: Transport.TCP,
-          options: {
-            host: configService.get('TEST_HOST'),
-            port: configService.get('TEST_PORT'),
           },
         }),
         inject: [ConfigService],
