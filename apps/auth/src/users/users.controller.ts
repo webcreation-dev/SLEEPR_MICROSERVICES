@@ -15,21 +15,4 @@ export class UsersController {
     const email = await this.usersService.addToWishlist(addWishlistDto);
     return email;
   }
-
-  @UseGuards(JwtAuthGuard)
-  @Get('one')
-  async req_auth_to_properties(@CurrentUser() user: User) {
-    return this.usersService.req_auth_to_properties(user);
-  }
-  @UseGuards(JwtAuthGuard)
-  @Get('user')
-  async getUser(@CurrentUser() user: User) {
-    const getUser = await this.usersService.getUser(user);
-    return getUser;
-  }
-
-  // @Post('req_auth_to_properties')
-  // async req_auth_to_properties() {
-  //   return this.usersService.req_auth_to_properties();
-  // }
 }

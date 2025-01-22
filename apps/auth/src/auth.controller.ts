@@ -9,7 +9,6 @@ import {
   Get,
 } from '@nestjs/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
-import { Response } from 'express';
 import { CurrentUser, User } from '@app/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
@@ -49,7 +48,7 @@ export class AuthController {
   @Get('user')
   @UseGuards(JwtAuthGuard)
   async getUser(@CurrentUser() user: User) {
-    return user;
+    return await this.authService.getUser(user);
   }
 
   // @Post('forgot_password')

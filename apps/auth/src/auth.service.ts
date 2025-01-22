@@ -11,6 +11,7 @@ import { UsersRepository } from './users/users.repository';
 import { GetUserDto } from './users/dto/get-user.dto';
 import { TempUserService } from './users/temps/temp-user.service';
 import { SaveUserDto } from './users/dto/save-user-dto';
+import { CurrentUser } from '../../../libs/common/src/decorators/current-user.decorator';
 
 @Injectable()
 export class AuthService {
@@ -105,4 +106,9 @@ export class AuthService {
 
   //   return user;
   // }
+
+  async getUser(user: User) {
+    const CurrentUser = await this.usersService.getUser(user);
+    return CurrentUser;
+  }
 }

@@ -70,10 +70,10 @@ export class UsersService {
     }
   }
 
-  async req_auth_to_properties({ id }: User) {
+  async getUser({ id }: User) {
     const user = await this.usersRepository.findOne({ id });
     return this.propertiesService
-      .send('res_properties_from_microservices', {
+      .send('get_properties', {
         propertyIds: user.wishlistedProperties,
       })
       .pipe(
@@ -85,40 +85,5 @@ export class UsersService {
           };
         }),
       );
-  }
-
-  async getUser({ id }: User) {
-    // Récupération de l'utilisateur par son identifiant
-    const user = await this.usersRepository.findOne({ id });
-
-    // Vérification que l'utilisateur existe et qu'il a une wishlist
-    if (
-      user &&
-      user.wishlistedProperties &&
-      user.wishlistedProperties.length > 0
-    ) {
-      // Envoi d'une requête au microservice des propriétés pour obtenir les détails des propriétés de la wishlist
-      // const properties = await this.propertiesService.send('get_properties', {
-      //   propertyIds: user.wishlistedProperties,
-      // });
-      const properties = await this.propertiesService
-        .send('get_properties1', {})
-        .pipe(
-          map((res) => {
-            console.log('Properties wishlisted 1:', res);
-            return res;
-          }),
-        );
-      console.log('Properties wishlisted 2:', properties);
-
-      // Retourne l'utilisateur avec les détails des propriétés de sa wishlist
-      return {
-        ...user,
-        wishlist: properties,
-      };
-    }
-
-    // Si l'utilisateur n'a pas de wishlist ou que l'utilisateur n'existe pas
-    return user;
   }
 }

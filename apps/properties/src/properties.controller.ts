@@ -83,19 +83,9 @@ export class PropertiesController {
   }
 
   @MessagePattern('get_properties')
-  async getPropertiesByIds(@Payload() data: { propertyIds: number[] }) {
-    const properties = await this.propertiesService.findMany(data.propertyIds);
-    console.log('Properties retrieved:', properties);
-    return properties;
-  }
-
-  @MessagePattern('res_properties_from_microservices')
   @UsePipes(new ValidationPipe())
-  async res_properties_from_microservices(
-    @Payload() data: { propertyIds: number[] },
-  ) {
+  async get_properties(@Payload() data: { propertyIds: number[] }) {
     const properties = await this.propertiesService.findMany(data.propertyIds);
-
     return properties;
   }
 }
