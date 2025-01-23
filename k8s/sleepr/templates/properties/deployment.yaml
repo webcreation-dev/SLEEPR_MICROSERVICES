@@ -32,9 +32,9 @@ spec:
               value: 'postgresql://postgres:postgres@35.245.63.204/postgres'
 
             - name: TCP_PORT
-              value: '3004'
+              value: '3007'
             - name: HTTP_PORT
-              value: '3000'
+              value: '3006'
               
             - name: 'AUTH_HOST'
               value: 'auth-tcp'
@@ -57,4 +57,5 @@ spec:
               value: '2709|vg38jyfNNTQyHh5ES99hPB15YLaRAB1wyQC51oZhPdhHXexBO7cZU8bbNwTVvTBwIhS9Aj7MVt44h2hvNVOaFVnb8CF6QQClE9461LAnncPjndHIwcjvKuzSrfXSQH25wYpBP8NXhDpTBkDKwXaKnPg2TjrGbVWEq5wiGxktTHanu86Oe6EodVmyVH6z5xrlDWUbDTXsiPWv1rLbm7siwADmp5aImJq1hSIaJBp4kSqdVnU3'
             
           ports:
-            - containerPort: 3000
+            - containerPort: 3007
+            - containerPort: 3006

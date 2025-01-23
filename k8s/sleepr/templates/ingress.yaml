@@ -13,3 +13,10 @@ spec:
                 name: auth-http
                 port:
                   number: 3003
+          - path: /properties/*
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: properties-http
+                port:
+                  number: 3006

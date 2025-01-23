@@ -31,7 +31,7 @@ import { UpdatePropertyDto } from './dto/update-property.dto';
 import { FilenamesDto } from '@app/common/files/dto/filenames.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
 
-@Controller()
+@Controller('properties')
 export class PropertiesController {
   constructor(private readonly propertiesService: PropertiesService) {}
 
