@@ -1,6 +1,7 @@
 import {
   Inject,
   Injectable,
+  InternalServerErrorException,
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
@@ -17,9 +18,9 @@ import { GetUserDto } from './dto/get-user.dto';
 import { UsersRepository } from './users.repository';
 import { RolesRepository } from './roles.repository';
 import { NotFoundException } from '@nestjs/common';
-import { AddWishlistDto } from './dto/add-wishlist.dto';
 import { ClientProxy } from '@nestjs/microservices';
-import { map } from 'rxjs';
+import { catchError, firstValueFrom, map, throwError } from 'rxjs';
+import { toogleWishlistDto } from './dto/toogle-wishlist.dto';
 
 @Injectable()
 export class UsersService {
@@ -47,15 +48,33 @@ export class UsersService {
     return this.usersRepository.create(user);
   }
 
-  async addToWishlist(addWishlistDto: AddWishlistDto) {
-    const { userId, propertyId } = addWishlistDto;
+  async toogleWishlist(toogleWishlistDto: toogleWishlistDto) {
+    const { userId, propertyId } = toogleWishlistDto;
+
+    await firstValueFrom(
+      this.propertiesService
+        .send('get_property', {
+          propertyId: propertyId.id,
+        })
+        .pipe(
+          map((res) => res),
+          catchError(() => {
+            throw new NotFoundException('Entity not found.');
+          }),
+        ),
+    );
 
     const user = await this.findOne(userId.id);
 
-    if (!user.wishlistedProperties.includes(propertyId.id)) {
+    if (user.wishlistedProperties.includes(propertyId.id)) {
+      user.wishlistedProperties = user.wishlistedProperties.filter(
+        (id) => id !== propertyId.id,
+      );
+    } else {
       user.wishlistedProperties.push(propertyId.id);
-      await this.usersRepository.save(user);
     }
+
+    await this.usersRepository.save(user);
     return user;
   }
 
@@ -78,11 +97,19 @@ export class UsersService {
       })
       .pipe(
         map((res) => {
-          // return res;
           return {
             ...user,
             wishlist: res,
           };
+        }),
+        catchError((error) => {
+          if (error.message === 'Entity not found.') {
+            throw new NotFoundException(
+              `One or more properties in the wishlist could not be found.`,
+            );
+          }
+          // Propager les autres erreurs comme elles sont
+          return throwError(() => error);
         }),
       );
   }

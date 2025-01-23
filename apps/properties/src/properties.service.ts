@@ -65,7 +65,10 @@ export class PropertiesService {
   }
 
   async findMany(ids: number[]) {
-    return Promise.all(ids.map((id) => this.findOne(id)));
+    const results = await Promise.allSettled(ids.map((id) => this.findOne(id)));
+    return results
+      .filter((result) => result.status === 'fulfilled')
+      .map((result: PromiseFulfilledResult<any>) => result.value);
   }
 
   async update(id: number, updatePropertyDto: UpdatePropertyDto) {

@@ -88,4 +88,11 @@ export class PropertiesController {
     const properties = await this.propertiesService.findMany(data.propertyIds);
     return properties;
   }
+
+  @MessagePattern('get_property')
+  @UsePipes(new ValidationPipe())
+  async get_property(@Payload() data: { propertyId: number }) {
+    const property = await this.propertiesService.findOne(data.propertyId);
+    return property;
+  }
 }

@@ -8,6 +8,7 @@ import {
   HealthModule,
   LoggerModule,
   QueryingModule,
+  UsualModule,
 } from '@app/common';
 import { Property } from './models/property.entity';
 import { ConfigModule, ConfigService } from '@nestjs/config';
@@ -24,6 +25,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     DatabaseModule.forFeature([Property]),
     HealthModule,
     LoggerModule,
+    UsualModule,
     FilesModule,
     QueryingModule,
     GalleriesModule,

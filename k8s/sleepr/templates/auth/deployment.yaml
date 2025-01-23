@@ -44,6 +44,10 @@ spec:
               value: '3002'
             - name: HTTP_PORT
               value: '3003'
+            - name: PROPERTIES_HOST
+              value: 'properties'
+            - name: PROPERTIES_PORT
+              value: '3007'
           ports:
             - containerPort: 3002
             - containerPort: 3003

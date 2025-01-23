@@ -2,21 +2,21 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: properties
-  name: properties
+    app: reservations
+  name: reservations
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: properties
+      app: reservations
   template:
     metadata:
       labels:
-        app: properties
+        app: reservations
     spec:
       containers:
         - image: us-east4-docker.pkg.dev/rugged-weaver-446607-j8/reservations/production
-          name: properties
+          name: reservations
           env:
             - name: DATASOURCE_USERNAME
               value: 'postgres'
