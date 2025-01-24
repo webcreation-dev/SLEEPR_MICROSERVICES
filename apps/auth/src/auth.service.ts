@@ -1,8 +1,7 @@
-import { Injectable, Inject, UnauthorizedException } from '@nestjs/common';
+import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { HashingService, OtpService, User } from '@app/common';
 import { JwtService } from '@nestjs/jwt';
-import { Response } from 'express';
 import { TokenPayload } from './interfaces/token-payload.interface';
 import { UsersService } from './users/users.service';
 import { CreateUserDto } from './users/dto/create-user.dto';
@@ -11,7 +10,6 @@ import { UsersRepository } from './users/users.repository';
 import { GetUserDto } from './users/dto/get-user.dto';
 import { TempUserService } from './users/temps/temp-user.service';
 import { SaveUserDto } from './users/dto/save-user-dto';
-import { CurrentUser } from '../../../libs/common/src/decorators/current-user.decorator';
 import { toogleWishlistDto } from './users/dto/toogle-wishlist.dto';
 
 @Injectable()
@@ -42,7 +40,7 @@ export class AuthService {
 
     this.tempUserService.storeTempUser(phone, createUserDto);
 
-    // await this.otpService.sendOtp(phone);
+    await this.otpService.sendOtp(phone);
 
     return phone;
   }
@@ -50,7 +48,7 @@ export class AuthService {
   async verifyOtp(saveUserDto: SaveUserDto) {
     const { phone, otp } = saveUserDto;
 
-    // await this.otpService.verifyOtp(otp, phone);
+    await this.otpService.verifyOtp(otp, phone);
 
     const tempUser = this.tempUserService.getTempUser(phone);
     if (!tempUser) {
@@ -99,7 +97,7 @@ export class AuthService {
   // async resetPassword(resetPasswordDto: ResetPasswordDto) {
   //   const { phone, otp, password } = resetPasswordDto;
 
-  //   // await this.otpService.verifyOtp(otp, phone);
+  //   await this.otpService.verifyOtp(otp, phone);
 
   //   const user = await this.usersRepository.findOne({ where: { phone } });
   //   user.password = await this.hashingService.hash(password);
