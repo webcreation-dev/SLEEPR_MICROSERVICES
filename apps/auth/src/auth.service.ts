@@ -12,6 +12,7 @@ import { GetUserDto } from './users/dto/get-user.dto';
 import { TempUserService } from './users/temps/temp-user.service';
 import { SaveUserDto } from './users/dto/save-user-dto';
 import { CurrentUser } from '../../../libs/common/src/decorators/current-user.decorator';
+import { toogleWishlistDto } from './users/dto/toogle-wishlist.dto';
 
 @Injectable()
 export class AuthService {
@@ -110,5 +111,9 @@ export class AuthService {
   async getUser(user: User) {
     const CurrentUser = await this.usersService.getUser(user);
     return CurrentUser;
+  }
+
+  async toogleWishlist(toogleWishlistDto: toogleWishlistDto) {
+    return await this.usersService.toogleWishlist(toogleWishlistDto);
   }
 }

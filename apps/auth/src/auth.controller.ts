@@ -15,6 +15,7 @@ import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
 import { CreateUserDto } from './users/dto/create-user.dto';
 import { SaveUserDto } from './users/dto/save-user-dto';
+import { toogleWishlistDto } from './users/dto/toogle-wishlist.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -60,4 +61,10 @@ export class AuthController {
   // async resetPassword(@Body() resetPasswordDto: ResetPasswordDto) {
   //   return this.authService.resetPassword(resetPasswordDto);
   // }
+
+  @UseGuards(JwtAuthGuard)
+  @Post('toogle_wishlist')
+  async addWishlist(@Body() toogleWishlistDto: toogleWishlistDto) {
+    return await this.authService.toogleWishlist(toogleWishlistDto);
+  }
 }

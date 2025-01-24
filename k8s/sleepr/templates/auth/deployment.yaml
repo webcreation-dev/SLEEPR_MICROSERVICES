@@ -45,7 +45,7 @@ spec:
             - name: HTTP_PORT
               value: '3003'
             - name: PROPERTIES_HOST
-              value: 'properties'
+              value: 'properties-tcp'
             - name: PROPERTIES_PORT
               value: '3007'
           ports:
