@@ -36,6 +36,7 @@ export class AuthController {
 
   @Post('verify_otp')
   async verifyOtp(@Body() saveUserDto: SaveUserDto) {
+    
     const user = await this.authService.verifyOtp(saveUserDto);
     return { subscribed: user };
   }
