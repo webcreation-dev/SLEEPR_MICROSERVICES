@@ -2,12 +2,12 @@ import { Logger, NotFoundException } from '@nestjs/common';
 import { AbstractEntity } from './abstract.entity';
 import {
   EntityManager,
+  FindOptionsOrder,
   FindOptionsRelations,
   FindOptionsWhere,
   Repository,
 } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { RpcException } from '@nestjs/microservices';
 
 export abstract class AbstractRepository<T extends AbstractEntity<T>> {
   protected abstract readonly logger: Logger;
@@ -62,5 +62,23 @@ export abstract class AbstractRepository<T extends AbstractEntity<T>> {
 
   async save(entity: T): Promise<T> {
     return this.itemsRepository.save(entity);
+  }
+
+  async findAndCount(
+    where: FindOptionsWhere<T>,
+    options: {
+      relations?: FindOptionsRelations<T>;
+      order?: FindOptionsOrder<T>;
+      skip?: number;
+      take?: number;
+    } = {},
+  ): Promise<[T[], number]> {
+    return this.itemsRepository.findAndCount({
+      where,
+      relations: options.relations,
+      order: options.order,
+      skip: options.skip,
+      take: options.take,
+    });
   }
 }

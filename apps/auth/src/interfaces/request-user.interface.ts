@@ -1,7 +1,6 @@
-import { Role } from "@app/common";
+import { Role } from '@app/common';
 
 export interface RequestUser {
-    readonly id: number;
-    readonly roles: Role[];
-  }
-  
+  readonly id: number;
+  readonly roles: Role[];
+}

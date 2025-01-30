@@ -1,5 +1,6 @@
 import {
   BASE_PATH,
+  DefaultPageSize,
   File,
   FilePath,
   FilteringService,
@@ -17,6 +18,8 @@ import { CreatePropertyDto } from './dto/create-property.dto';
 import { Property } from './models/property.entity';
 import { Gallery } from './models/gallery.entity';
 import { UpdatePropertyDto } from './dto/update-property.dto';
+import { PropertiesQueryDto } from './dto/querying/properties-query.dto';
+import { FindOptionsOrder } from 'typeorm';
 
 @Injectable()
 export class PropertiesService {
@@ -28,9 +31,35 @@ export class PropertiesService {
     private readonly filteringService: FilteringService,
   ) {}
 
+  async findAll(propertiesQueryDto: PropertiesQueryDto) {
+    const { page, name, price, sort, order } = propertiesQueryDto;
+
+    const limit = propertiesQueryDto.limit ?? DefaultPageSize.PROPERTY;
+    const offset = this.paginationService.calculateOffset(limit, page);
+
+    const [data, count] = await this.propertiesRepository.findAndCount(
+      {
+        description: name ? this.filteringService.contains(name) : undefined,
+        rent_price: price ? this.filteringService.compare(price) : undefined,
+      },
+      {
+        relations: {
+          galleries: true,
+        },
+        order: { [sort]: order } as FindOptionsOrder<Property>,
+        skip: offset,
+        take: limit,
+      },
+    );
+
+    const meta = this.paginationService.createMeta(limit, page, count);
+
+    return { data, meta };
+  }
+
   async create(
     createPropertyDto: CreatePropertyDto,
-    files: File[],
+    // files: File[],
     { id }: User,
   ) {
     // 1. Sauvegarder la propriété en utilisant PropertyRepository
@@ -42,16 +71,16 @@ export class PropertiesService {
     );
 
     // 2. Sauvegarder les fichiers dans un dossier
-    const savedPaths = await this.uploadImages(property.id, files);
+    // const savedPaths = await this.uploadImages(property.id, files);
 
     // 3. Créer et sauvegarder chaque galerie
-    for (const path of savedPaths) {
-      const gallery = new Gallery({
-        url: path,
-        property,
-      });
-      await this.galleriesRepository.create(gallery);
-    }
+    // for (const path of savedPaths) {
+    //   const gallery = new Gallery({
+    //     url: path,
+    //     property,
+    //   });
+    //   await this.galleriesRepository.create(gallery);
+    // }
 
     // 4. Retourner la propriété avec ses galeries
     return this.propertiesRepository.findOne(

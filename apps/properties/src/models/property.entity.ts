@@ -9,106 +9,95 @@ import { ElectricityPersonalMeterTypeEnum } from '../enums/electricity_personal_
 
 @Entity()
 export class Property extends AbstractEntity<Property> {
-  // @Column()
-  // number_rooms: number;
-
-  // @Column()
-  // number_living_rooms: number;
-
-  // @Column()
-  // rent_price: number;
-
-  // @Column()
-  // is_prepaid: boolean;
-
-  // @Column()
-  // month_advance: number;
-
-  // @Column()
-  // main_image: string;
-
-  // @Column()
-  // number_households: number;
-
-  // @Column()
-  // is_terace: boolean;
-
-  // @Column()
-  // is_fence: boolean;
-
-  // @Column()
-  // general_rating: number;
-
-  // @Column()
-  // description: string;
-
-  // @Column()
-  // visit_price: number;
-
-  // @Column()
-  // water_commission: number;
-
-  // @Column()
-  // water_drilling_rate: number;
-
-  // @Column()
-  // electricity_commission: number;
-
-  // @Column()
-  // electricity_decounter_meter_rate: number;
-
-  // @Column()
-  // is_active: boolean;
-
-  // @Column('decimal', { precision: 10, scale: 6 })
-  // latitude: string;
-
-  // @Column('decimal', { precision: 10, scale: 6 })
-  // longitude: string;
-
-  // @Column()
-  // userId: number;
-
-  // @Column({
-  //   type: 'enum',
-  //   enum: WaterMeterTypeEnum,
-  //   enumName: 'water_meter_type_enum',
-  // })
-  // water_meter_type: WaterMeterTypeEnum;
-
-  // @Column({
-  //   type: 'enum',
-  //   enum: PaintEnum,
-  //   enumName: 'paint_enum',
-  // })
-  // paint: PaintEnum;
-
-  // @Column({
-  //   type: 'enum',
-  //   enum: SanitaryEnum,
-  //   enumName: 'sanitary_enum',
-  // })
-  // sanitary: SanitaryEnum;
-
-  // @Column({
-  //   type: 'enum',
-  //   enum: ElectricityMeterTypeEnum,
-  //   enumName: 'electricity_meter_type_enum',
-  // })
-  // electricity_meter_type: ElectricityMeterTypeEnum;
-
-  // @Column({
-  //   type: 'enum',
-  //   enum: ElectricityPersonalMeterTypeEnum,
-  //   enumName: 'electricity_personal_meter_type_enum',
-  // })
-  // electricity_personal_meter_type: ElectricityPersonalMeterTypeEnum;
+  @Column()
+  number_rooms: number;
 
   @Column()
-  startDate: Date;
+  number_living_rooms: number;
+
+  @Column()
+  rent_price: number;
+
+  @Column()
+  is_prepaid: boolean;
+
+  @Column()
+  month_advance: number;
+
+  @Column()
+  number_households: number;
+
+  @Column()
+  is_terace: boolean;
+
+  @Column()
+  is_fence: boolean;
+
+  @Column()
+  description: string;
+
+  @Column()
+  visit_price: number;
+
+  @Column()
+  water_commission: number;
+
+  @Column({ nullable: true })
+  water_drilling_rate: number;
+
+  @Column()
+  electricity_commission: number;
+
+  @Column({ nullable: true })
+  electricity_decounter_meter_rate: number;
+
+  @Column({ default: true })
+  is_active: boolean;
+
+  @Column('decimal', { precision: 10, scale: 6 })
+  latitude: string;
+
+  @Column('decimal', { precision: 10, scale: 6 })
+  longitude: string;
 
   @Column()
   userId: number;
+
+  @Column({
+    type: 'enum',
+    enum: WaterMeterTypeEnum,
+    enumName: 'water_meter_type_enum',
+  })
+  water_meter_type: WaterMeterTypeEnum;
+
+  @Column({
+    type: 'enum',
+    enum: PaintEnum,
+    enumName: 'paint_enum',
+  })
+  paint: PaintEnum;
+
+  @Column({
+    type: 'enum',
+    enum: SanitaryEnum,
+    enumName: 'sanitary_enum',
+  })
+  sanitary: SanitaryEnum;
+
+  @Column({
+    type: 'enum',
+    enum: ElectricityMeterTypeEnum,
+    enumName: 'electricity_meter_type_enum',
+  })
+  electricity_meter_type: ElectricityMeterTypeEnum;
+
+  @Column({
+    type: 'enum',
+    enum: ElectricityPersonalMeterTypeEnum,
+    enumName: 'electricity_personal_meter_type_enum',
+    nullable: true,
+  })
+  electricity_personal_meter_type: ElectricityPersonalMeterTypeEnum;
 
   @OneToMany(() => Gallery, (gallery) => gallery.property, { cascade: true })
   galleries: Gallery[];

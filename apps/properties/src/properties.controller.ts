@@ -7,6 +7,7 @@ import {
   ParseIntPipe,
   Patch,
   Post,
+  Query,
   UploadedFiles,
   UseGuards,
   UseInterceptors,
@@ -30,24 +31,31 @@ import {
 import { UpdatePropertyDto } from './dto/update-property.dto';
 import { FilenamesDto } from '@app/common/files/dto/filenames.dto';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { PropertiesQueryDto } from './dto/querying/properties-query.dto';
 
 @Controller('properties')
 export class PropertiesController {
   constructor(private readonly propertiesService: PropertiesService) {}
 
-  @UseInterceptors(FilesInterceptor('files', MaxFileCount.PRODUCT_IMAGES))
+  // @UseInterceptors(FilesInterceptor('files', MaxFileCount.PROPERTY_IMAGES))
   @UseGuards(JwtAuthGuard)
   @Post()
   create(
     @Body() createPropertyDto: CreatePropertyDto,
 
-    @UploadedFiles(createParseFilePipe('2MB', 'png', 'jpeg'))
-    files: File[],
+    // @UploadedFiles(createParseFilePipe('2MB', 'png', 'jpeg'))
+    // files: File[],
 
     @CurrentUser()
     user: User,
   ) {
-    return this.propertiesService.create(createPropertyDto, files, user);
+    // return this.propertiesService.create(createPropertyDto, files, user);
+    return this.propertiesService.create(createPropertyDto, user);
+  }
+
+  @Get()
+  findAll(@Query() propertiesQueryDto: PropertiesQueryDto) {
+    return this.propertiesService.findAll(propertiesQueryDto);
   }
 
   @Get(':id')
