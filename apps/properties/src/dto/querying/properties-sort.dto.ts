@@ -8,4 +8,5 @@ export class PropertiesSortDto extends OrderDto {
   @IsOptional()
   @IsIn(Sort)
   readonly sort?: Sort = 'name';
+  // commit 1
 }
