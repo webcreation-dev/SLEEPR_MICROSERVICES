@@ -18,6 +18,11 @@ import { PropertiesRepository } from './properties.repository';
 import { GalleriesModule } from './galleries.module';
 import { join } from 'path';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { GraphQLModule } from '@nestjs/graphql';
+import {
+  ApolloFederationDriver,
+  ApolloFederationDriverConfig,
+} from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -29,6 +34,12 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
     FilesModule,
     QueryingModule,
     GalleriesModule,
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      autoSchemaFile: {
+        federation: 2,
+      },
+    }),
     ConfigModule.forRoot({
       isGlobal: true,
       validationSchema: Joi.object({
