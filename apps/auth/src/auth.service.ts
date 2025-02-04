@@ -111,7 +111,7 @@ export class AuthService {
     return CurrentUser;
   }
 
-  async toogleWishlist(toogleWishlistDto: toogleWishlistDto) {
-    return await this.usersService.toogleWishlist(toogleWishlistDto);
+  async toogleWishlist(user: User, toogleWishlistDto: toogleWishlistDto) {
+    return await this.usersService.toogleWishlist(user, toogleWishlistDto);
   }
 }

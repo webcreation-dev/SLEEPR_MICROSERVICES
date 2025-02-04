@@ -16,6 +16,8 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { LocalStategy } from './strategies/local.strategy';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { ClientsModule, Transport } from '@nestjs/microservices';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriverConfig, ApolloFederationDriver } from '@nestjs/apollo';
 
 @Module({
   imports: [
@@ -34,6 +36,12 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         PROPERTIES_PORT: Joi.number().required(),
         PROPERTIES_HOST: Joi.string().required(),
       }),
+    }),
+    GraphQLModule.forRoot<ApolloDriverConfig>({
+      driver: ApolloFederationDriver,
+      autoSchemaFile: {
+        federation: 2,
+      },
     }),
     JwtModule.registerAsync({
       useFactory: (configService: ConfigService) => ({

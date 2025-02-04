@@ -64,7 +64,7 @@ export class AuthController {
 
   @UseGuards(JwtAuthGuard)
   @Post('toogle_wishlist')
-  async addWishlist(@Body() toogleWishlistDto: toogleWishlistDto) {
-    return await this.authService.toogleWishlist(toogleWishlistDto);
+  async addWishlist(@Body() toogleWishlistDto: toogleWishlistDto, @CurrentUser() user: User) {
+    return await this.authService.toogleWishlist(user, toogleWishlistDto);
   }
 }

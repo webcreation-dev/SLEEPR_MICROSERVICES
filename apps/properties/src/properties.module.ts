@@ -23,6 +23,7 @@ import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
+import { PropertiesResolver } from './properties.resolver';
 
 @Module({
   imports: [
@@ -74,6 +75,6 @@ import {
     ]),
   ],
   controllers: [PropertiesController],
-  providers: [PropertiesService, PropertiesRepository],
+  providers: [PropertiesService, PropertiesRepository, PropertiesResolver],
 })
 export class PropertiesModule {}

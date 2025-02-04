@@ -5,7 +5,6 @@ import {
   UnauthorizedException,
   UnprocessableEntityException,
 } from '@nestjs/common';
-import * as bcrypt from 'bcryptjs';
 import {
   User,
   Role,
@@ -34,6 +33,10 @@ export class UsersService {
     return this.usersRepository.findOne({ id });
   }
 
+  async findAll() {
+    return this.usersRepository.find({});
+  }
+
   async create(createUserDto: CreateUserDto) {
     await this.rolesRepository.create(new Role({ name: RoleEnum.USER }));
     await this.rolesRepository.create(new Role({ name: RoleEnum.MANAGER }));
@@ -48,8 +51,8 @@ export class UsersService {
     return this.usersRepository.create(user);
   }
 
-  async toogleWishlist(toogleWishlistDto: toogleWishlistDto) {
-    const { userId, propertyId } = toogleWishlistDto;
+  async toogleWishlist(user: User, toogleWishlistDto: toogleWishlistDto) {
+    const { propertyId } = toogleWishlistDto;
 
     await firstValueFrom(
       this.propertiesService
@@ -63,8 +66,6 @@ export class UsersService {
           }),
         ),
     );
-
-    const user = await this.findOne(userId.id);
 
     if (user.wishlistedProperties.includes(propertyId.id)) {
       user.wishlistedProperties = user.wishlistedProperties.filter(

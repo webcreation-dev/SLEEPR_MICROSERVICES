@@ -3,8 +3,5 @@ import { IsEntity } from '@app/common/usual/decorators/validators/is-entity.deco
 
 export class toogleWishlistDto {
   @IsEntity()
-  readonly userId: IdDto;
-
-  @IsEntity()
   readonly propertyId: IdDto;
 }

@@ -14,6 +14,7 @@ import { RolesRepository } from './roles.repository';
 import { TempUserService } from './temps/temp-user.service';
 import { ClientsModule, Transport } from '@nestjs/microservices';
 import { ConfigService } from '@nestjs/config';
+import { UsersResolver } from './users.resolver';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { ConfigService } from '@nestjs/config';
     UsersSubscriber,
     UsersRepository,
     RolesRepository,
+    UsersResolver
   ],
   exports: [UsersService, UsersRepository, TempUserService, RolesRepository],
 })
